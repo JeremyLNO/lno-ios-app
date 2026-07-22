@@ -3,10 +3,14 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var auth: AuthStore
     @State private var email = ""
-    @State private var password = ""
-    @State private var showEmail = false
+    @State private var code = ""
+    @State private var otpStep: OtpStep = .hidden
+    @State private var now = Date()
     @FocusState private var focus: Field?
-    enum Field { case email, password }
+    enum Field { case email, code }
+    enum OtpStep { case hidden, email, code }
+
+    private static let resendCooldown: TimeInterval = 60
 
     var body: some View {
         ZStack {
@@ -22,7 +26,8 @@ struct LoginView: View {
                     VStack(alignment: .leading, spacing: 14) {
                         Text("Sign in").font(.title3).fontWeight(.semibold).foregroundStyle(Theme.navy)
 
-                        // Google is the default sign-in (same as the web dashboard).
+                        // Google is the only sign-in for @lno.company accounts (no password
+                        // login anywhere in this app — see requestOtp's GOOGLE_ONLY gate).
                         googleButton
 
                         if let err = auth.errorMessage {
@@ -31,20 +36,24 @@ struct LoginView: View {
                                 .multilineTextAlignment(.center)
                         }
 
-                        // Break-glass: email/password for external shareholders & the admin.
-                        if showEmail {
-                            emailForm
-                        } else {
+                        // Shareholders (external, non-@lno.company emails) sign in with an
+                        // emailed 6-digit code instead — no password anywhere in this flow.
+                        switch otpStep {
+                        case .hidden:
                             Button {
-                                withAnimation { showEmail = true }
+                                withAnimation { otpStep = .email }
                             } label: {
-                                Text("Sign in with email instead")
+                                Text("Sign in with an emailed code")
                                     .font(.footnote).fontWeight(.medium)
                                     .foregroundStyle(Theme.mutedText)
                                     .underline()
                             }
                             .frame(maxWidth: .infinity, alignment: .center)
                             .padding(.top, 2)
+                        case .email:
+                            otpEmailForm
+                        case .code:
+                            otpCodeForm
                         }
                     }
                     .padding(20)
@@ -76,6 +85,9 @@ struct LoginView: View {
             }
             .scrollDismissesKeyboard(.interactively)
         }
+        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { t in
+            if otpStep == .code { now = t }
+        }
     }
 
     // MARK: - Google (default)
@@ -88,7 +100,7 @@ struct LoginView: View {
             Task { await auth.signInWithGoogle() }
         } label: {
             HStack(spacing: 10) {
-                if auth.busy && !showEmail { ProgressView().tint(Color(hex: 0x3C4043)) }
+                if auth.busy && otpStep == .hidden { ProgressView().tint(Color(hex: 0x3C4043)) }
                 else { GoogleGMark(size: 18) }
                 Text("Sign in with Google")
                     .font(.system(size: 15, weight: .medium))
@@ -103,11 +115,13 @@ struct LoginView: View {
         .opacity(auth.busy ? 0.7 : 1)
     }
 
-    // MARK: - Email / password (secondary)
+    // MARK: - Emailed code (shareholders)
 
-    private var emailForm: some View {
+    private var isLnoEmail: Bool { email.lowercased().hasSuffix("@lno.company") }
+
+    private var otpEmailForm: some View {
         VStack(spacing: 12) {
-            HStack { line; Text("shareholders & admin").font(.caption2).foregroundStyle(Theme.faintText); line }
+            HStack { line; Text("shareholders").font(.caption2).foregroundStyle(Theme.faintText); line }
 
             field(icon: "envelope", placeholder: "Email", text: $email)
                 .keyboardType(.emailAddress)
@@ -115,53 +129,110 @@ struct LoginView: View {
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
                 .focused($focus, equals: .email)
-                .submitLabel(.next)
-                .onSubmit { focus = .password }
-
-            secureField(icon: "lock", placeholder: "Password", text: $password)
-                .textContentType(.password)
-                .focused($focus, equals: .password)
                 .submitLabel(.go)
-                .onSubmit(submit)
+                .onSubmit(sendCode)
 
-            Button(action: submit) {
+            if isLnoEmail {
+                Text("@lno.company accounts sign in with Google above.")
+                    .font(.caption2).foregroundStyle(Theme.mutedText)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+
+            Button(action: sendCode) {
                 HStack {
                     if auth.busy { ProgressView().tint(.white) }
-                    Text("Sign in").fontWeight(.semibold)
+                    Text("Send code").fontWeight(.semibold)
                 }
                 .frame(maxWidth: .infinity).padding(.vertical, 13)
             }
             .background(Theme.navy).foregroundStyle(.white)
             .clipShape(RoundedRectangle(cornerRadius: 10))
-            .disabled(auth.busy || email.isEmpty || password.isEmpty)
-            .opacity((auth.busy || email.isEmpty || password.isEmpty) ? 0.6 : 1)
+            .disabled(auth.busy || email.isEmpty || isLnoEmail)
+            .opacity((auth.busy || email.isEmpty || isLnoEmail) ? 0.6 : 1)
+
+            Button {
+                withAnimation { otpStep = .hidden; auth.errorMessage = nil }
+            } label: {
+                Text("Cancel").font(.footnote).foregroundStyle(Theme.mutedText)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .transition(.opacity.combined(with: .move(edge: .top)))
+    }
+
+    private var resendRemaining: Int {
+        guard let requestedAt = auth.otpRequestedAt else { return 0 }
+        return max(0, Int(Self.resendCooldown - now.timeIntervalSince(requestedAt)))
+    }
+
+    private var otpCodeForm: some View {
+        VStack(spacing: 12) {
+            HStack { line; Text("code sent to \(email)").font(.caption2).foregroundStyle(Theme.faintText); line }
+
+            field(icon: "number", placeholder: "6-digit code", text: $code)
+                .keyboardType(.numberPad)
+                .textContentType(.oneTimeCode)
+                .focused($focus, equals: .code)
+                .submitLabel(.go)
+                .onSubmit(verifyCode)
+                .onChange(of: code) { _, v in
+                    code = String(v.filter(\.isNumber).prefix(6))
+                    if code.count == 6 { verifyCode() }
+                }
+
+            Button(action: verifyCode) {
+                HStack {
+                    if auth.busy { ProgressView().tint(.white) }
+                    Text("Verify").fontWeight(.semibold)
+                }
+                .frame(maxWidth: .infinity).padding(.vertical, 13)
+            }
+            .background(Theme.navy).foregroundStyle(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .disabled(auth.busy || code.count != 6)
+            .opacity((auth.busy || code.count != 6) ? 0.6 : 1)
+
+            HStack {
+                Button {
+                    withAnimation { otpStep = .email; code = ""; auth.errorMessage = nil }
+                } label: {
+                    Text("Change email").font(.footnote).foregroundStyle(Theme.mutedText)
+                }
+                Spacer()
+                Button(action: sendCode) {
+                    Text(resendRemaining > 0 ? "Resend (\(resendRemaining)s)" : "Resend code")
+                        .font(.footnote).foregroundStyle(resendRemaining > 0 ? Theme.faintText : Theme.mutedText)
+                }
+                .disabled(auth.busy || resendRemaining > 0)
+            }
         }
         .transition(.opacity.combined(with: .move(edge: .top)))
     }
 
     private var line: some View { Rectangle().fill(Theme.stroke).frame(height: 1) }
 
-    private func submit() {
-        guard !email.isEmpty, !password.isEmpty else { return }
+    private func sendCode() {
+        guard !email.isEmpty, !isLnoEmail else { return }
         focus = nil
-        Task { await auth.signIn(email: email, password: password) }
+        Task {
+            if await auth.requestOtp(email: email) {
+                withAnimation { otpStep = .code }
+                code = ""
+                focus = .code
+            }
+        }
+    }
+
+    private func verifyCode() {
+        guard code.count == 6 else { return }
+        focus = nil
+        Task { await auth.verifyOtp(email: email, code: code) }
     }
 
     private func field(icon: String, placeholder: String, text: Binding<String>) -> some View {
         HStack {
             Image(systemName: icon).foregroundStyle(Theme.faintText).frame(width: 20)
             TextField("", text: text, prompt: Text(placeholder).foregroundColor(Theme.faintText))
-                .foregroundStyle(Theme.navy)
-        }
-        .padding(.horizontal, 14).padding(.vertical, 13)
-        .background(Color.white)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(hex: 0xCBD5E1), lineWidth: 1))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-    }
-    private func secureField(icon: String, placeholder: String, text: Binding<String>) -> some View {
-        HStack {
-            Image(systemName: icon).foregroundStyle(Theme.faintText).frame(width: 20)
-            SecureField("", text: text, prompt: Text(placeholder).foregroundColor(Theme.faintText))
                 .foregroundStyle(Theme.navy)
         }
         .padding(.horizontal, 14).padding(.vertical, 13)

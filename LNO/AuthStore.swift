@@ -94,15 +94,29 @@ final class AuthStore: NSObject, ObservableObject {
         await validateSession()
     }
 
-    // MARK: - Email / password (shareholders + admin break-glass)
+    // MARK: - Emailed one-time code (shareholders — no password auth on this app)
 
-    func signIn(email: String, password: String) async {
+    @Published var otpRequestedAt: Date?
+
+    func requestOtp(email: String) async -> Bool {
         errorMessage = nil; busy = true; defer { busy = false }
         do {
-            let res = try await APIClient.login(email: email.trimmingCharacters(in: .whitespaces), password: password)
+            try await APIClient.requestOtp(email: email.trimmingCharacters(in: .whitespaces))
+            otpRequestedAt = Date()
+            return true
+        } catch {
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? "Could not send the code"
+            return false
+        }
+    }
+
+    func verifyOtp(email: String, code: String) async {
+        errorMessage = nil; busy = true; defer { busy = false }
+        do {
+            let res = try await APIClient.verifyOtp(email: email.trimmingCharacters(in: .whitespaces), code: code)
             apply(res)
         } catch {
-            errorMessage = (error as? LocalizedError)?.errorDescription ?? "Sign-in failed"
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? "Invalid or expired code"
         }
     }
 

@@ -51,13 +51,28 @@ struct APIClient {
 
     // MARK: - Auth
 
-    static func login(email: String, password: String) async throws -> AuthResponse {
-        try await postAuth(["action": "login", "email": email, "password": password])
-    }
     static func loginGoogle(idToken: String) async throws -> AuthResponse {
         try await postAuth(["action": "google", "credential": idToken])
     }
+    // Shareholder sign-in, step 1: ask for a 6-digit emailed code. Server always
+    // replies 200 {ok:true} (no account-existence leak) except for @lno.company
+    // addresses, which are Google-only and get a 400 back with that explanation.
+    static func requestOtp(email: String) async throws {
+        _ = try await postAuthRequest(["action": "requestOtp", "email": email])
+    }
+    // Shareholder sign-in, step 2: email + code -> token.
+    static func verifyOtp(email: String, code: String) async throws -> AuthResponse {
+        try await postAuth(["action": "verifyOtp", "email": email, "code": code])
+    }
     private static func postAuth(_ body: [String: String]) async throws -> AuthResponse {
+        let data = try await postAuthRequest(body)
+        do {
+            return try JSONDecoder().decode(AuthResponse.self, from: data)
+        } catch {
+            throw APIClientError.server("Unexpected response from server")
+        }
+    }
+    private static func postAuthRequest(_ body: [String: String]) async throws -> Data {
         var req = URLRequest(url: Config.apiBase.appendingPathComponent("auth"))
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -70,12 +85,9 @@ struct APIClient {
                 let msg = (try? JSONDecoder().decode(APIError.self, from: data))?.error ?? "Sign-in failed"
                 throw APIClientError.server(msg)
             }
-            return try JSONDecoder().decode(AuthResponse.self, from: data)
+            return data
         } catch let e as APIClientError {
             throw e
-        } catch let e as DecodingError {
-            _ = e
-            throw APIClientError.server("Unexpected response from server")
         } catch {
             throw APIClientError.network(error.localizedDescription)
         }
