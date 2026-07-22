@@ -37,20 +37,21 @@ final class OneSignalManager: NSObject, ObservableObject {
         evaluate(OneSignal.User.pushSubscription.id)
     }
 
-    /// Requests the system push-permission prompt. Deliberately dispatched to the
-    /// next run-loop turn rather than called inline from a SwiftUI `.alert` button
-    /// action: when permission was already denied in a previous run, the OS won't
-    /// re-show its own dialog, so with `fallbackToSettings: true` the OneSignal SDK
-    /// instead presents its *own* UIKit alert directing the user to Settings. Firing
-    /// that presentation synchronously — before SwiftUI has finished tearing down
-    /// its own alert's presentation — collides with the outgoing dismissal
-    /// (UIKit only supports one active presentation transaction at a time) and can
-    /// leave the window's presentation state wedged, silently swallowing all further
-    /// touches. Yielding one run-loop turn lets SwiftUI's dismissal complete first.
+    /// Requests the system push-permission prompt — but only when permission is
+    /// still undetermined. If it was already denied in a previous run, the OS won't
+    /// re-show its own dialog; `fallbackToSettings: true` would make the OneSignal
+    /// SDK present its *own* UIKit alert directing the user to Settings instead.
+    /// That app-presented alert collides with SwiftUI still tearing down the "Got
+    /// it" alert it was triggered from (UIKit only supports one active presentation
+    /// transaction per window) and can leave the window's presentation state
+    /// wedged, silently swallowing all further touches — reproduced reliably in
+    /// the Simulator. Since this call site only ever fires from a one-time,
+    /// low-stakes informational alert, the simplest correct fix is to skip it
+    /// entirely once the user has already made a choice, rather than trying to
+    /// win a timing race against SwiftUI's own alert dismissal.
     func requestPushPermission() {
-        DispatchQueue.main.async {
-            OneSignal.Notifications.requestPermission({ _ in }, fallbackToSettings: true)
-        }
+        guard OneSignal.Notifications.permissionNative == .notDetermined else { return }
+        OneSignal.Notifications.requestPermission({ _ in }, fallbackToSettings: false)
     }
 
     private func evaluate(_ subscriptionId: String?) {
