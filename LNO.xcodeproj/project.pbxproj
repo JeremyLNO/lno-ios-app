@@ -1,0 +1,574 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		664F8CA74D300E16F8188700 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A219EC60CAA9DB4FA6063C /* APIClient.swift */; };
+		B1C349A01C14A9F7FCAFB525 /* AlertsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BB1A4A4735597B0F46302B /* AlertsView.swift */; };
+		19C57B4B101FA192EFA050E2 /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DA6D5E8070229075AA198 /* AuthStore.swift */; };
+		31E156C2D68CED34720CA4FF /* BiometricAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A962E85B9F860FB9B41D756A /* BiometricAuth.swift */; };
+		B1496CF63D82923C0396D7B6 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AC957900F7FE0BF8C17047 /* Components.swift */; };
+		965D1C662877EEB1DE61130D /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A43733DF0F5B8EC6EAB11A /* Config.swift */; };
+		F2F7AC9021964D8354E6B3C4 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08004E22B7513A15D03E928 /* DashboardView.swift */; };
+		C42D5936D3801C883409E328 /* DeepLinkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBB096E93BDCD9567B61A1 /* DeepLinkRouter.swift */; };
+		0423640736DF65990A30CDA4 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F33553DEAEB8924D16F6BF /* Keychain.swift */; };
+		8594BB83ED1729167E20ABA3 /* LNOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0DC46F8529EE5AC1E0CF7 /* LNOApp.swift */; };
+		19BBB55C53EAD28046158B0F /* LNOLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174481584C5470CE3FE87E75 /* LNOLogo.swift */; };
+		6486A72898F1D9CC97C2E490 /* LockScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAFBA5F697CED889A424FFF /* LockScreenView.swift */; };
+		DA9B618FB14D2FC8B0D87C86 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C1D31B29F6B23B90C13FA /* LoginView.swift */; };
+		41750485515B05D217A379D0 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425BDC5D4FF55CDED13598AF /* MainTabView.swift */; };
+		5D200B37C174FAB2E5812F97 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D4B98095144C9DB45F8E67 /* MockData.swift */; };
+		1F65469465E4D82E20B5CD22 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67B3B6C9238F072E4E49DE /* Models.swift */; };
+		E0626EA17BD28051D59BCA34 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768CAF093556E175C1C27D00 /* NetworkMonitor.swift */; };
+		72D68E1893FB4B0E1181EC14 /* OneSignalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887613973FB60BE3E826A26F /* OneSignalManager.swift */; };
+		BD80AA1A4B31818B4BFE1A68 /* PortfolioStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27DE9CEC6E2CB1C144A9280 /* PortfolioStore.swift */; };
+		70B0E50BBDD6889717E9A242 /* PositionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08191A9958DE3CB7E4791BF /* PositionsView.swift */; };
+		A1AE2CC97CBDE45696DF0809 /* PricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62819777DDE50E6F351243A4 /* PricesView.swift */; };
+		05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */; };
+		60A241169C62B2007AC91F03 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9B45389C61A31D07AA617A /* Theme.swift */; };
+		09352253093668F4649869FD /* DonutChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */; };
+		48C0421722F4B47D9DDC061A /* PnlCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */; };
+		C98B8B62FA7731724548EFAA /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */; };
+		5A0A0A3181BD2F71E9E8B09D /* FundsEquityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */; };
+		0FA581535694D9989834F853 /* GlobalEquityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D386C63B4F2C1A6487CB9E /* GlobalEquityWidget.swift */; };
+		E8828914F2D6476AFD3D34F9 /* LNOWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDADA1EC86F58E1C9EC4C2F /* LNOWidgetsBundle.swift */; };
+		51D19824A2E77B00977836B4 /* PnlCalendarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0BFDB869F405909929C99 /* PnlCalendarWidget.swift */; };
+		ADF8EAD12B30C5218DE5656E /* PortfolioProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F45DD8956AE8025AF0A2CAA /* PortfolioProvider.swift */; };
+		F6C70A91636AE3AC41DF36B5 /* PositionsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13700883D2F66D6D691A7778 /* PositionsWidget.swift */; };
+		87C79EF47AB967269C830814 /* ServiceStatusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */; };
+		63C7558CC898E5E48724027F /* DonutChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */; };
+		51950915E5E86290BB2EE1CE /* PnlCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */; };
+		21477912C80341F7EE6F0CBE /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */; };
+		4684AF7E13B6E2A60D095643 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9B45389C61A31D07AA617A /* Theme.swift */; };
+		D86480B41CE24163C0E764E3 /* LNOLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174481584C5470CE3FE87E75 /* LNOLogo.swift */; };
+		FB2A18B2E6476ACC702CDE96 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A43733DF0F5B8EC6EAB11A /* Config.swift */; };
+		6DD9C133694F74FB87B20B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87D082A130B664A5357AC999 /* Assets.xcassets */; };
+		ADC2456E1605FD79E7C4B520 /* OneSignalFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 441CA140E443CD314CCCE1F6 /* OneSignalFramework */; };
+		53F85E2D092373A8A32EB350 /* LNOWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0FD7488223EA0E20BD335592 /* LNOWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		996AD237BC284D463E664FFE /* LNO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LNO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FD7488223EA0E20BD335592 /* LNOWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "LNOWidgets.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		98A219EC60CAA9DB4FA6063C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		92BB1A4A4735597B0F46302B /* AlertsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsView.swift; sourceTree = "<group>"; };
+		BB5DA6D5E8070229075AA198 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
+		A962E85B9F860FB9B41D756A /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
+		14AC957900F7FE0BF8C17047 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		B3A43733DF0F5B8EC6EAB11A /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		C08004E22B7513A15D03E928 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		AABBB096E93BDCD9567B61A1 /* DeepLinkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkRouter.swift; sourceTree = "<group>"; };
+		74F33553DEAEB8924D16F6BF /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		4AF0DC46F8529EE5AC1E0CF7 /* LNOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNOApp.swift; sourceTree = "<group>"; };
+		174481584C5470CE3FE87E75 /* LNOLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNOLogo.swift; sourceTree = "<group>"; };
+		1DAFBA5F697CED889A424FFF /* LockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenView.swift; sourceTree = "<group>"; };
+		270C1D31B29F6B23B90C13FA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		425BDC5D4FF55CDED13598AF /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		C3D4B98095144C9DB45F8E67 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		1D67B3B6C9238F072E4E49DE /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		768CAF093556E175C1C27D00 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		887613973FB60BE3E826A26F /* OneSignalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneSignalManager.swift; sourceTree = "<group>"; };
+		B27DE9CEC6E2CB1C144A9280 /* PortfolioStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioStore.swift; sourceTree = "<group>"; };
+		A08191A9958DE3CB7E4791BF /* PositionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsView.swift; sourceTree = "<group>"; };
+		62819777DDE50E6F351243A4 /* PricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesView.swift; sourceTree = "<group>"; };
+		DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		EF9B45389C61A31D07AA617A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutChart.swift; sourceTree = "<group>"; };
+		91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PnlCalendar.swift; sourceTree = "<group>"; };
+		19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshot.swift; sourceTree = "<group>"; };
+		BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundsEquityWidget.swift; sourceTree = "<group>"; };
+		F9D386C63B4F2C1A6487CB9E /* GlobalEquityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEquityWidget.swift; sourceTree = "<group>"; };
+		6DDADA1EC86F58E1C9EC4C2F /* LNOWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNOWidgetsBundle.swift; sourceTree = "<group>"; };
+		BCB0BFDB869F405909929C99 /* PnlCalendarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PnlCalendarWidget.swift; sourceTree = "<group>"; };
+		4F45DD8956AE8025AF0A2CAA /* PortfolioProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioProvider.swift; sourceTree = "<group>"; };
+		13700883D2F66D6D691A7778 /* PositionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsWidget.swift; sourceTree = "<group>"; };
+		3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStatusWidget.swift; sourceTree = "<group>"; };
+		87D082A130B664A5357AC999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A8A099B64061A1652B5F5763 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		709D7B15D79D5B2C291169B5 /* LNO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LNO.entitlements; sourceTree = "<group>"; };
+		D0B978D3732C2E3C0AB384B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F55EE5156209B945DA1BC3E9 /* LNOWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LNOWidgets.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4FCBC29864E7C7752B7E193F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADC2456E1605FD79E7C4B520 /* OneSignalFramework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2459633578009F3E492FB24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FCF3278E84DC1D0913840280 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				53F85E2D092373A8A32EB350 /* LNOWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXGroup section */
+		71DC27D9F8E3B109C877BFC4 = {
+			isa = PBXGroup;
+			children = (
+				8CC56863718EFD5063C4352B /* LNO */,
+				9A1122222CEF8A00D0517C9D /* LNOShared */,
+				57B5F2170AFA3683EEF2172E /* LNOWidgets */,
+				72A79544FC4DD10045022645 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8CC56863718EFD5063C4352B /* LNO */ = {
+			isa = PBXGroup;
+			children = (
+				98A219EC60CAA9DB4FA6063C /* APIClient.swift */,
+				92BB1A4A4735597B0F46302B /* AlertsView.swift */,
+				BB5DA6D5E8070229075AA198 /* AuthStore.swift */,
+				A962E85B9F860FB9B41D756A /* BiometricAuth.swift */,
+				14AC957900F7FE0BF8C17047 /* Components.swift */,
+				B3A43733DF0F5B8EC6EAB11A /* Config.swift */,
+				C08004E22B7513A15D03E928 /* DashboardView.swift */,
+				AABBB096E93BDCD9567B61A1 /* DeepLinkRouter.swift */,
+				74F33553DEAEB8924D16F6BF /* Keychain.swift */,
+				4AF0DC46F8529EE5AC1E0CF7 /* LNOApp.swift */,
+				174481584C5470CE3FE87E75 /* LNOLogo.swift */,
+				1DAFBA5F697CED889A424FFF /* LockScreenView.swift */,
+				270C1D31B29F6B23B90C13FA /* LoginView.swift */,
+				425BDC5D4FF55CDED13598AF /* MainTabView.swift */,
+				C3D4B98095144C9DB45F8E67 /* MockData.swift */,
+				1D67B3B6C9238F072E4E49DE /* Models.swift */,
+				768CAF093556E175C1C27D00 /* NetworkMonitor.swift */,
+				887613973FB60BE3E826A26F /* OneSignalManager.swift */,
+				B27DE9CEC6E2CB1C144A9280 /* PortfolioStore.swift */,
+				A08191A9958DE3CB7E4791BF /* PositionsView.swift */,
+				62819777DDE50E6F351243A4 /* PricesView.swift */,
+				DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */,
+				EF9B45389C61A31D07AA617A /* Theme.swift */,
+				87D082A130B664A5357AC999 /* Assets.xcassets */,
+				A8A099B64061A1652B5F5763 /* Info.plist */,
+				709D7B15D79D5B2C291169B5 /* LNO.entitlements */,
+			);
+			path = LNO;
+			sourceTree = "<group>";
+		};
+		9A1122222CEF8A00D0517C9D /* LNOShared */ = {
+			isa = PBXGroup;
+			children = (
+				660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */,
+				91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */,
+				19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */,
+			);
+			path = LNOShared;
+			sourceTree = "<group>";
+		};
+		57B5F2170AFA3683EEF2172E /* LNOWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */,
+				F9D386C63B4F2C1A6487CB9E /* GlobalEquityWidget.swift */,
+				6DDADA1EC86F58E1C9EC4C2F /* LNOWidgetsBundle.swift */,
+				BCB0BFDB869F405909929C99 /* PnlCalendarWidget.swift */,
+				4F45DD8956AE8025AF0A2CAA /* PortfolioProvider.swift */,
+				13700883D2F66D6D691A7778 /* PositionsWidget.swift */,
+				3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */,
+				D0B978D3732C2E3C0AB384B2 /* Info.plist */,
+				F55EE5156209B945DA1BC3E9 /* LNOWidgets.entitlements */,
+			);
+			path = LNOWidgets;
+			sourceTree = "<group>";
+		};
+		72A79544FC4DD10045022645 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				996AD237BC284D463E664FFE /* LNO.app */,
+				0FD7488223EA0E20BD335592 /* LNOWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		74A18AC9B67437C915B1F4BC /* LNO */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5EB39897192143D4967C0D30 /* Build configuration list for PBXNativeTarget "LNO" */;
+			buildPhases = (
+				C197A1D4E0DE673615AC32CB /* Sources */,
+				4FCBC29864E7C7752B7E193F /* Frameworks */,
+				8A6A452CEE30B0908A47D41D /* Resources */,
+				FCF3278E84DC1D0913840280 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C66FC03D90E8D27C6D69B37D /* PBXTargetDependency */,
+			);
+			name = LNO;
+			packageProductDependencies = (
+				441CA140E443CD314CCCE1F6 /* OneSignalFramework */,
+			);
+			productName = LNO;
+			productReference = 996AD237BC284D463E664FFE /* LNO.app */;
+			productType = "com.apple.product-type.application";
+		};
+		098B11E39507D782F8862D80 /* LNOWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 05D4D9E5546F0106138EA15F /* Build configuration list for PBXNativeTarget "LNOWidgets" */;
+			buildPhases = (
+				E2F56E4F641B0C97C58C11A5 /* Sources */,
+				F2459633578009F3E492FB24 /* Frameworks */,
+				8894B6517AEC09E6A28B351A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LNOWidgets;
+			productName = LNOWidgets;
+			productReference = 0FD7488223EA0E20BD335592 /* LNOWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					74A18AC9B67437C915B1F4BC = {
+						CreatedOnToolsVersion = 15.2;
+						SystemCapabilities = {
+							"com.apple.Push" = {
+								enabled = 1;
+							};
+						};
+					};
+					098B11E39507D782F8862D80 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = 32D42B6A09FA42C6EFFC8E0F /* Build configuration list for PBXProject "LNO" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 71DC27D9F8E3B109C877BFC4;
+			packageReferences = (
+				0E8E104B07AD9D6F5559615B /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */,
+			);
+			productRefGroup = 72A79544FC4DD10045022645 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				74A18AC9B67437C915B1F4BC /* LNO */,
+				098B11E39507D782F8862D80 /* LNOWidgets */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXContainerItemProxy section */
+		BC6137B680EE998CED07CAC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 098B11E39507D782F8862D80;
+			remoteInfo = LNOWidgets;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXTargetDependency section */
+		C66FC03D90E8D27C6D69B37D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 098B11E39507D782F8862D80 /* LNOWidgets */;
+			targetProxy = BC6137B680EE998CED07CAC9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0E8E104B07AD9D6F5559615B /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OneSignal/OneSignal-XCFramework";
+			requirement = {
+				kind = exactVersion;
+				version = 5.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		441CA140E443CD314CCCE1F6 /* OneSignalFramework */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E8E104B07AD9D6F5559615B /* XCRemoteSwiftPackageReference "OneSignal-XCFramework" */;
+			productName = OneSignalFramework;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8A6A452CEE30B0908A47D41D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DD9C133694F74FB87B20B01 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8894B6517AEC09E6A28B351A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C197A1D4E0DE673615AC32CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				664F8CA74D300E16F8188700 /* APIClient.swift in Sources */,
+				B1C349A01C14A9F7FCAFB525 /* AlertsView.swift in Sources */,
+				19C57B4B101FA192EFA050E2 /* AuthStore.swift in Sources */,
+				31E156C2D68CED34720CA4FF /* BiometricAuth.swift in Sources */,
+				B1496CF63D82923C0396D7B6 /* Components.swift in Sources */,
+				965D1C662877EEB1DE61130D /* Config.swift in Sources */,
+				F2F7AC9021964D8354E6B3C4 /* DashboardView.swift in Sources */,
+				C42D5936D3801C883409E328 /* DeepLinkRouter.swift in Sources */,
+				0423640736DF65990A30CDA4 /* Keychain.swift in Sources */,
+				8594BB83ED1729167E20ABA3 /* LNOApp.swift in Sources */,
+				19BBB55C53EAD28046158B0F /* LNOLogo.swift in Sources */,
+				6486A72898F1D9CC97C2E490 /* LockScreenView.swift in Sources */,
+				DA9B618FB14D2FC8B0D87C86 /* LoginView.swift in Sources */,
+				41750485515B05D217A379D0 /* MainTabView.swift in Sources */,
+				5D200B37C174FAB2E5812F97 /* MockData.swift in Sources */,
+				1F65469465E4D82E20B5CD22 /* Models.swift in Sources */,
+				E0626EA17BD28051D59BCA34 /* NetworkMonitor.swift in Sources */,
+				72D68E1893FB4B0E1181EC14 /* OneSignalManager.swift in Sources */,
+				BD80AA1A4B31818B4BFE1A68 /* PortfolioStore.swift in Sources */,
+				70B0E50BBDD6889717E9A242 /* PositionsView.swift in Sources */,
+				A1AE2CC97CBDE45696DF0809 /* PricesView.swift in Sources */,
+				05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */,
+				60A241169C62B2007AC91F03 /* Theme.swift in Sources */,
+				09352253093668F4649869FD /* DonutChart.swift in Sources */,
+				48C0421722F4B47D9DDC061A /* PnlCalendar.swift in Sources */,
+				C98B8B62FA7731724548EFAA /* WidgetSnapshot.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2F56E4F641B0C97C58C11A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A0A0A3181BD2F71E9E8B09D /* FundsEquityWidget.swift in Sources */,
+				0FA581535694D9989834F853 /* GlobalEquityWidget.swift in Sources */,
+				E8828914F2D6476AFD3D34F9 /* LNOWidgetsBundle.swift in Sources */,
+				51D19824A2E77B00977836B4 /* PnlCalendarWidget.swift in Sources */,
+				ADF8EAD12B30C5218DE5656E /* PortfolioProvider.swift in Sources */,
+				F6C70A91636AE3AC41DF36B5 /* PositionsWidget.swift in Sources */,
+				87C79EF47AB967269C830814 /* ServiceStatusWidget.swift in Sources */,
+				63C7558CC898E5E48724027F /* DonutChart.swift in Sources */,
+				51950915E5E86290BB2EE1CE /* PnlCalendar.swift in Sources */,
+				21477912C80341F7EE6F0CBE /* WidgetSnapshot.swift in Sources */,
+				4684AF7E13B6E2A60D095643 /* Theme.swift in Sources */,
+				D86480B41CE24163C0E764E3 /* LNOLogo.swift in Sources */,
+				FB2A18B2E6476ACC702CDE96 /* Config.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F3E469D9CF2672B87FCF79D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1", "$(inherited)");
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4FF944F08AACB37CF71EA40B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		278C5A3EB8F05FE39E171C50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "LNO/LNO.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2E6D4Q69QB;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "LNO/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.lno.controlcenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1AD3193D2AA82BB342AF9019 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "LNO/LNO.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2E6D4Q69QB;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "LNO/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.lno.controlcenter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FD1C361697CF0A1D3E990913 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "LNOWidgets/LNOWidgets.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2E6D4Q69QB;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "LNOWidgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "LNO Widgets";
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks");
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.lno.controlcenter.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		06DFB1829FF7266211CAA9B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "LNOWidgets/LNOWidgets.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2E6D4Q69QB;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "LNOWidgets/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "LNO Widgets";
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks", "@executable_path/../../Frameworks");
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.lno.controlcenter.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		32D42B6A09FA42C6EFFC8E0F /* Build configuration list for PBXProject "LNO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3E469D9CF2672B87FCF79D5 /* Debug */,
+				4FF944F08AACB37CF71EA40B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5EB39897192143D4967C0D30 /* Build configuration list for PBXNativeTarget "LNO" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				278C5A3EB8F05FE39E171C50 /* Debug */,
+				1AD3193D2AA82BB342AF9019 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		05D4D9E5546F0106138EA15F /* Build configuration list for PBXNativeTarget "LNOWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD1C361697CF0A1D3E990913 /* Debug */,
+				06DFB1829FF7266211CAA9B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
