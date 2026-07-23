@@ -28,6 +28,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Select latest available Xcode
+        # App Store Connect rejects uploads built with an SDK older than the
+        # current-year iOS SDK — the runner image's *default* Xcode lags behind
+        # what's actually installed side-by-side on it, so pick the newest one.
+        run: |
+          latest=$(ls -d /Applications/Xcode_*.app 2>/dev/null | sort -V | tail -1)
+          echo "Using $latest"
+          sudo xcode-select -s "$latest"
+          xcodebuild -version
+
       - name: Regenerate Xcode project
         run: python3 gen_pbxproj.py
 
