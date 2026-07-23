@@ -5,16 +5,20 @@ name: TestFlight Release
 #   ASC_KEY_ID              — App Store Connect API Key ID
 #   ASC_ISSUER_ID           — App Store Connect API Issuer ID
 #   ASC_KEY_P8              — full contents of the AuthKey_<id>.p8 file
-#   IOS_DIST_CERT_P12       — base64 of an exported "Apple Distribution" .p12
-#   IOS_DIST_CERT_PASSWORD  — the password that .p12 was exported with
+#   IOS_DEV_CERT_P12        — base64 of an exported "Apple Development" .p12
+#   IOS_DEV_CERT_PASSWORD   — the password that .p12 was exported with
 # The API key comes from App Store Connect → Users and Access → Integrations
 # → App Store Connect API (NOT the OneSignal APNs key — different key, same
-# portal family). The distribution cert is imported into a throwaway
-# keychain every run so automatic signing always reuses the SAME reusable
-# certificate instead of minting a brand new "Apple Development" one each
-# time — GitHub's runners are ephemeral (no persisted keychain across runs),
-# and repeatedly creating fresh certs silently exhausts the account's
-# certificate quota, at which point every future archive fails outright.
+# portal family). `xcodebuild archive` with automatic signing always wants an
+# "Apple Development" identity for the archive step itself (distribution
+# signing happens later, during export/upload, driven by the API key) — so
+# that's the cert that needs to be reusable. It's imported into a throwaway
+# keychain every run so automatic signing always reuses the SAME cert
+# instead of minting a brand new one each time — GitHub's runners are
+# ephemeral (no persisted keychain across runs), and repeatedly creating
+# fresh certs silently exhausts the account's certificate quota, at which
+# point every future archive fails outright ("Choose a certificate to
+# revoke").
 on:
   push:
     branches: [ main ]
@@ -58,15 +62,12 @@ jobs:
 
       - name: Import signing certificate
         env:
-          CERT_P12: ${{ secrets.IOS_DIST_CERT_P12 }}
-          CERT_PASSWORD: ${{ secrets.IOS_DIST_CERT_PASSWORD }}
+          CERT_P12: ${{ secrets.IOS_DEV_CERT_P12 }}
+          CERT_PASSWORD: ${{ secrets.IOS_DEV_CERT_PASSWORD }}
         run: |
           KEYCHAIN_PATH="$RUNNER_TEMP/signing.keychain-db"
           KEYCHAIN_PASSWORD=$(uuidgen)
           echo "$CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
-          echo "DEBUG decoded file sha256: $(shasum -a 256 "$RUNNER_TEMP/cert.p12")"
-          echo "DEBUG password length: ${#CERT_PASSWORD}"
-          echo "DEBUG password first/last char codes: $(printf '%s' "$CERT_PASSWORD" | head -c1 | od -An -tu1) / $(printf '%s' "$CERT_PASSWORD" | tail -c1 | od -An -tu1)"
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
