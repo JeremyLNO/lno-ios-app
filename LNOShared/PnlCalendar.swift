@@ -88,7 +88,10 @@ struct PnlCalendarView: View {
                 GeometryReader { geo in
                     let allCols = columns
                     let fittingColumns = max(1, Int((geo.size.width + spacing) / (cellSize + spacing)))
-                    let visible = allCols.suffix(fittingColumns)
+                    // Pad with blank columns on the left when there isn't enough real history
+                    // to fill the measured width, instead of leaving a gap.
+                    let pad = [[PnlCalendarDay?]](repeating: Array(repeating: nil, count: 7), count: max(0, fittingColumns - allCols.count))
+                    let visible = (pad + allCols).suffix(fittingColumns)
                     HStack(alignment: .top, spacing: spacing) {
                         ForEach(Array(visible.enumerated()), id: \.offset) { _, col in
                             VStack(spacing: spacing) {

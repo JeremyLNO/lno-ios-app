@@ -87,7 +87,11 @@ private struct PnlCalendarWidgetHeatmap: View {
             // +7 slack days so trimming to whole weeks (via the weekday offset above)
             // never leaves the grid a column short of what actually fits.
             let sliced = Array(allDays.suffix(fittingColumns * 7 + 7))
-            let cols = columns(for: sliced).suffix(fittingColumns)
+            let realCols = columns(for: sliced).suffix(fittingColumns)
+            // Pad with blank columns on the left when there isn't enough real history to
+            // fill the measured width, instead of leaving a gap.
+            let pad = [[PnlCalendarDay?]](repeating: Array(repeating: nil, count: 7), count: max(0, fittingColumns - realCols.count))
+            let cols = pad + realCols
             HStack(alignment: .top, spacing: spacing) {
                 ForEach(Array(cols.enumerated()), id: \.offset) { _, col in
                     VStack(spacing: spacing) {
