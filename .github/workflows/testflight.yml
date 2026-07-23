@@ -64,9 +64,9 @@ jobs:
           KEYCHAIN_PATH="$RUNNER_TEMP/signing.keychain-db"
           KEYCHAIN_PASSWORD=$(uuidgen)
           echo "$CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
-          echo "DEBUG secret length: ${#CERT_P12}"
-          echo "DEBUG decoded file size: $(wc -c < "$RUNNER_TEMP/cert.p12")"
           echo "DEBUG decoded file sha256: $(shasum -a 256 "$RUNNER_TEMP/cert.p12")"
+          echo "DEBUG password length: ${#CERT_PASSWORD}"
+          echo "DEBUG password first/last char codes: $(printf '%s' "$CERT_PASSWORD" | head -c1 | od -An -tu1) / $(printf '%s' "$CERT_PASSWORD" | tail -c1 | od -An -tu1)"
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
