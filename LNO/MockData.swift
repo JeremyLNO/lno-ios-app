@@ -1,9 +1,9 @@
-#if DEBUG
 import Foundation
 
-/// Static sample data for the DEBUG-only demo login path (LoginView "Preview demo"
-/// button). Lets us walk through every screen in the Simulator without a real
-/// backend session. Never compiled into a Release build.
+/// Static, non-confidential sample data. Used by the DEBUG-only "Preview demo"
+/// button for local testing, AND by the always-available App Review demo path
+/// (Config.appReviewEmail) — so it must compile into Release too. Never contains
+/// real LNO figures.
 enum MockData {
     static let user = User(
         id: "demo", email: "demo@lno.company", firstName: "Alex", lastName: "Martin",
@@ -67,4 +67,3 @@ enum MockData {
         return f.string(from: d)
     }
 }
-#endif

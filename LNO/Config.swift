@@ -23,4 +23,12 @@ enum Config {
     /// OneSignal app ID for push notifications.
     static let oneSignalAppID = "403e4ce4-2e4a-47ed-a938-77639eac3c9c"
     static var pushConfigured: Bool { !oneSignalAppID.isEmpty }
+
+    /// Reserved address for Apple App Review (App Store Connect "App Review
+    /// Information" notes tell the reviewer to enter this in the emailed-code
+    /// field). Entering it skips the real OTP entirely and loads the same static,
+    /// non-confidential sample data used for local demos — see
+    /// AuthStore.requestOtp. No real backend call is made and no real account
+    /// or production data is touched.
+    static let appReviewEmail = "apple@lno.company"
 }

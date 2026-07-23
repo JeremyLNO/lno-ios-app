@@ -24,13 +24,14 @@ final class AuthStore: NSObject, ObservableObject {
     private(set) var token: String? { didSet { client = APIClient(token: token) } }
     private(set) var client = APIClient(token: nil)
 
-    /// Set only by the DEBUG-only "Preview demo" path — tells PortfolioStore to load
-    /// static sample data instead of calling the real API. Never true in Release.
+    /// Set by the "Preview demo" DEBUG button AND by the App Review demo path
+    /// (Config.appReviewEmail) — tells PortfolioStore to load static sample data
+    /// instead of calling the real API. Never true for a real signed-in session.
     private(set) var isDemo = false
 
-    #if DEBUG
-    /// Simulates a successful sign-in with static sample data, for walking through
-    /// the app in the Simulator without a real backend session.
+    /// Signs into a static, non-confidential sample session — no network call, no
+    /// real account touched. Used by the DEBUG-only "Preview demo" button and by
+    /// the App Review email bypass in `requestOtp`.
     func enterDemoMode() {
         isDemo = true
         user = MockData.user
@@ -38,6 +39,7 @@ final class AuthStore: NSObject, ObservableObject {
         phase = .signedIn
     }
 
+    #if DEBUG
     /// Seeds a fake stored session + enables Face ID, then runs a normal
     /// `bootstrap()` — exercises the real Keychain → `.locked` → biometric-unlock
     /// path (Simulator: Features ▸ Face ID ▸ Enrolled, then Matching Face) without
@@ -99,9 +101,20 @@ final class AuthStore: NSObject, ObservableObject {
     @Published var otpRequestedAt: Date?
 
     func requestOtp(email: String) async -> Bool {
+        let trimmed = email.trimmingCharacters(in: .whitespaces)
+        // App Review demo bypass: this exact address never hits the real backend —
+        // it goes straight to the same static sample data as the "Preview demo"
+        // button. Returning false here means the caller (LoginView) never advances
+        // to the "enter code" screen, which is correct: there's no code to enter,
+        // `enterDemoMode()` already flips `phase` to `.signedIn` and the login
+        // screen is replaced entirely.
+        if trimmed.lowercased() == Config.appReviewEmail.lowercased() {
+            enterDemoMode()
+            return false
+        }
         errorMessage = nil; busy = true; defer { busy = false }
         do {
-            try await APIClient.requestOtp(email: email.trimmingCharacters(in: .whitespaces))
+            try await APIClient.requestOtp(email: trimmed)
             otpRequestedAt = Date()
             return true
         } catch {

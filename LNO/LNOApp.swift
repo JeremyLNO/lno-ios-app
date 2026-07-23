@@ -37,6 +37,7 @@ struct RootView: View {
     @StateObject private var oneSignal = OneSignalManager.shared
     @StateObject private var network = NetworkMonitor.shared
     @State private var showIntegrationAlert = false
+    @AppStorage("hasRequestedPushPermission") private var hasRequestedPushPermission = false
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -63,21 +64,25 @@ struct RootView: View {
         .animation(.easeInOut, value: auth.phase)
         .animation(.easeInOut, value: network.isConnected)
         .task { oneSignal.initialize(appId: Config.oneSignalAppID) }
+        // Real, user-facing permission ask: fires once, the first time a session
+        // reaches .signedIn — independent of the OneSignal debug alert below, so a
+        // stale "already shown" flag from earlier dev testing can never suppress it.
+        .onChange(of: auth.phase) { _, phase in
+            guard phase == .signedIn, !hasRequestedPushPermission else { return }
+            hasRequestedPushPermission = true
+            oneSignal.requestPushPermission()
+        }
+        #if DEBUG
         .onChange(of: oneSignal.didRegister) { _, registered in
             if registered { showIntegrationAlert = true }
         }
         .alert("Your OneSignal SDK integration is complete!", isPresented: $showIntegrationAlert) {
             Button("Got it") {
-                // Persist *here*, on actual acknowledgement, not the moment the alert
-                // is requested — marking it shown any earlier risks the flag being
-                // set (e.g. if the process dies right after `didRegister` flips) even
-                // though the user never actually saw/dismissed the alert, which would
-                // silently suppress it forever on the next launch.
                 oneSignal.markIntegrationAlertShown()
-                oneSignal.requestPushPermission()
             }
         } message: {
-            Text("You can now send Push Notifications & In-App Messages through OneSignal. Tap below to enable push notifications.")
+            Text("This is a DEBUG-only diagnostic confirming the SDK registered with OneSignal.")
         }
+        #endif
     }
 }

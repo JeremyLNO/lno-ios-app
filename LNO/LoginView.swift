@@ -4,11 +4,12 @@ struct LoginView: View {
     @EnvironmentObject var auth: AuthStore
     @State private var email = ""
     @State private var code = ""
-    @State private var otpStep: OtpStep = .hidden
+    @State private var otpStep: OtpStep = .email
     @State private var now = Date()
+    @State private var googleBusy = false
     @FocusState private var focus: Field?
     enum Field { case email, code }
-    enum OtpStep { case hidden, email, code }
+    enum OtpStep { case email, code }
 
     private static let resendCooldown: TimeInterval = 60
 
@@ -38,18 +39,8 @@ struct LoginView: View {
 
                         // Shareholders (external, non-@lno.company emails) sign in with an
                         // emailed 6-digit code instead — no password anywhere in this flow.
+                        // Shown directly below Google, no extra tap to reveal it.
                         switch otpStep {
-                        case .hidden:
-                            Button {
-                                withAnimation { otpStep = .email }
-                            } label: {
-                                Text("Sign in with an emailed code")
-                                    .font(.footnote).fontWeight(.medium)
-                                    .foregroundStyle(Theme.mutedText)
-                                    .underline()
-                            }
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.top, 2)
                         case .email:
                             otpEmailForm
                         case .code:
@@ -97,10 +88,11 @@ struct LoginView: View {
     private var googleButton: some View {
         Button {
             focus = nil
-            Task { await auth.signInWithGoogle() }
+            googleBusy = true
+            Task { await auth.signInWithGoogle(); googleBusy = false }
         } label: {
             HStack(spacing: 10) {
-                if auth.busy && otpStep == .hidden { ProgressView().tint(Color(hex: 0x3C4043)) }
+                if googleBusy { ProgressView().tint(Color(hex: 0x3C4043)) }
                 else { GoogleGMark(size: 18) }
                 Text("Sign in with Google")
                     .font(.system(size: 15, weight: .medium))
@@ -117,7 +109,13 @@ struct LoginView: View {
 
     // MARK: - Emailed code (shareholders)
 
-    private var isLnoEmail: Bool { email.lowercased().hasSuffix("@lno.company") }
+    // The reserved App Review address ends in @lno.company too, but must stay
+    // usable in the emailed-code field (it never reaches Google) — see
+    // AuthStore.requestOtp for the actual bypass.
+    private var isLnoEmail: Bool {
+        let e = email.trimmingCharacters(in: .whitespaces).lowercased()
+        return e.hasSuffix("@lno.company") && e != Config.appReviewEmail.lowercased()
+    }
 
     private var otpEmailForm: some View {
         VStack(spacing: 12) {
@@ -149,13 +147,6 @@ struct LoginView: View {
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .disabled(auth.busy || email.isEmpty || isLnoEmail)
             .opacity((auth.busy || email.isEmpty || isLnoEmail) ? 0.6 : 1)
-
-            Button {
-                withAnimation { otpStep = .hidden; auth.errorMessage = nil }
-            } label: {
-                Text("Cancel").font(.footnote).foregroundStyle(Theme.mutedText)
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
         }
         .transition(.opacity.combined(with: .move(edge: .top)))
     }

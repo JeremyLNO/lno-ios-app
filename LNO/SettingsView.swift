@@ -61,22 +61,39 @@ struct SettingsView: View {
         }
     }
 
+    @State private var faceIDBusy = false
+
     @ViewBuilder private var securityCard: some View {
         if BiometricAuth.isAvailable {
             Card {
                 VStack(alignment: .leading, spacing: 4) {
                     Toggle(isOn: Binding(
                         get: { auth.faceIDEnabled },
-                        set: { auth.setFaceIDEnabled($0) }
+                        set: { toggleFaceID($0) }
                     )) {
                         Label("Require \(BiometricAuth.kindName)", systemImage: "faceid")
                             .foregroundStyle(Theme.navy)
                     }
                     .tint(Theme.gold)
+                    .disabled(faceIDBusy)
                     Text("Lock the app between launches; unlock with \(BiometricAuth.kindName) instead of signing in again.")
                         .font(.caption).foregroundStyle(Theme.mutedText)
                 }
             }
+        }
+    }
+
+    /// Turning this on should take effect immediately, not just get remembered
+    /// for the next cold launch — so confirm biometrics right here, on toggle,
+    /// and only actually enable the setting once that confirmation succeeds.
+    /// Turning off needs no confirmation.
+    private func toggleFaceID(_ on: Bool) {
+        guard on else { auth.setFaceIDEnabled(false); return }
+        faceIDBusy = true
+        Task {
+            let ok = await BiometricAuth.authenticate(reason: "Enable \(BiometricAuth.kindName) to lock LNO Control Center")
+            if ok { auth.setFaceIDEnabled(true) }
+            faceIDBusy = false
         }
     }
 

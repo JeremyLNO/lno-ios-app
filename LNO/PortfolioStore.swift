@@ -132,7 +132,6 @@ final class PortfolioStore: ObservableObject {
     // MARK: - Loading
 
     func refresh(auth: AuthStore) async {
-        #if DEBUG
         if auth.isDemo {
             loading = true; defer { loading = false }
             bots = MockData.bots
@@ -145,7 +144,6 @@ final class PortfolioStore: ObservableObject {
             saveWidgetSnapshot()
             return
         }
-        #endif
         loading = true; loadError = nil; defer { loading = false }
         let c = auth.client
         do {
@@ -196,9 +194,7 @@ final class PortfolioStore: ObservableObject {
     /// screen over data the user is already looking at; the app-wide offline
     /// banner (NetworkMonitor) already communicates connectivity problems.
     func refreshPositionsOnly(auth: AuthStore) async {
-        #if DEBUG
         if auth.isDemo { return }
-        #endif
         do {
             async let botsRes = auth.client.bots()
             // Alerts ride along on the same lightweight poll so the Overview
