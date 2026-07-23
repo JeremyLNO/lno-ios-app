@@ -82,20 +82,27 @@ struct PnlCalendarView: View {
             Text("No data").font(.footnote).foregroundStyle(Theme.faintText)
         } else {
             VStack(alignment: .leading, spacing: 8) {
-                ScrollView(.horizontal, showsIndicators: false) {
+                // Measures its own width and picks however many columns of `cellSize` fit,
+                // keeping the most recent weeks — always fills the available width edge-to-edge
+                // instead of overflowing into a horizontal scroll. Mirrors the widget's approach.
+                GeometryReader { geo in
+                    let allCols = columns
+                    let fittingColumns = max(1, Int((geo.size.width + spacing) / (cellSize + spacing)))
+                    let visible = allCols.suffix(fittingColumns)
                     HStack(alignment: .top, spacing: spacing) {
-                        ForEach(columns.indices, id: \.self) { ci in
+                        ForEach(Array(visible.enumerated()), id: \.offset) { _, col in
                             VStack(spacing: spacing) {
                                 ForEach(0..<7, id: \.self) { ri in
-                                    let cell = columns[ci][ri]
                                     RoundedRectangle(cornerRadius: 2)
-                                        .fill(PnlHeat.color(cell?.pct))
+                                        .fill(PnlHeat.color(col[ri]?.pct))
                                         .frame(width: cellSize, height: cellSize)
                                 }
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                .frame(height: cellSize * 7 + spacing * 6)
                 if showLegend { legend }
             }
         }
