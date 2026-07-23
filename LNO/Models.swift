@@ -13,6 +13,10 @@ struct User: Codable, Identifiable, Equatable {
     var phone: String = ""
     var notify: Bool = false
     var authProvider: String = "password"
+    /// Same `data:image/…;base64,…` string the web dashboard stores (ProfilePage's
+    /// upload writes a FileReader data URL straight to this column) — decoded for
+    /// display by `AvatarView`, never re-encoded by this read-only client.
+    var avatar: String? = nil
 
     var displayName: String {
         let full = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)

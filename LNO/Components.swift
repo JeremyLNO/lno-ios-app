@@ -186,3 +186,42 @@ struct AuthBackground: View {
             .ignoresSafeArea()
     }
 }
+
+/// The user's profile photo, matching the web dashboard exactly: same source
+/// (`User.avatar`, a `data:image/…;base64,…` string written by the web's upload
+/// control — see ProfilePage.tsx), same fallback (initials on a navy circle) when
+/// no photo has been set. Decoded client-side since URLSession/AsyncImage don't
+/// fetch `data:` URLs.
+struct AvatarView: View {
+    let user: User
+    var diameter: CGFloat = 52
+
+    var body: some View {
+        Group {
+            if let uiImage = Self.decode(user.avatar) {
+                Image(uiImage: uiImage).resizable().scaledToFill()
+            } else {
+                Circle().fill(Theme.navy).overlay(
+                    Text(initials).font(.system(size: diameter * 0.38, weight: .semibold))
+                        .foregroundStyle(.white)
+                )
+            }
+        }
+        .frame(width: diameter, height: diameter)
+        .clipShape(Circle())
+    }
+
+    private var initials: String {
+        let f = user.firstName.first.map(String.init) ?? ""
+        let l = user.lastName.first.map(String.init) ?? ""
+        let combined = (f + l).uppercased()
+        return combined.isEmpty ? String(user.email.prefix(1)).uppercased() : combined
+    }
+
+    private static func decode(_ dataURL: String?) -> UIImage? {
+        guard let dataURL, let comma = dataURL.firstIndex(of: ",") else { return nil }
+        let base64 = dataURL[dataURL.index(after: comma)...]
+        guard let data = Data(base64Encoded: String(base64)) else { return nil }
+        return UIImage(data: data)
+    }
+}

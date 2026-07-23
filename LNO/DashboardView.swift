@@ -37,7 +37,11 @@ struct DashboardView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button { showSettings = true } label: {
-                    Image(systemName: "person.crop.circle").foregroundStyle(Theme.navy)
+                    if let user = auth.user {
+                        AvatarView(user: user, diameter: 28)
+                    } else {
+                        Image(systemName: "person.crop.circle").foregroundStyle(Theme.navy)
+                    }
                 }
             }
         }

@@ -43,10 +43,7 @@ struct SettingsView: View {
         if let u = auth.user {
             Card {
                 HStack(spacing: 14) {
-                    ZStack {
-                        Circle().fill(Theme.navy).frame(width: 52, height: 52)
-                        Text(initials(u)).font(.headline).foregroundStyle(.white)
-                    }
+                    AvatarView(user: u, diameter: 52)
                     VStack(alignment: .leading, spacing: 3) {
                         Text(u.displayName).font(.headline).foregroundStyle(Theme.navy)
                         Text(u.email).font(.caption).foregroundStyle(Theme.mutedText)
@@ -111,10 +108,4 @@ struct SettingsView: View {
         }
     }
 
-    private func initials(_ u: User) -> String {
-        let f = u.firstName.first.map(String.init) ?? ""
-        let l = u.lastName.first.map(String.init) ?? ""
-        let s = (f + l).uppercased()
-        return s.isEmpty ? String(u.email.prefix(1)).uppercased() : s
-    }
 }
