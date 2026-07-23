@@ -552,3 +552,45 @@ with open(os.path.join(out_dir, "project.pbxproj"), "w") as fh:
     fh.write("\n".join(lines) + "\n")
 print("Wrote %s/project.pbxproj — app: %d+%d shared files, widget: %d+%d shared+app files" % (
     out_dir, len(swift_files), len(shared_files), len(widget_files), len(shared_files) + len(WIDGET_SHARED_FROM_APP)))
+
+# ---- Shared scheme -------------------------------------------------------
+# `xcodebuild archive` (used by CI to publish to TestFlight) only works off a
+# scheme, never a bare -target — without this file `-list` shows no Schemes at
+# all and archiving fails outright.
+scheme_dir = os.path.join(out_dir, "xcshareddata", "xcschemes")
+os.makedirs(scheme_dir, exist_ok=True)
+scheme_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<Scheme LastUpgradeVersion="1520" version="1.7">
+   <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES">
+      <BuildActionEntries>
+         <BuildActionEntry buildForTesting="YES" buildForRunning="YES" buildForProfiling="YES" buildForArchiving="YES" buildForAnalyzing="YES">
+            <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="%(target)s" BuildableName="%(proj)s.app" BlueprintName="%(proj)s" ReferencedContainer="container:%(proj)s.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.DebuggerFoundation.Launcher.LLDB" shouldUseLaunchSchemeArgsEnv="YES">
+      <Testables>
+      </Testables>
+   </TestAction>
+   <LaunchAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.DebuggerFoundation.Launcher.LLDB" launchStyle="0" useCustomWorkingDirectory="NO" ignoresPersistentStateOnLaunch="NO" debugDocumentVersioning="YES" debugServiceExtension="internal" allowLocationSimulation="YES">
+      <BuildableProductRunnable runnableDebuggingMode="0">
+         <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="%(target)s" BuildableName="%(proj)s.app" BlueprintName="%(proj)s" ReferencedContainer="container:%(proj)s.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction buildConfiguration="Release" shouldUseLaunchSchemeArgsEnv="YES" savedToolIdentifier="" useCustomWorkingDirectory="NO" debugDocumentVersioning="YES">
+      <BuildableProductRunnable runnableDebuggingMode="0">
+         <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="%(target)s" BuildableName="%(proj)s.app" BlueprintName="%(proj)s" ReferencedContainer="container:%(proj)s.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction buildConfiguration="Debug">
+   </AnalyzeAction>
+   <ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES">
+   </ArchiveAction>
+</Scheme>
+''' % {"target": target, "proj": PROJ}
+with open(os.path.join(scheme_dir, "%s.xcscheme" % PROJ), "w") as fh:
+    fh.write(scheme_xml)
+print("Wrote %s/%s.xcscheme" % (scheme_dir, PROJ))
