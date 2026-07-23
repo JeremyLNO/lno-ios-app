@@ -61,6 +61,7 @@ jobs:
             -archivePath build/LNO.xcarchive \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
+            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
             -authenticationKeyPath "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID"
