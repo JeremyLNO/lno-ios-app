@@ -4,16 +4,14 @@ struct PositionsView: View {
     @EnvironmentObject var auth: AuthStore
     @EnvironmentObject var store: PortfolioStore
     @EnvironmentObject var router: DeepLinkRouter
+    @Binding var showSettings: Bool
 
     var body: some View {
         ZStack {
             AppBackground()
             content
         }
-        .navigationTitle("Positions")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbarBackground(Color.white, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .lnoTopBar("Positions", auth: auth, showSettings: $showSettings)
         .refreshable { await store.refresh(auth: auth) }
     }
 

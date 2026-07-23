@@ -3,6 +3,7 @@ import SwiftUI
 struct PricesView: View {
     @EnvironmentObject var auth: AuthStore
     @EnvironmentObject var store: PortfolioStore
+    @Binding var showSettings: Bool
     @State private var tickers: [String: BinanceTicker] = [:]
     @State private var loading = false
     @State private var error: String?
@@ -23,10 +24,7 @@ struct PricesView: View {
             AppBackground()
             content
         }
-        .navigationTitle("Prices")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbarBackground(Color.white, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .lnoTopBar("Prices", auth: auth, showSettings: $showSettings)
         .task(id: symbols) {
             syncOrder()
             while !Task.isCancelled {

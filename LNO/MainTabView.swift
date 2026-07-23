@@ -32,15 +32,15 @@ struct MainTabView: View {
                 .tabItem { Label("Overview", systemImage: "chart.line.uptrend.xyaxis") }
                 .tag(DeepLinkRouter.Tab.overview)
 
-            NavigationStack { PositionsView() }
+            NavigationStack { PositionsView(showSettings: $showSettings) }
                 .tabItem { Label("Positions", systemImage: "list.bullet.rectangle") }
                 .tag(DeepLinkRouter.Tab.positions)
 
-            NavigationStack { PricesView() }
+            NavigationStack { PricesView(showSettings: $showSettings) }
                 .tabItem { Label("Prices", systemImage: "bitcoinsign.circle") }
                 .tag(DeepLinkRouter.Tab.prices)
 
-            NavigationStack { AlertsView() }
+            NavigationStack { AlertsView(showSettings: $showSettings) }
                 .tabItem { Label("Alerts", systemImage: "bell") }
                 .tag(DeepLinkRouter.Tab.alerts)
                 .badge(alertReadStore.unreadCount(in: store.alerts))

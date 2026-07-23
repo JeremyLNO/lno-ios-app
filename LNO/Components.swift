@@ -187,6 +187,34 @@ struct AuthBackground: View {
     }
 }
 
+extension View {
+    /// The one top bar every tab uses: LNO mark top-left, page title inline,
+    /// profile avatar top-right — same navigationBarTitleDisplayMode (.inline)
+    /// everywhere. Tabs used to pick their own (Overview was .inline, the other
+    /// three were .large), which made the header a different height per tab.
+    func lnoTopBar(_ title: String, auth: AuthStore, showSettings: Binding<Bool>) -> some View {
+        self
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.white, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    LNOLogo(color: Theme.navy, showWordmark: false).frame(width: 30, height: 30)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button { showSettings.wrappedValue = true } label: {
+                        if let user = auth.user {
+                            AvatarView(user: user, diameter: 28)
+                        } else {
+                            Image(systemName: "person.crop.circle").foregroundStyle(Theme.navy)
+                        }
+                    }
+                }
+            }
+    }
+}
+
 /// The user's profile photo, matching the web dashboard exactly: same source
 /// (`User.avatar`, a `data:image/…;base64,…` string written by the web's upload
 /// control — see ProfilePage.tsx), same fallback (initials on a navy circle) when

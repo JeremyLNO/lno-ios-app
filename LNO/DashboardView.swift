@@ -27,24 +27,7 @@ struct DashboardView: View {
             AppBackground()
             content
         }
-        .navigationTitle("Overview")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color.white, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                LNOLogo(color: Theme.navy, showWordmark: false).frame(width: 30, height: 30)
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button { showSettings = true } label: {
-                    if let user = auth.user {
-                        AvatarView(user: user, diameter: 28)
-                    } else {
-                        Image(systemName: "person.crop.circle").foregroundStyle(Theme.navy)
-                    }
-                }
-            }
-        }
+        .lnoTopBar("Overview", auth: auth, showSettings: $showSettings)
         .refreshable { await store.refresh(auth: auth) }
     }
 

@@ -24,6 +24,7 @@ struct AlertsView: View {
     @EnvironmentObject var auth: AuthStore
     @EnvironmentObject var store: PortfolioStore
     @EnvironmentObject var readStore: AlertReadStore
+    @Binding var showSettings: Bool
 
     private var unreadCount: Int { readStore.unreadCount(in: store.alerts) }
 
@@ -32,10 +33,7 @@ struct AlertsView: View {
             AppBackground()
             content
         }
-        .navigationTitle("Alerts")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbarBackground(Color.white, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .lnoTopBar("Alerts", auth: auth, showSettings: $showSettings)
         .toolbar {
             if unreadCount > 0 {
                 ToolbarItem(placement: .topBarTrailing) {
