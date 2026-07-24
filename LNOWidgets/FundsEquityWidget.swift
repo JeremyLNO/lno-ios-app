@@ -10,6 +10,7 @@ struct FundsEquityWidget: Widget {
         StaticConfiguration(kind: kind, provider: PortfolioProvider()) { entry in
             FundsEquityView(entry: entry)
                 .containerBackground(Theme.navy, for: .widget)
+                .environment(\.locale, LanguagePersistence.loadForWidget().locale)
         }
         .configurationDisplayName("Funds Equity")
         .description("Unrealized P&L for each fund. Tap a fund to open it in the app.")

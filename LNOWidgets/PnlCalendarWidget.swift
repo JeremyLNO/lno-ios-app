@@ -11,6 +11,7 @@ struct PnlCalendarWidget: Widget {
         StaticConfiguration(kind: kind, provider: PortfolioProvider()) { entry in
             PnlCalendarWidgetView(entry: entry)
                 .containerBackground(Theme.navy, for: .widget)
+                .environment(\.locale, LanguagePersistence.loadForWidget().locale)
         }
         .configurationDisplayName("PnL Calendar")
         .description("Daily P&L heatmap, GitHub-contributions style.")

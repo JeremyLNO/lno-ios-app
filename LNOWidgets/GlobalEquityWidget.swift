@@ -9,6 +9,7 @@ struct GlobalEquityWidget: Widget {
         StaticConfiguration(kind: kind, provider: PortfolioProvider()) { entry in
             GlobalEquityView(entry: entry)
                 .containerBackground(Theme.navy, for: .widget)
+                .environment(\.locale, LanguagePersistence.loadForWidget().locale)
         }
         .configurationDisplayName("Global Equity")
         .description("Total portfolio equity and today's P&L.")

@@ -95,6 +95,34 @@ struct APIClient {
 
     func me() async throws -> User { try decode(MeResponse.self, from: await request("auth")).user }
 
+    /// The one write call this otherwise read-only client makes: persists the
+    /// user's language choice server-side (`users.language`) so it's the shared
+    /// default on any other client reading the same account — mirrors the web
+    /// dashboard's `PATCH /api/profile {language}` exactly.
+    func updateLanguage(_ lang: String) async throws -> User {
+        var req = URLRequest(url: Config.apiBase.appendingPathComponent("profile"))
+        req.httpMethod = "PATCH"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.setValue("application/json", forHTTPHeaderField: "Accept")
+        if let token { req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization") }
+        req.httpBody = try JSONEncoder().encode(["language": lang])
+        req.timeoutInterval = 20
+        do {
+            let (data, resp) = try await URLSession.shared.data(for: req)
+            guard let http = resp as? HTTPURLResponse else { throw APIClientError.network("No response") }
+            if http.statusCode == 401 { throw APIClientError.unauthorized }
+            guard (200..<300).contains(http.statusCode) else {
+                let msg = (try? JSONDecoder().decode(APIError.self, from: data))?.error ?? "Request failed (\(http.statusCode))"
+                throw APIClientError.server(msg)
+            }
+            return try decode(MeResponse.self, from: data).user
+        } catch let e as APIClientError {
+            throw e
+        } catch {
+            throw APIClientError.network(error.localizedDescription)
+        }
+    }
+
     // MARK: - Data (read-only)
 
     func bots() async throws -> BotsResponse { try decode(BotsResponse.self, from: await request("bots")) }

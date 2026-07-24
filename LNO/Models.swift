@@ -17,6 +17,11 @@ struct User: Codable, Identifiable, Equatable {
     /// upload writes a FileReader data URL straight to this column) — decoded for
     /// display by `AvatarView`, never re-encoded by this read-only client.
     var avatar: String? = nil
+    /// Nullable — the web dashboard's `users.language` column. `nil` means the
+    /// user has never explicitly picked a language on either client; once set
+    /// here it's the shared default the web and iOS app both sync to (see
+    /// `LanguageStore.syncFromServer`).
+    var language: String? = nil
 
     var displayName: String {
         let full = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)

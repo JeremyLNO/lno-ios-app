@@ -9,6 +9,7 @@ struct PositionsWidget: Widget {
         StaticConfiguration(kind: kind, provider: PortfolioProvider()) { entry in
             PositionsWidgetView(entry: entry)
                 .containerBackground(Theme.navy, for: .widget)
+                .environment(\.locale, LanguagePersistence.loadForWidget().locale)
         }
         .configurationDisplayName("Open Positions")
         .description("Your currently open positions.")

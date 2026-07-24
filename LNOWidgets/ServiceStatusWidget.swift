@@ -9,6 +9,7 @@ struct ServiceStatusWidget: Widget {
         StaticConfiguration(kind: kind, provider: PortfolioProvider()) { entry in
             ServiceStatusView(entry: entry)
                 .containerBackground(Theme.navy, for: .widget)
+                .environment(\.locale, LanguagePersistence.loadForWidget().locale)
         }
         .configurationDisplayName("Service Status")
         .description("Exchange sync, database, positions, alerting, funds and last sync.")

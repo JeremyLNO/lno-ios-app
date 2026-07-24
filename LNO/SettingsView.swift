@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var auth: AuthStore
+    @EnvironmentObject var loc: LanguageStore
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -11,6 +12,7 @@ struct SettingsView: View {
                 ScrollView {
                     VStack(spacing: 16) {
                         profileCard
+                        languageCard
                         securityCard
                         infoCard
                         Button(role: .destructive) {
@@ -54,6 +56,26 @@ struct SettingsView: View {
                     }
                     Spacer()
                 }
+            }
+        }
+    }
+
+    /// 4-way picker mirroring the web dashboard's sidebar `LangSwitcher` — picking
+    /// one here applies instantly and (once signed in) becomes the shared default
+    /// synced to the account, same as picking one on the web.
+    private var languageCard: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Language").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                Picker("Language", selection: Binding(
+                    get: { loc.lang },
+                    set: { loc.setLang($0, auth: auth) }
+                )) {
+                    ForEach(Lang.allCases) { l in
+                        Text(l.displayCode).tag(l)
+                    }
+                }
+                .pickerStyle(.segmented)
             }
         }
     }

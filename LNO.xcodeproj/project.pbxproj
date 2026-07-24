@@ -18,6 +18,7 @@
 		0423640736DF65990A30CDA4 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F33553DEAEB8924D16F6BF /* Keychain.swift */; };
 		8594BB83ED1729167E20ABA3 /* LNOApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0DC46F8529EE5AC1E0CF7 /* LNOApp.swift */; };
 		19BBB55C53EAD28046158B0F /* LNOLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174481584C5470CE3FE87E75 /* LNOLogo.swift */; };
+		8850E3D90CDEE851425104EE /* LanguageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4773F91A1C7C992E4ADB185F /* LanguageStore.swift */; };
 		6486A72898F1D9CC97C2E490 /* LockScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAFBA5F697CED889A424FFF /* LockScreenView.swift */; };
 		DA9B618FB14D2FC8B0D87C86 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C1D31B29F6B23B90C13FA /* LoginView.swift */; };
 		41750485515B05D217A379D0 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425BDC5D4FF55CDED13598AF /* MainTabView.swift */; };
@@ -32,6 +33,7 @@
 		05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */; };
 		60A241169C62B2007AC91F03 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9B45389C61A31D07AA617A /* Theme.swift */; };
 		09352253093668F4649869FD /* DonutChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */; };
+		3DE7048049261EB0E0FEBA15 /* Lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6E4A82A32061CEC2029231 /* Lang.swift */; };
 		48C0421722F4B47D9DDC061A /* PnlCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */; };
 		C98B8B62FA7731724548EFAA /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */; };
 		5A0A0A3181BD2F71E9E8B09D /* FundsEquityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */; };
@@ -42,6 +44,7 @@
 		F6C70A91636AE3AC41DF36B5 /* PositionsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13700883D2F66D6D691A7778 /* PositionsWidget.swift */; };
 		87C79EF47AB967269C830814 /* ServiceStatusWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */; };
 		63C7558CC898E5E48724027F /* DonutChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */; };
+		9397C4EDD43F169858E4F4A6 /* Lang.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6E4A82A32061CEC2029231 /* Lang.swift */; };
 		51950915E5E86290BB2EE1CE /* PnlCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */; };
 		21477912C80341F7EE6F0CBE /* WidgetSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */; };
 		4684AF7E13B6E2A60D095643 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9B45389C61A31D07AA617A /* Theme.swift */; };
@@ -68,6 +71,7 @@
 		74F33553DEAEB8924D16F6BF /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		4AF0DC46F8529EE5AC1E0CF7 /* LNOApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNOApp.swift; sourceTree = "<group>"; };
 		174481584C5470CE3FE87E75 /* LNOLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNOLogo.swift; sourceTree = "<group>"; };
+		4773F91A1C7C992E4ADB185F /* LanguageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageStore.swift; sourceTree = "<group>"; };
 		1DAFBA5F697CED889A424FFF /* LockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenView.swift; sourceTree = "<group>"; };
 		270C1D31B29F6B23B90C13FA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		425BDC5D4FF55CDED13598AF /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 		DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EF9B45389C61A31D07AA617A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutChart.swift; sourceTree = "<group>"; };
+		0D6E4A82A32061CEC2029231 /* Lang.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lang.swift; sourceTree = "<group>"; };
 		91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PnlCalendar.swift; sourceTree = "<group>"; };
 		19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshot.swift; sourceTree = "<group>"; };
 		BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundsEquityWidget.swift; sourceTree = "<group>"; };
@@ -156,6 +161,7 @@
 				74F33553DEAEB8924D16F6BF /* Keychain.swift */,
 				4AF0DC46F8529EE5AC1E0CF7 /* LNOApp.swift */,
 				174481584C5470CE3FE87E75 /* LNOLogo.swift */,
+				4773F91A1C7C992E4ADB185F /* LanguageStore.swift */,
 				1DAFBA5F697CED889A424FFF /* LockScreenView.swift */,
 				270C1D31B29F6B23B90C13FA /* LoginView.swift */,
 				425BDC5D4FF55CDED13598AF /* MainTabView.swift */,
@@ -181,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */,
+				0D6E4A82A32061CEC2029231 /* Lang.swift */,
 				91CE4790F5557EC37F32FDCC /* PnlCalendar.swift */,
 				19387ABB534C15FFCE111D2D /* WidgetSnapshot.swift */,
 			);
@@ -375,6 +382,7 @@
 				0423640736DF65990A30CDA4 /* Keychain.swift in Sources */,
 				8594BB83ED1729167E20ABA3 /* LNOApp.swift in Sources */,
 				19BBB55C53EAD28046158B0F /* LNOLogo.swift in Sources */,
+				8850E3D90CDEE851425104EE /* LanguageStore.swift in Sources */,
 				6486A72898F1D9CC97C2E490 /* LockScreenView.swift in Sources */,
 				DA9B618FB14D2FC8B0D87C86 /* LoginView.swift in Sources */,
 				41750485515B05D217A379D0 /* MainTabView.swift in Sources */,
@@ -389,6 +397,7 @@
 				05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */,
 				60A241169C62B2007AC91F03 /* Theme.swift in Sources */,
 				09352253093668F4649869FD /* DonutChart.swift in Sources */,
+				3DE7048049261EB0E0FEBA15 /* Lang.swift in Sources */,
 				48C0421722F4B47D9DDC061A /* PnlCalendar.swift in Sources */,
 				C98B8B62FA7731724548EFAA /* WidgetSnapshot.swift in Sources */,
 			);
@@ -406,6 +415,7 @@
 				F6C70A91636AE3AC41DF36B5 /* PositionsWidget.swift in Sources */,
 				87C79EF47AB967269C830814 /* ServiceStatusWidget.swift in Sources */,
 				63C7558CC898E5E48724027F /* DonutChart.swift in Sources */,
+				9397C4EDD43F169858E4F4A6 /* Lang.swift in Sources */,
 				51950915E5E86290BB2EE1CE /* PnlCalendar.swift in Sources */,
 				21477912C80341F7EE6F0CBE /* WidgetSnapshot.swift in Sources */,
 				4684AF7E13B6E2A60D095643 /* Theme.swift in Sources */,

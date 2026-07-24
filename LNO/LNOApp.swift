@@ -4,12 +4,24 @@ import SwiftUI
 struct LNOApp: App {
     @StateObject private var auth = AuthStore()
     @StateObject private var router = DeepLinkRouter()
+    @StateObject private var languageStore = LanguageStore()
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(auth)
                 .environmentObject(router)
+                .environmentObject(languageStore)
+                // The officially-supported way to make a String Catalog respect an
+                // in-app language choice instead of the device's system Settings ▸
+                // Language: override the `\.locale` environment value for the whole
+                // hierarchy. `Text`/`LocalizedStringKey` resolution consults this
+                // before falling back to the device locale, so this takes effect
+                // immediately, with no relaunch.
+                .environment(\.locale, languageStore.lang.locale)
+                .onChange(of: auth.user) { _, user in
+                    languageStore.syncFromServer(user)
+                }
                 .preferredColorScheme(.light)
                 .tint(Theme.gold)
                 .onOpenURL { router.handle($0) }
