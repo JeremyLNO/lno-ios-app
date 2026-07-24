@@ -204,6 +204,17 @@ struct AuthBackground: View {
     }
 }
 
+/// The top-left logo mark, tappable from any tab to jump back to Overview —
+/// matches the web dashboard's header logo, which links back to the home page.
+private struct LogoHomeButton: View {
+    @EnvironmentObject var router: DeepLinkRouter
+    var body: some View {
+        Button { router.selectedTab = .overview } label: {
+            LNOLogo(color: Theme.navy, showWordmark: false).frame(width: 30, height: 30)
+        }
+    }
+}
+
 extension View {
     /// The one top bar every tab uses: LNO mark top-left, page title inline,
     /// profile avatar top-right — same navigationBarTitleDisplayMode (.inline)
@@ -217,7 +228,7 @@ extension View {
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    LNOLogo(color: Theme.navy, showWordmark: false).frame(width: 30, height: 30)
+                    LogoHomeButton()
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showSettings.wrappedValue = true } label: {
