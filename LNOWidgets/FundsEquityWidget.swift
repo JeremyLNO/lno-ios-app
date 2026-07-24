@@ -31,7 +31,7 @@ private struct FundsEquityView: View {
                     Link(destination: URL(string: "\(Config.authCallbackScheme)://fund/\(f.id)")!) {
                         HStack(spacing: 6) {
                             Circle().fill(Color(hexString: f.color) ?? Theme.gold).frame(width: 7, height: 7)
-                            Text(f.name).font(.caption).foregroundStyle(.white).lineLimit(1)
+                            Text(f.displayName).font(.caption).foregroundStyle(.white).lineLimit(1)
                             Spacer()
                             Text(Fmt.signedUSD(f.uPnl)).font(.caption).fontWeight(.semibold)
                                 .foregroundStyle(Theme.pnlColor(f.uPnl))

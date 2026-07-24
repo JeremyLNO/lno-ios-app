@@ -46,7 +46,7 @@ private struct PositionsWidgetView: View {
                     Text(p.side.uppercased()).font(.system(size: 8, weight: .bold))
                         .foregroundStyle(p.side.lowercased() == "long" ? Theme.up : Theme.down)
                 }
-                Text("\(p.botLabel) · \(p.fundName)")
+                (Text(p.botLabel) + Text(" · ") + Text(p.displayFundName))
                     .font(.system(size: 9)).foregroundStyle(Theme.mutedText).lineLimit(1)
             }
             Spacer()

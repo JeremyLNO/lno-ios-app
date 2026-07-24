@@ -54,9 +54,9 @@ private struct GlobalEquityView: View {
         )
     }
 
-    private func widgetStat(_ label: String, _ value: String, _ color: Color) -> some View {
+    private func widgetStat(_ label: LocalizedStringKey, _ value: String, _ color: Color) -> some View {
         VStack(alignment: .leading, spacing: 1) {
-            Text(label.uppercased()).font(.system(size: 9)).foregroundStyle(Theme.mutedText)
+            Text(label).textCase(.uppercase).font(.system(size: 9)).foregroundStyle(Theme.mutedText)
             Text(value).font(.caption).fontWeight(.semibold).foregroundStyle(color)
         }
     }

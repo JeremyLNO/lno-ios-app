@@ -42,7 +42,7 @@ struct PricesView: View {
         } else if loading && tickers.isEmpty {
             LoadingView()
         } else if let error, tickers.isEmpty {
-            ErrorView(message: error) { Task { await load() } }
+            ErrorView(message: LocalizedStringKey(error)) { Task { await load() } }
         } else {
             List {
                 ForEach(order, id: \.self) { sym in

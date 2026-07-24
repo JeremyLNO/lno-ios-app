@@ -35,7 +35,7 @@ struct DashboardView: View {
         if store.loading && store.lastLoaded == nil {
             LoadingView()
         } else if let err = store.loadError, store.lastLoaded == nil {
-            ErrorView(message: err) { Task { await store.refresh(auth: auth) } }
+            ErrorView(message: LocalizedStringKey(err)) { Task { await store.refresh(auth: auth) } }
         } else {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
@@ -144,7 +144,7 @@ struct DashboardView: View {
                     ForEach(store.fundGroups) { g in
                         HStack {
                             FundDot(color: g.color)
-                            Text(g.name).foregroundStyle(Theme.navy)
+                            Text(g.displayName).foregroundStyle(Theme.navy)
                             Text("· \(g.bots.count)").font(.caption).foregroundStyle(Theme.mutedText)
                             Spacer()
                             Text(Fmt.signedUSD(g.uPnl)).fontWeight(.semibold)
@@ -284,7 +284,7 @@ struct DashboardView: View {
                             ForEach(groups) { g in
                                 HStack {
                                     FundDot(color: g.color, size: 8)
-                                    Text(g.name).font(.caption).foregroundStyle(Theme.mutedText)
+                                    Text(g.displayName).font(.caption).foregroundStyle(Theme.mutedText)
                                     Spacer()
                                     Text(total > 0 ? Fmt.pct(g.notional / total * 100, decimals: 1) : "0.0%")
                                         .font(.caption).fontWeight(.medium).foregroundStyle(Theme.navy)

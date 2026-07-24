@@ -31,7 +31,7 @@ struct PortfolioProvider: TimelineProvider {
 /// Shown in all four widgets when no snapshot has been saved yet (never opened
 /// the app / not signed in).
 struct WidgetEmptyState: View {
-    var text = "Open LNO Control Center to load your portfolio."
+    var text: LocalizedStringKey = "Open LNO Control Center to load your portfolio."
     var body: some View {
         VStack(spacing: 6) {
             LNOLogo(showWordmark: false).frame(width: 28, height: 28)

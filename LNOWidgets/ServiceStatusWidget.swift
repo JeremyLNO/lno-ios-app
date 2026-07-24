@@ -25,15 +25,15 @@ private struct ServiceStatusView: View {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 6) {
                     Circle().fill(dotColor(s.overallStatus)).frame(width: 8, height: 8)
-                    Text(s.overallStatus.uppercased())
+                    Text(LocalizedStringKey(s.overallStatus)).textCase(.uppercase)
                         .font(.system(size: 10, weight: .semibold)).foregroundStyle(Theme.mutedText)
                 }
                 ForEach(s.serviceChecks) { c in
                     HStack(spacing: 6) {
                         Circle().fill(dotColor(for: c.state)).frame(width: 6, height: 6)
-                        Text(c.label).font(.system(size: 11)).foregroundStyle(.white).lineLimit(1)
+                        Text(LocalizedStringKey(c.label)).font(.system(size: 11)).foregroundStyle(.white).lineLimit(1)
                         Spacer()
-                        Text(c.sub).font(.system(size: 10)).foregroundStyle(Theme.mutedText).lineLimit(1)
+                        Text(LocalizedStringKey(c.sub)).font(.system(size: 10)).foregroundStyle(Theme.mutedText).lineLimit(1)
                     }
                 }
                 Spacer(minLength: 0)

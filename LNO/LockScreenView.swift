@@ -18,7 +18,7 @@ struct LockScreenView: View {
                 Text("LNO Control Center is locked")
                     .font(.headline).foregroundStyle(.white)
                 if let err = auth.errorMessage {
-                    Text(err).font(.footnote).foregroundStyle(Theme.down)
+                    Text(LocalizedStringKey(err)).font(.footnote).foregroundStyle(Theme.down)
                         .multilineTextAlignment(.center).padding(.horizontal, 32)
                 }
                 Button {

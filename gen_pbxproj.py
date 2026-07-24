@@ -46,6 +46,7 @@ widget_files = sorted(os.path.basename(p) for p in glob.glob(os.path.join(ROOT, 
 assets = "Assets.xcassets"
 infoplist = "Info.plist"
 widget_infoplist = "Info.plist"
+localizable = "Localizable.xcstrings"
 
 # ---- UUIDs -------------------------------------------------------------
 prod_ref = u("product.app")
@@ -87,6 +88,9 @@ for f in shared_files:
 for f in widget_files:
     file_refs[f] = u("fileref.widget." + f)
 file_refs[assets] = u("fileref.assets")
+file_refs[localizable] = u("fileref.localizable")
+localizable_app_build_file = u("buildfile.app.localizable")
+localizable_widget_build_file = u("buildfile.widget.localizable")
 entitlements_ref = u("fileref.entitlements")
 widget_entitlements_ref = u("fileref.widget.entitlements")
 widget_infoplist_ref = u("fileref.widget.info")
@@ -130,6 +134,8 @@ for f in app_sources:
 for f in widget_sources:
     L('\t\t%s /* %s in Sources */ = {isa = PBXBuildFile; fileRef = %s /* %s */; };' % (widget_build_files[f], f, file_refs[f], f))
 L('\t\t%s /* %s in Resources */ = {isa = PBXBuildFile; fileRef = %s /* %s */; };' % (assets_build_file, assets, file_refs[assets], assets))
+L('\t\t%s /* %s in Resources */ = {isa = PBXBuildFile; fileRef = %s /* %s */; };' % (localizable_app_build_file, localizable, file_refs[localizable], localizable))
+L('\t\t%s /* %s in Resources */ = {isa = PBXBuildFile; fileRef = %s /* %s */; };' % (localizable_widget_build_file, localizable, file_refs[localizable], localizable))
 for prod, bf_uid in product_build_files.items():
     L('\t\t%s /* %s in Frameworks */ = {isa = PBXBuildFile; productRef = %s /* %s */; };' % (bf_uid, prod, product_deps[prod], prod))
 L('\t\t%s /* %s.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = %s /* %s.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };' % (embed_build_file, WIDGET_PROJ, widget_prod_ref, WIDGET_PROJ))
@@ -146,6 +152,7 @@ for f in shared_files:
 for f in widget_files:
     L('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = %s; sourceTree = "<group>"; };' % (file_refs[f], f, f))
 L('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = %s; sourceTree = "<group>"; };' % (file_refs[assets], assets, assets))
+L('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = %s; sourceTree = "<group>"; };' % (file_refs[localizable], localizable, localizable))
 L('\t\t%s /* %s */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = %s; sourceTree = "<group>"; };' % (file_refs[infoplist], infoplist, infoplist))
 L('\t\t%s /* LNO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LNO.entitlements; sourceTree = "<group>"; };' % entitlements_ref)
 L('\t\t%s /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };' % widget_infoplist_ref)
@@ -205,6 +212,7 @@ L('\t\t\tchildren = (')
 for f in swift_files:
     L('\t\t\t\t%s /* %s */,' % (file_refs[f], f))
 L('\t\t\t\t%s /* %s */,' % (file_refs[assets], assets))
+L('\t\t\t\t%s /* %s */,' % (file_refs[localizable], localizable))
 L('\t\t\t\t%s /* %s */,' % (file_refs[infoplist], infoplist))
 L('\t\t\t\t%s /* LNO.entitlements */,' % entitlements_ref)
 L('\t\t\t);')
@@ -314,6 +322,7 @@ L('\t\t\tdevelopmentRegion = en;')
 L('\t\t\thasScannedForEncodings = 0;')
 L('\t\t\tknownRegions = (')
 L('\t\t\t\ten,')
+L('\t\t\t\tfr,')
 L('\t\t\t\tBase,')
 L('\t\t\t);')
 L('\t\t\tmainGroup = %s;' % main_group)
@@ -378,6 +387,7 @@ L('\t\t\tisa = PBXResourcesBuildPhase;')
 L('\t\t\tbuildActionMask = 2147483647;')
 L('\t\t\tfiles = (')
 L('\t\t\t\t%s /* %s in Resources */,' % (assets_build_file, assets))
+L('\t\t\t\t%s /* %s in Resources */,' % (localizable_app_build_file, localizable))
 L('\t\t\t);')
 L('\t\t\trunOnlyForDeploymentPostprocessing = 0;')
 L('\t\t};')
@@ -385,6 +395,7 @@ L('\t\t%s /* Resources */ = {' % widget_resources_phase)
 L('\t\t\tisa = PBXResourcesBuildPhase;')
 L('\t\t\tbuildActionMask = 2147483647;')
 L('\t\t\tfiles = (')
+L('\t\t\t\t%s /* %s in Resources */,' % (localizable_widget_build_file, localizable))
 L('\t\t\t);')
 L('\t\t\trunOnlyForDeploymentPostprocessing = 0;')
 L('\t\t};')

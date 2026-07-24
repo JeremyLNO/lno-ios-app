@@ -32,7 +32,7 @@ struct LoginView: View {
                         googleButton
 
                         if let err = auth.errorMessage {
-                            Text(err).font(.footnote).foregroundStyle(Theme.down)
+                            Text(LocalizedStringKey(err)).font(.footnote).foregroundStyle(Theme.down)
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .multilineTextAlignment(.center)
                         }
@@ -220,7 +220,7 @@ struct LoginView: View {
         Task { await auth.verifyOtp(email: email, code: code) }
     }
 
-    private func field(icon: String, placeholder: String, text: Binding<String>) -> some View {
+    private func field(icon: String, placeholder: LocalizedStringKey, text: Binding<String>) -> some View {
         HStack {
             Image(systemName: icon).foregroundStyle(Theme.faintText).frame(width: 20)
             TextField("", text: text, prompt: Text(placeholder).foregroundColor(Theme.faintText))

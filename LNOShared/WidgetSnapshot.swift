@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 /// Compact portfolio snapshot the main app writes after every refresh, and the
 /// widget extension reads — via the shared App Group container. Keeps the widget
@@ -12,6 +13,9 @@ struct WidgetSnapshot: Codable {
         var color: String
         var uPnl: Double
         var positionCount: Int
+        /// Mirrors PortfolioStore.FundGroup.displayName — the synthetic "__unassigned"
+        /// bucket's label is ours to translate, real fund names aren't.
+        var displayName: LocalizedStringKey { id == "__unassigned" ? "Unassigned" : LocalizedStringKey(name) }
     }
     struct PositionLine: Codable, Identifiable {
         var id: String
@@ -22,6 +26,9 @@ struct WidgetSnapshot: Codable {
         var unrealizedPnl: Double
         var notional: Double
         var pnlPct: Double
+        /// `fundName` falls back to the literal "Unassigned" (see PortfolioStore.saveWidgetSnapshot)
+        /// when a position has no fund — that fallback should translate like any other UI string.
+        var displayFundName: LocalizedStringKey { fundName == "Unassigned" ? "Unassigned" : LocalizedStringKey(fundName) }
     }
     struct ServiceCheck: Codable, Identifiable {
         var id: String { label }

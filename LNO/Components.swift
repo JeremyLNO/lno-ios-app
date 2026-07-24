@@ -19,18 +19,19 @@ struct Card<Content: View>: View {
 /// A single KPI tile matching the web's `KpiCard`: label + icon chip top row,
 /// big navy value, optional trend badge below.
 struct KPITile: View {
-    let label: String
+    let label: LocalizedStringKey
     let value: String
     var icon: String? = nil
     var accent: Color? = nil
-    var sub: String? = nil
+    var sub: LocalizedStringKey? = nil
     var subColor: Color = Theme.mutedText
 
     var body: some View {
         Card {
             VStack(alignment: .leading, spacing: 2) {
                 HStack {
-                    Text(label.uppercased())
+                    Text(label)
+                        .textCase(.uppercase)
                         .font(.caption2).fontWeight(.medium)
                         .foregroundStyle(Theme.mutedText)
                     Spacer()
@@ -140,7 +141,7 @@ struct LoadingView: View {
 }
 
 struct ErrorView: View {
-    let message: String
+    let message: LocalizedStringKey
     let retry: () -> Void
     var body: some View {
         VStack(spacing: 14) {
@@ -154,8 +155,8 @@ struct ErrorView: View {
 
 struct EmptyStateView: View {
     let icon: String
-    let title: String
-    var subtitle: String? = nil
+    let title: LocalizedStringKey
+    var subtitle: LocalizedStringKey? = nil
     var body: some View {
         VStack(spacing: 10) {
             Image(systemName: icon).font(.largeTitle).foregroundStyle(Theme.faintText)
@@ -192,7 +193,7 @@ extension View {
     /// profile avatar top-right — same navigationBarTitleDisplayMode (.inline)
     /// everywhere. Tabs used to pick their own (Overview was .inline, the other
     /// three were .large), which made the header a different height per tab.
-    func lnoTopBar(_ title: String, auth: AuthStore, showSettings: Binding<Bool>) -> some View {
+    func lnoTopBar(_ title: LocalizedStringKey, auth: AuthStore, showSettings: Binding<Bool>) -> some View {
         self
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)

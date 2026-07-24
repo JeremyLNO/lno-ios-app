@@ -47,6 +47,8 @@
 		D86480B41CE24163C0E764E3 /* LNOLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174481584C5470CE3FE87E75 /* LNOLogo.swift */; };
 		FB2A18B2E6476ACC702CDE96 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A43733DF0F5B8EC6EAB11A /* Config.swift */; };
 		6DD9C133694F74FB87B20B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87D082A130B664A5357AC999 /* Assets.xcassets */; };
+		80738F73FB9FB9161B114A42 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */; };
+		E5050034051D83A723D6FE2C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */; };
 		ADC2456E1605FD79E7C4B520 /* OneSignalFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 441CA140E443CD314CCCE1F6 /* OneSignalFramework */; };
 		53F85E2D092373A8A32EB350 /* LNOWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0FD7488223EA0E20BD335592 /* LNOWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -88,6 +90,7 @@
 		13700883D2F66D6D691A7778 /* PositionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsWidget.swift; sourceTree = "<group>"; };
 		3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStatusWidget.swift; sourceTree = "<group>"; };
 		87D082A130B664A5357AC999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		A8A099B64061A1652B5F5763 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		709D7B15D79D5B2C291169B5 /* LNO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LNO.entitlements; sourceTree = "<group>"; };
 		D0B978D3732C2E3C0AB384B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,6 +167,7 @@
 				DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */,
 				EF9B45389C61A31D07AA617A /* Theme.swift */,
 				87D082A130B664A5357AC999 /* Assets.xcassets */,
+				CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */,
 				A8A099B64061A1652B5F5763 /* Info.plist */,
 				709D7B15D79D5B2C291169B5 /* LNO.entitlements */,
 			);
@@ -276,6 +280,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
 				Base,
 			);
 			mainGroup = 71DC27D9F8E3B109C877BFC4;
@@ -335,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DD9C133694F74FB87B20B01 /* Assets.xcassets in Resources */,
+				80738F73FB9FB9161B114A42 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +348,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5050034051D83A723D6FE2C /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -52,7 +52,7 @@ struct PositionsView: View {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     FundDot(color: g.color, size: 12)
-                    Text(g.name).font(.headline).foregroundStyle(Theme.navy)
+                    Text(g.displayName).font(.headline).foregroundStyle(Theme.navy)
                     Spacer()
                     Text(Fmt.signedUSD(g.uPnl)).fontWeight(.bold)
                         .foregroundStyle(Theme.pnlColor(g.uPnl))
@@ -97,9 +97,9 @@ struct PositionsView: View {
         .padding(.vertical, 4)
     }
 
-    private func metric(_ label: String, _ value: String) -> some View {
+    private func metric(_ label: LocalizedStringKey, _ value: String) -> some View {
         VStack(alignment: .leading, spacing: 1) {
-            Text(label.uppercased()).font(.system(size: 9)).foregroundStyle(Theme.faintText)
+            Text(label).textCase(.uppercase).font(.system(size: 9)).foregroundStyle(Theme.faintText)
             Text(value).font(.caption).foregroundStyle(Theme.navy.opacity(0.85))
         }
     }

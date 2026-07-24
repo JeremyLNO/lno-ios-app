@@ -51,6 +51,10 @@ final class PortfolioStore: ObservableObject {
         var bots: [Bot]
         var uPnl: Double { bots.reduce(0) { $0 + $1.unrealizedPnl } }
         var notional: Double { bots.reduce(0) { $0 + $1.notional } }
+        /// Fund names come from the server and shouldn't be run through the localization
+        /// catalog — except the synthetic "__unassigned" bucket, whose "Unassigned" label
+        /// is one of ours and should translate like any other UI string.
+        var displayName: LocalizedStringKey { id == "__unassigned" ? "Unassigned" : LocalizedStringKey(name) }
     }
     var fundGroups: [FundGroup] {
         var groups: [FundGroup] = funds
