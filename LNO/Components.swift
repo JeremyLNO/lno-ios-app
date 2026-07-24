@@ -153,6 +153,22 @@ struct ErrorView: View {
     }
 }
 
+/// Mirrors the web's `<Denied/>` (shield icon + title/message) — shown if a screen is
+/// somehow reached without the required permission (defense in depth; MainTabView
+/// already hides the tab itself, matching the web's nav-hiding + per-page re-check).
+struct DeniedView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            Image(systemName: "shield.slash").font(.largeTitle).foregroundStyle(Theme.faintText)
+            Text("Access denied").font(.headline).foregroundStyle(Theme.navy)
+            Text("You don't have permission to view this page.").font(.subheadline).foregroundStyle(Theme.mutedText)
+        }
+        .multilineTextAlignment(.center)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(32)
+    }
+}
+
 struct EmptyStateView: View {
     let icon: String
     let title: LocalizedStringKey

@@ -5,7 +5,7 @@ import SwiftUI
 /// asks it to scroll to that fund's card.
 @MainActor
 final class DeepLinkRouter: ObservableObject {
-    enum Tab: Hashable { case overview, positions, prices, alerts }
+    enum Tab: Hashable { case overview, positions, prices, realtime, alerts }
 
     @Published var selectedTab: Tab = .overview
     @Published var scrollToFundID: String?

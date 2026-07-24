@@ -28,6 +28,7 @@
 		BD80AA1A4B31818B4BFE1A68 /* PortfolioStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27DE9CEC6E2CB1C144A9280 /* PortfolioStore.swift */; };
 		70B0E50BBDD6889717E9A242 /* PositionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08191A9958DE3CB7E4791BF /* PositionsView.swift */; };
 		A1AE2CC97CBDE45696DF0809 /* PricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62819777DDE50E6F351243A4 /* PricesView.swift */; };
+		AC68102901F6D422B7F90944 /* RealtimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108AF8F8A0FDA337D917D70 /* RealtimeView.swift */; };
 		05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */; };
 		60A241169C62B2007AC91F03 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9B45389C61A31D07AA617A /* Theme.swift */; };
 		09352253093668F4649869FD /* DonutChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */; };
@@ -77,6 +78,7 @@
 		B27DE9CEC6E2CB1C144A9280 /* PortfolioStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioStore.swift; sourceTree = "<group>"; };
 		A08191A9958DE3CB7E4791BF /* PositionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsView.swift; sourceTree = "<group>"; };
 		62819777DDE50E6F351243A4 /* PricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesView.swift; sourceTree = "<group>"; };
+		9108AF8F8A0FDA337D917D70 /* RealtimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeView.swift; sourceTree = "<group>"; };
 		DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EF9B45389C61A31D07AA617A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		660F3EBCFB178CC6D4A1DA43 /* DonutChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonutChart.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				B27DE9CEC6E2CB1C144A9280 /* PortfolioStore.swift */,
 				A08191A9958DE3CB7E4791BF /* PositionsView.swift */,
 				62819777DDE50E6F351243A4 /* PricesView.swift */,
+				9108AF8F8A0FDA337D917D70 /* RealtimeView.swift */,
 				DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */,
 				EF9B45389C61A31D07AA617A /* Theme.swift */,
 				87D082A130B664A5357AC999 /* Assets.xcassets */,
@@ -281,6 +284,8 @@
 			knownRegions = (
 				en,
 				fr,
+				de,
+				es,
 				Base,
 			);
 			mainGroup = 71DC27D9F8E3B109C877BFC4;
@@ -380,6 +385,7 @@
 				BD80AA1A4B31818B4BFE1A68 /* PortfolioStore.swift in Sources */,
 				70B0E50BBDD6889717E9A242 /* PositionsView.swift in Sources */,
 				A1AE2CC97CBDE45696DF0809 /* PricesView.swift in Sources */,
+				AC68102901F6D422B7F90944 /* RealtimeView.swift in Sources */,
 				05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */,
 				60A241169C62B2007AC91F03 /* Theme.swift in Sources */,
 				09352253093668F4649869FD /* DonutChart.swift in Sources */,

@@ -44,7 +44,10 @@ struct DashboardView: View {
                     equitySection
                     botAllocationSection
                     byBotSection
-                    pnlCalendarSection
+                    // Matches web's ActivityPage gating (view_activity) — the rest of Overview
+                    // mirrors the ungated MyEquityPage, but this card's data/component is shared
+                    // with the Activity page's PnL Calendar, so it carries that page's permission.
+                    if auth.user?.can("view_activity") ?? false { pnlCalendarSection }
                     fundAllocationSection
                     fundsSummary
                     if let synced = store.live?.syncedDate {

@@ -69,6 +69,16 @@ enum Fmt {
     static func number(_ v: Double, decimals: Int = 0) -> String {
         String(format: "%.\(decimals)f", v)
     }
+    /// Compact-formatted USD (e.g. $1.2M, $840K) — matches the web's volume/notional
+    /// summaries (fmtCompactUSD in src/ui.tsx).
+    static func compactUSD(_ v: Double) -> String {
+        let av = abs(v)
+        let sign = v < 0 ? "-" : ""
+        if av >= 1_000_000_000 { return "\(sign)$\(number(av / 1_000_000_000, decimals: 2))B" }
+        if av >= 1_000_000 { return "\(sign)$\(number(av / 1_000_000, decimals: 2))M" }
+        if av >= 1_000 { return "\(sign)$\(number(av / 1_000, decimals: 1))K" }
+        return "\(sign)\(usd(av))"
+    }
     static func price(_ v: Double) -> String {
         let decimals: Int = v >= 1000 ? 1 : (v >= 1 ? 2 : (v >= 0.01 ? 4 : 6))
         return usd(v, decimals: decimals)

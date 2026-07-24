@@ -16,7 +16,9 @@ struct PositionsView: View {
     }
 
     @ViewBuilder private var content: some View {
-        if store.loading && store.lastLoaded == nil {
+        if !(auth.user?.can("view_trades") ?? false) {
+            DeniedView()
+        } else if store.loading && store.lastLoaded == nil {
             LoadingView()
         } else if store.fundGroups.isEmpty {
             EmptyStateView(icon: "tray", title: "No open positions",

@@ -26,19 +26,38 @@ struct MainTabView: View {
         UITabBar.appearance().scrollEdgeAppearance = appearance
     }
 
+    /// Tab-level gating mirrors the web's MAIN_NAV perm-per-page (ui.tsx) exactly:
+    /// Positions needs view_trades, Prices needs view_activity (same perm as the web's
+    /// Activity/Prices pages), Realtime needs view_realtime. Overview and Alerts have no
+    /// gate on the web (MyEquityPage and the alerts GET endpoint are both auth-only) —
+    /// their gated *sub-sections* (PnL Calendar, "Mark all as read") are gated in place.
+    private var canPositions: Bool { auth.user?.can("view_trades") ?? false }
+    private var canPrices: Bool { auth.user?.can("view_activity") ?? false }
+    private var canRealtime: Bool { auth.user?.can("view_realtime") ?? false }
+
     var body: some View {
         TabView(selection: $router.selectedTab) {
             NavigationStack { DashboardView(showSettings: $showSettings) }
                 .tabItem { Label("Overview", systemImage: "chart.line.uptrend.xyaxis") }
                 .tag(DeepLinkRouter.Tab.overview)
 
-            NavigationStack { PositionsView(showSettings: $showSettings) }
-                .tabItem { Label("Positions", systemImage: "list.bullet.rectangle") }
-                .tag(DeepLinkRouter.Tab.positions)
+            if canPositions {
+                NavigationStack { PositionsView(showSettings: $showSettings) }
+                    .tabItem { Label("Positions", systemImage: "list.bullet.rectangle") }
+                    .tag(DeepLinkRouter.Tab.positions)
+            }
 
-            NavigationStack { PricesView(showSettings: $showSettings) }
-                .tabItem { Label("Prices", systemImage: "bitcoinsign.circle") }
-                .tag(DeepLinkRouter.Tab.prices)
+            if canPrices {
+                NavigationStack { PricesView(showSettings: $showSettings) }
+                    .tabItem { Label("Prices", systemImage: "bitcoinsign.circle") }
+                    .tag(DeepLinkRouter.Tab.prices)
+            }
+
+            if canRealtime {
+                NavigationStack { RealtimeView(showSettings: $showSettings) }
+                    .tabItem { Label("Live", systemImage: "dot.radiowaves.left.and.right") }
+                    .tag(DeepLinkRouter.Tab.realtime)
+            }
 
             NavigationStack { AlertsView(showSettings: $showSettings) }
                 .tabItem { Label("Alerts", systemImage: "bell") }
@@ -55,6 +74,13 @@ struct MainTabView: View {
                 if Task.isCancelled { break }
                 await store.refreshPositionsOnly(auth: auth)
             }
+        }
+        .onChange(of: router.selectedTab) { _, tab in
+            // A tab can vanish out from under the user (rare: perms refreshed mid-session).
+            // Bounce back to Overview rather than showing a TabView with a dangling selection.
+            let stillVisible = (tab == .overview) || (tab == .alerts)
+                || (tab == .positions && canPositions) || (tab == .prices && canPrices) || (tab == .realtime && canRealtime)
+            if !stillVisible { router.selectedTab = .overview }
         }
     }
 }

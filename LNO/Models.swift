@@ -22,7 +22,11 @@ struct User: Codable, Identifiable, Equatable {
         let full = "\(firstName) \(lastName)".trimmingCharacters(in: .whitespaces)
         return full.isEmpty ? email : full
     }
-    func can(_ perm: String) -> Bool { permissions.contains(perm) }
+    /// Mirrors the web dashboard's `hasPerm()` (src/ui.tsx) exactly: admin always passes,
+    /// and a caller can ask about any-of a set of permissions (matching hasPerm's array overload).
+    func can(_ perm: String) -> Bool { role == "admin" || permissions.contains(perm) }
+    func can(anyOf perms: [String]) -> Bool { role == "admin" || perms.contains { permissions.contains($0) } }
+    var isAdmin: Bool { role == "admin" }
 }
 
 struct AuthResponse: Codable { let token: String; let user: User }
@@ -46,9 +50,21 @@ struct Bot: Codable, Identifiable, Equatable {
     let status: String
     var firstSeen: String?
     var lastSeen: String?
+    var liquidationPrice: Double? = nil
 
     var isOpen: Bool { status == "open" }
     var isLong: Bool { side.lowercased() == "long" || side.lowercased() == "buy" }
+    /// % move from mark to liquidation price, and a severity band — mirrors the
+    /// web's `liqInfo()` (src/ui.tsx) exactly, including its thresholds.
+    var liqDistancePct: Double? {
+        guard let liquidationPrice, mark != 0 else { return nil }
+        return abs(mark - liquidationPrice) / mark * 100
+    }
+    enum LiqLevel { case danger, warn, ok }
+    var liqLevel: LiqLevel? {
+        guard let pct = liqDistancePct else { return nil }
+        return pct < 10 ? .danger : (pct < 25 ? .warn : .ok)
+    }
     /// Base asset for price lookups, e.g. "BTCUSDT" -> "BTC".
     var baseAsset: String {
         for q in ["USDT", "USDC", "BUSD", "USD"] where symbol.hasSuffix(q) {
@@ -119,6 +135,41 @@ struct BinanceTicker: Codable {
     let symbol: String
     let lastPrice: String
     let priceChangePercent: String
+    var highPrice: String = "0"
+    var lowPrice: String = "0"
+    var quoteVolume: String = "0"
     var price: Double { Double(lastPrice) ?? 0 }
     var changePct: Double { Double(priceChangePercent) ?? 0 }
+    var high: Double { Double(highPrice) ?? 0 }
+    var low: Double { Double(lowPrice) ?? 0 }
+    var volume: Double { Double(quoteVolume) ?? 0 }
 }
+
+// MARK: - Realtime tab
+
+struct Fill: Codable, Identifiable, Equatable {
+    let symbol: String
+    let side: String
+    let qty: Double
+    let price: Double
+    let realizedPnl: Double
+    let commission: Double
+    let occurredAt: String?
+
+    var id: String { "\(symbol)-\(occurredAt ?? "")-\(price)-\(qty)" }
+    var isBuy: Bool { side.lowercased() == "buy" || side.lowercased() == "long" }
+    var date: Date? { Fmt.date(occurredAt) }
+}
+struct FillsResponse: Codable { let fills: [Fill] }
+
+struct ExchangeStatus: Codable, Identifiable, Equatable {
+    let id: Int
+    let name: String
+    let label: String?
+    var status: String? = nil       // admin-only field; nil for the read-only wallet view
+    var latencyMs: Int? = nil
+
+    var displayLabel: String { (label?.isEmpty == false ? label! : name) }
+    var isConnected: Bool { status == "connected" || status == "ok" }
+}
+struct ExchangesResponse: Codable { let exchanges: [ExchangeStatus] }

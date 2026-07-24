@@ -102,7 +102,20 @@ struct APIClient {
     func snapshots(limit: Int = 365) async throws -> [Snapshot] {
         try decode(SnapshotsResponse.self, from: await request("snapshots", query: [.init(name: "limit", value: String(limit))])).snapshots
     }
-    func alerts() async throws -> [Alert] { try decode(AlertsResponse.self, from: await request("alerts")).alerts }
+    func alerts(type: String? = nil, limit: Int = 30) async throws -> [Alert] {
+        var query = [URLQueryItem(name: "limit", value: String(limit))]
+        if let type { query.append(.init(name: "type", value: type)) }
+        return try decode(AlertsResponse.self, from: await request("alerts", query: query)).alerts
+    }
+    func fills() async throws -> [Fill] {
+        try decode(FillsResponse.self, from: await request("bots", query: [.init(name: "fills", value: "1")])).fills
+    }
+    /// Admin-only in practice (the Realtime page's Exchange Connectivity card is
+    /// role==='admin'-gated on the web, not just view_exchanges) — the endpoint itself
+    /// also serves a stripped read-only view to view_exchanges holders, unused here.
+    func exchanges() async throws -> [ExchangeStatus] {
+        try decode(ExchangesResponse.self, from: await request("exchanges")).exchanges
+    }
 
     // MARK: - Public market data (no auth)
 
@@ -124,5 +137,26 @@ struct APIClient {
             for try await t in group { if let t { out[t.symbol] = t } }
         }
         return out
+    }
+
+    /// Fear & Greed index — same public endpoint as the web's Prices page sentiment widget.
+    static func fearGreed() async throws -> (value: Int, label: String) {
+        struct Resp: Decodable { struct Item: Decodable { let value: String; let value_classification: String }; let data: [Item] }
+        var req = URLRequest(url: URL(string: "https://api.alternative.me/fng/?limit=1")!)
+        req.timeoutInterval = 12
+        let (data, _) = try await URLSession.shared.data(for: req)
+        let r = try JSONDecoder().decode(Resp.self, from: data)
+        guard let item = r.data.first else { throw APIClientError.network("No data") }
+        return (Int(item.value) ?? 0, item.value_classification)
+    }
+
+    /// BTC/ETH market-cap dominance % — same public CoinGecko endpoint as the web.
+    static func marketDominance() async throws -> (btc: Double, eth: Double) {
+        struct Resp: Decodable { struct D: Decodable { let market_cap_percentage: [String: Double] }; let data: D }
+        var req = URLRequest(url: URL(string: "https://api.coingecko.com/api/v3/global")!)
+        req.timeoutInterval = 12
+        let (data, _) = try await URLSession.shared.data(for: req)
+        let r = try JSONDecoder().decode(Resp.self, from: data)
+        return (r.data.market_cap_percentage["btc"] ?? 0, r.data.market_cap_percentage["eth"] ?? 0)
     }
 }

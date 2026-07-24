@@ -3,10 +3,22 @@
   "strings": {
     "%lld day%@ of history": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Tag%@ Verlauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld day%@ of history"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld día%@ de historial"
           }
         },
         "fr": {
@@ -19,10 +31,22 @@
     },
     "%lld exchange%@ connected": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Exchange%@ verbunden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld exchange%@ connected"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld exchange%@ conectado"
           }
         },
         "fr": {
@@ -35,10 +59,22 @@
     },
     "%lld fund%@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Fonds"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld fund%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fondos"
           }
         },
         "fr": {
@@ -51,10 +87,22 @@
     },
     "%lld open": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld offen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld open"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld abiertas"
           }
         },
         "fr": {
@@ -67,10 +115,22 @@
     },
     "%lld open position%@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld offene Position%@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld open position%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld posición%@ abierta"
           }
         },
         "fr": {
@@ -83,10 +143,22 @@
     },
     "%lld pending": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ausstehend"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld pending"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld pendientes"
           }
         },
         "fr": {
@@ -99,10 +171,22 @@
     },
     "%lld positions": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld Positionen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld positions"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld posiciones"
           }
         },
         "fr": {
@@ -113,12 +197,108 @@
         }
       }
     },
+    "24h High": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24-Std.-Hoch"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24h High"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máx. 24h"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Haut 24h"
+          }
+        }
+      }
+    },
+    "24h Low": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24-Std.-Tief"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24h Low"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mín. 24h"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bas 24h"
+          }
+        }
+      }
+    },
+    "24h Volume": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24-Std.-Volumen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "24h Volume"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumen 24h"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volume 24h"
+          }
+        }
+      }
+    },
     "6-digit code": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "6-stelliger Code"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "6-digit code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código de 6 dígitos"
           }
         },
         "fr": {
@@ -131,10 +311,22 @@
     },
     "@lno.company accounts sign in with Google above.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "@lno.company-Konten melden sich oben mit Google an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "@lno.company accounts sign in with Google above."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las cuentas @lno.company inician sesión con Google arriba."
           }
         },
         "fr": {
@@ -145,12 +337,52 @@
         }
       }
     },
+    "Access denied": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zugriff verweigert"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Access denied"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acceso denegado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accès refusé"
+          }
+        }
+      }
+    },
     "Account": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konto"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cuenta"
           }
         },
         "fr": {
@@ -163,10 +395,22 @@
     },
     "Accounts are created on the LNO dashboard.\nThis app is view-only.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Konten werden im LNO-Dashboard erstellt.\nDiese App ist nur zum Anzeigen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Accounts are created on the LNO dashboard.\nThis app is view-only."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las cuentas se crean en el panel de LNO.\nEsta app es solo de lectura."
           }
         },
         "fr": {
@@ -177,12 +421,52 @@
         }
       }
     },
+    "Active Markets": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktive Märkte"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Active Markets"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mercados activos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marchés actifs"
+          }
+        }
+      }
+    },
     "Alerts": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Warnungen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Alerts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertas"
           }
         },
         "fr": {
@@ -193,12 +477,52 @@
         }
       }
     },
+    "All": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous"
+          }
+        }
+      }
+    },
     "All Operational": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alles betriebsbereit"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "All Operational"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todo operativo"
           }
         },
         "fr": {
@@ -209,12 +533,52 @@
         }
       }
     },
+    "BTC Dominance": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BTC-Dominanz"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "BTC Dominance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dominancia BTC"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dominance BTC"
+          }
+        }
+      }
+    },
     "Bot Allocation": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bot-Verteilung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Bot Allocation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asignación de bots"
           }
         },
         "fr": {
@@ -225,12 +589,52 @@
         }
       }
     },
+    "Buy %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kauf %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buy %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compra %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Achat %@"
+          }
+        }
+      }
+    },
     "By Bot": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Bot"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "By Bot"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por bot"
           }
         },
         "fr": {
@@ -243,10 +647,22 @@
     },
     "By fund": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nach Fonds"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "By fund"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Por fondo"
           }
         },
         "fr": {
@@ -259,10 +675,22 @@
     },
     "Change email": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-Mail ändern"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Change email"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cambiar correo"
           }
         },
         "fr": {
@@ -275,10 +703,22 @@
     },
     "Control Center": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontrollzentrum"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Control Center"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Centro de control"
           }
         },
         "fr": {
@@ -291,10 +731,22 @@
     },
     "Could not load data": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daten konnten nicht geladen werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Could not load data"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar los datos"
           }
         },
         "fr": {
@@ -307,10 +759,22 @@
     },
     "Could not load prices.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurse konnten nicht geladen werden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Could not load prices."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron cargar los precios."
           }
         },
         "fr": {
@@ -323,10 +787,22 @@
     },
     "Could not reach snapshots": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snapshots nicht erreichbar"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Could not reach snapshots"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo acceder a los snapshots"
           }
         },
         "fr": {
@@ -339,10 +815,22 @@
     },
     "Could not send the code": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code konnte nicht gesendet werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Could not send the code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo enviar el código"
           }
         },
         "fr": {
@@ -355,10 +843,22 @@
     },
     "Could not start sign-in": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anmeldung konnte nicht gestartet werden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Could not start sign-in"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo iniciar la sesión"
           }
         },
         "fr": {
@@ -371,10 +871,22 @@
     },
     "Critical alerts and breaches show up here.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kritische Warnungen und Verstöße erscheinen hier."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Critical alerts and breaches show up here."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las alertas críticas e infracciones aparecen aquí."
           }
         },
         "fr": {
@@ -387,10 +899,22 @@
     },
     "Daily P&L heatmap, GitHub-contributions style.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tägliche G&V-Heatmap im GitHub-Beitragsstil."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Daily P&L heatmap, GitHub-contributions style."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mapa de calor de P&G diario, estilo contribuciones de GitHub."
           }
         },
         "fr": {
@@ -403,10 +927,22 @@
     },
     "Database": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datenbank"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Database"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Base de datos"
           }
         },
         "fr": {
@@ -419,10 +955,22 @@
     },
     "Degraded": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beeinträchtigt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Degraded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Degradado"
           }
         },
         "fr": {
@@ -435,10 +983,22 @@
     },
     "Done": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fertig"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Done"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listo"
           }
         },
         "fr": {
@@ -451,10 +1011,22 @@
     },
     "EQUITY": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "KAPITAL"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "EQUITY"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PATRIMONIO"
           }
         },
         "fr": {
@@ -465,12 +1037,52 @@
         }
       }
     },
+    "ETH Dominance": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ETH-Dominanz"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ETH Dominance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dominancia ETH"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dominance ETH"
+          }
+        }
+      }
+    },
     "Email": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-Mail"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Email"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correo electrónico"
           }
         },
         "fr": {
@@ -483,10 +1095,22 @@
     },
     "Entry": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Einstieg"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Entry"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entrada"
           }
         },
         "fr": {
@@ -499,10 +1123,22 @@
     },
     "Equity curve": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eigenkapitalkurve"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Equity curve"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Curva de patrimonio"
           }
         },
         "fr": {
@@ -513,12 +1149,80 @@
         }
       }
     },
+    "Exchange": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange"
+          }
+        }
+      }
+    },
+    "Exchange Connectivity": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange-Konnektivität"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange Connectivity"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conectividad del exchange"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connectivité exchange"
+          }
+        }
+      }
+    },
     "Exchange Sync": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange-Sync"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Exchange Sync"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronización del exchange"
           }
         },
         "fr": {
@@ -531,10 +1235,22 @@
     },
     "Exchange sync, database, positions, alerting, funds and last sync.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exchange-Sync, Datenbank, Positionen, Warnungen, Fonds und letzte Synchronisierung."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Exchange sync, database, positions, alerting, funds and last sync."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronización del exchange, base de datos, posiciones, alertas, fondos y última sincronización."
           }
         },
         "fr": {
@@ -547,10 +1263,22 @@
     },
     "Exposure": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposure"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Exposure"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposición"
           }
         },
         "fr": {
@@ -563,10 +1291,22 @@
     },
     "Exposure %@ · %lld position%@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposure %@ · %lld Position%@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Exposure %@ · %lld position%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposición %@ · %lld posición%@"
           }
         },
         "fr": {
@@ -579,10 +1319,22 @@
     },
     "FUNDS": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "FONDS"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "FUNDS"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "FONDOS"
           }
         },
         "fr": {
@@ -595,10 +1347,22 @@
     },
     "Fund Allocation": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fondsverteilung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Fund Allocation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Asignación de fondos"
           }
         },
         "fr": {
@@ -611,10 +1375,22 @@
     },
     "Funds": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fonds"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Funds"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fondos"
           }
         },
         "fr": {
@@ -627,10 +1403,22 @@
     },
     "Funds Equity": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fondskapital"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Funds Equity"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio por fondo"
           }
         },
         "fr": {
@@ -641,12 +1429,52 @@
         }
       }
     },
+    "Gainers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewinner"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gainers"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En alza"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En hausse"
+          }
+        }
+      }
+    },
     "Global Equity": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamtkapital"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Global Equity"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio global"
           }
         },
         "fr": {
@@ -659,10 +1487,22 @@
     },
     "Google sign-in failed": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google-Anmeldung fehlgeschlagen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Google sign-in failed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fallo al iniciar sesión con Google"
           }
         },
         "fr": {
@@ -673,12 +1513,52 @@
         }
       }
     },
+    "Heatmap": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heatmap"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heatmap"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mapa de calor"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heatmap"
+          }
+        }
+      }
+    },
     "Incidents": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorfälle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Incidents"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incidentes"
           }
         },
         "fr": {
@@ -691,10 +1571,22 @@
     },
     "Invalid or expired code": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ungültiger oder abgelaufener Code"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Invalid or expired code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código inválido o caducado"
           }
         },
         "fr": {
@@ -707,7 +1599,19 @@
     },
     "LNO Control Center": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LNO Control Center"
+          }
+        },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LNO Control Center"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "LNO Control Center"
@@ -723,10 +1627,22 @@
     },
     "LNO Control Center is locked": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LNO Control Center ist gesperrt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "LNO Control Center is locked"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LNO Control Center está bloqueado"
           }
         },
         "fr": {
@@ -739,7 +1655,19 @@
     },
     "LONG": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LONG"
+          }
+        },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LONG"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "LONG"
@@ -755,10 +1683,22 @@
     },
     "Last Sync": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letzte Synchronisierung"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Last Sync"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Última sincronización"
           }
         },
         "fr": {
@@ -769,12 +1709,164 @@
         }
       }
     },
+    "Lev": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hebel"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lev"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apal."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Levier"
+          }
+        }
+      }
+    },
+    "Leverage": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hebel"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Leverage"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apalancamiento"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Levier"
+          }
+        }
+      }
+    },
+    "Liq Dist": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liq.-Abstand"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liq Dist"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dist. liq."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dist. liq."
+          }
+        }
+      }
+    },
+    "Liq. Distance": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liquidations-Abstand"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Liq. Distance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distancia de liquidación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Distance de liquidation"
+          }
+        }
+      }
+    },
+    "Live": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En vivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live"
+          }
+        }
+      }
+    },
     "Lock the app between launches; unlock with %@ instead of signing in again.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sperrt die App zwischen den Starts; entsperren Sie mit %@, statt sich erneut anzumelden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Lock the app between launches; unlock with %@ instead of signing in again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloquea la app entre lanzamientos; desbloquéala con %@ en lugar de volver a iniciar sesión."
           }
         },
         "fr": {
@@ -785,12 +1877,52 @@
         }
       }
     },
+    "Losers": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlierer"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Losers"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En baja"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En baisse"
+          }
+        }
+      }
+    },
     "Mark": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Markt"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Mark"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mercado"
           }
         },
         "fr": {
@@ -803,10 +1935,22 @@
     },
     "Mark all as read": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alle als gelesen markieren"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Mark all as read"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marcar todo como leído"
           }
         },
         "fr": {
@@ -817,12 +1961,80 @@
         }
       }
     },
+    "Market Sentiment": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marktstimmung"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Market Sentiment"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sentimiento del mercado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sentiment du marché"
+          }
+        }
+      }
+    },
+    "Net Flow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettofluss"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Net Flow"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flujo neto"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flux net"
+          }
+        }
+      }
+    },
     "Never synced": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie synchronisiert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Never synced"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nunca sincronizado"
           }
         },
         "fr": {
@@ -835,10 +2047,22 @@
     },
     "No data": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Daten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No data"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin datos"
           }
         },
         "fr": {
@@ -851,10 +2075,22 @@
     },
     "No exchange connected": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kein Exchange verbunden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No exchange connected"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ningún exchange conectado"
           }
         },
         "fr": {
@@ -867,10 +2103,22 @@
     },
     "No funds configured": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Fonds konfiguriert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No funds configured"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin fondos configurados"
           }
         },
         "fr": {
@@ -883,10 +2131,22 @@
     },
     "No funds yet.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Fonds."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No funds yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay fondos."
           }
         },
         "fr": {
@@ -899,10 +2159,22 @@
     },
     "No history yet": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch kein Verlauf"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No history yet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún sin historial"
           }
         },
         "fr": {
@@ -915,10 +2187,22 @@
     },
     "No incidents": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Vorfälle"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No incidents"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin incidentes"
           }
         },
         "fr": {
@@ -931,10 +2215,22 @@
     },
     "No open exposure yet.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch kein offenes Exposure."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No open exposure yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay exposición abierta."
           }
         },
         "fr": {
@@ -947,10 +2243,22 @@
     },
     "No open positions": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine offenen Positionen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No open positions"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin posiciones abiertas"
           }
         },
         "fr": {
@@ -963,10 +2271,22 @@
     },
     "No open positions.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine offenen Positionen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No open positions."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin posiciones abiertas."
           }
         },
         "fr": {
@@ -979,10 +2299,22 @@
     },
     "No pending alerts": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine ausstehenden Warnungen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No pending alerts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin alertas pendientes"
           }
         },
         "fr": {
@@ -995,10 +2327,22 @@
     },
     "No sync data yet": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch keine Sync-Daten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No sync data yet"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún sin datos de sincronización"
           }
         },
         "fr": {
@@ -1011,10 +2355,22 @@
     },
     "No traded assets": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine gehandelten Assets"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No traded assets"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin activos negociados"
           }
         },
         "fr": {
@@ -1027,10 +2383,22 @@
     },
     "Not enough history yet.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Noch nicht genug Verlauf."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Not enough history yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aún no hay suficiente historial."
           }
         },
         "fr": {
@@ -1041,12 +2409,52 @@
         }
       }
     },
+    "Notional": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nominalwert"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notional"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nocional"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notionnel"
+          }
+        }
+      }
+    },
     "Ongoing incident": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Laufender Vorfall"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Ongoing incident"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incidente en curso"
           }
         },
         "fr": {
@@ -1059,10 +2467,22 @@
     },
     "Open LNO Control Center to load your portfolio.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffnen Sie LNO Control Center, um Ihr Portfolio zu laden."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Open LNO Control Center to load your portfolio."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre LNO Control Center para cargar tu cartera."
           }
         },
         "fr": {
@@ -1075,10 +2495,22 @@
     },
     "Open P&L": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offener G&V"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Open P&L"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "P&G abierto"
           }
         },
         "fr": {
@@ -1091,10 +2523,22 @@
     },
     "Open Positions": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Offene Positionen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Open Positions"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posiciones abiertas"
           }
         },
         "fr": {
@@ -1105,12 +2549,52 @@
         }
       }
     },
+    "Order Flow": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orderfluss"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Order Flow"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flujo de órdenes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flux d'ordres"
+          }
+        }
+      }
+    },
     "Overview": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersicht"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Overview"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumen"
           }
         },
         "fr": {
@@ -1123,10 +2607,22 @@
     },
     "PNL CALENDAR": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "G&V-KALENDER"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "PNL CALENDAR"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CALENDARIO DE P&G"
           }
         },
         "fr": {
@@ -1139,10 +2635,22 @@
     },
     "POSITIONS": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POSITIONEN"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "POSITIONS"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "POSICIONES"
           }
         },
         "fr": {
@@ -1155,10 +2663,22 @@
     },
     "Partial Outage": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teilausfall"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Partial Outage"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Interrupción parcial"
           }
         },
         "fr": {
@@ -1171,10 +2691,22 @@
     },
     "Pending": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ausstehend"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Pending"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pendiente"
           }
         },
         "fr": {
@@ -1187,10 +2719,22 @@
     },
     "PnL Calendar": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "G&V-Kalender"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "PnL Calendar"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendario de P&G"
           }
         },
         "fr": {
@@ -1203,10 +2747,22 @@
     },
     "Positions": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Positionen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Positions"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Posiciones"
           }
         },
         "fr": {
@@ -1219,10 +2775,22 @@
     },
     "Positions appear here when funds are active.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Positionen erscheinen hier, sobald Fonds aktiv sind."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Positions appear here when funds are active."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las posiciones aparecen aquí cuando los fondos están activos."
           }
         },
         "fr": {
@@ -1235,10 +2803,22 @@
     },
     "Prices": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurse"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Prices"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precios"
           }
         },
         "fr": {
@@ -1251,10 +2831,22 @@
     },
     "Prices track the assets in your open positions.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurse verfolgen die Assets in Ihren offenen Positionen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Prices track the assets in your open positions."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los precios siguen los activos de tus posiciones abiertas."
           }
         },
         "fr": {
@@ -1267,10 +2859,22 @@
     },
     "Push alerts not yet enabled": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Push-Benachrichtigungen noch nicht aktiviert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Push alerts not yet enabled"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alertas push aún no activadas"
           }
         },
         "fr": {
@@ -1283,10 +2887,22 @@
     },
     "Qty": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Qty"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cant."
           }
         },
         "fr": {
@@ -1297,12 +2913,80 @@
         }
       }
     },
+    "Quantity": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menge"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quantity"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cantidad"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quantité"
+          }
+        }
+      }
+    },
+    "Recent Fills": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Letzte Ausführungen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recent Fills"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ejecuciones recientes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exécutions récentes"
+          }
+        }
+      }
+    },
     "Require %@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ erforderlich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Require %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Requerir %@"
           }
         },
         "fr": {
@@ -1315,10 +2999,22 @@
     },
     "Resend (%llds)": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut senden (%llds)"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Resend (%llds)"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reenviar (%llds)"
           }
         },
         "fr": {
@@ -1331,10 +3027,22 @@
     },
     "Resend code": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code erneut senden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Resend code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reenviar código"
           }
         },
         "fr": {
@@ -1347,10 +3055,22 @@
     },
     "Retry": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut versuchen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Retry"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reintentar"
           }
         },
         "fr": {
@@ -1363,7 +3083,19 @@
     },
     "SHORT": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SHORT"
+          }
+        },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SHORT"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "SHORT"
@@ -1377,12 +3109,52 @@
         }
       }
     },
+    "Sell %@": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verkauf %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sell %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Venta %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vente %@"
+          }
+        }
+      }
+    },
     "Send code": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code senden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Send code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar código"
           }
         },
         "fr": {
@@ -1395,10 +3167,22 @@
     },
     "Service Status": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servicestatus"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Service Status"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estado del servicio"
           }
         },
         "fr": {
@@ -1409,12 +3193,52 @@
         }
       }
     },
+    "Side": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Richtung"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Side"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sens"
+          }
+        }
+      }
+    },
     "Sign in": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anmelden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sign in"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar sesión"
           }
         },
         "fr": {
@@ -1427,10 +3251,22 @@
     },
     "Sign in with Google": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mit Google anmelden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sign in with Google"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar sesión con Google"
           }
         },
         "fr": {
@@ -1443,10 +3279,22 @@
     },
     "Sign out": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abmelden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sign out"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar sesión"
           }
         },
         "fr": {
@@ -1459,10 +3307,22 @@
     },
     "Sign out instead": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stattdessen abmelden"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sign out instead"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar sesión en su lugar"
           }
         },
         "fr": {
@@ -1475,10 +3335,22 @@
     },
     "Sign-in failed": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anmeldung fehlgeschlagen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Sign-in failed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fallo al iniciar sesión"
           }
         },
         "fr": {
@@ -1489,12 +3361,52 @@
         }
       }
     },
+    "Symbol": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbol"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbol"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Símbolo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Symbole"
+          }
+        }
+      }
+    },
     "Synced %@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronisiert %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Synced %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizado %@"
           }
         },
         "fr": {
@@ -1507,10 +3419,22 @@
     },
     "Total equity": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamtkapital"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Total equity"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio total"
           }
         },
         "fr": {
@@ -1523,10 +3447,22 @@
     },
     "Total portfolio equity and today's P&L.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gesamtkapital des Portfolios und heutiger G&V."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Total portfolio equity and today's P&L."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Patrimonio total de la cartera y P&G de hoy."
           }
         },
         "fr": {
@@ -1537,12 +3473,52 @@
         }
       }
     },
+    "Trade Stream": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trade-Stream"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trade Stream"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flujo de operaciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flux de trades"
+          }
+        }
+      }
+    },
     "Unassigned": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nicht zugewiesen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unassigned"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sin asignar"
           }
         },
         "fr": {
@@ -1555,10 +3531,22 @@
     },
     "Unexpected response from server": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unerwartete Antwort vom Server"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unexpected response from server"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Respuesta inesperada del servidor"
           }
         },
         "fr": {
@@ -1571,10 +3559,22 @@
     },
     "Unlock with %@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entsperren mit %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unlock with %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desbloquear con %@"
           }
         },
         "fr": {
@@ -1585,12 +3585,52 @@
         }
       }
     },
+    "Unrealized P&L": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unrealisierter G&V"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unrealized P&L"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "P&G no realizado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "P&L latent"
+          }
+        }
+      }
+    },
     "Unrealized P&L for each fund. Tap a fund to open it in the app.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unrealisierter G&V je Fonds. Fonds antippen, um ihn in der App zu öffnen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Unrealized P&L for each fund. Tap a fund to open it in the app."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "P&G no realizado de cada fondo. Toca un fondo para abrirlo en la app."
           }
         },
         "fr": {
@@ -1603,10 +3643,22 @@
     },
     "Up and running": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Betrieb"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Up and running"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Operativo"
           }
         },
         "fr": {
@@ -1619,10 +3671,22 @@
     },
     "Verify": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bestätigen"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Verify"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar"
           }
         },
         "fr": {
@@ -1635,10 +3699,22 @@
     },
     "View-only companion to the LNO dashboard. Accounts are managed at cc.lno.company.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reine Anzeige-App zum LNO-Dashboard. Konten werden auf cc.lno.company verwaltet."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "View-only companion to the LNO dashboard. Accounts are managed at cc.lno.company."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App complementaria de solo lectura del panel LNO. Las cuentas se gestionan en cc.lno.company."
           }
         },
         "fr": {
@@ -1649,12 +3725,80 @@
         }
       }
     },
+    "Volume": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volume"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volume"
+          }
+        }
+      }
+    },
+    "You don't have permission to view this page.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben keine Berechtigung, diese Seite anzuzeigen."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You don't have permission to view this page."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No tienes permiso para ver esta página."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous n'avez pas la permission de voir cette page."
+          }
+        }
+      }
+    },
     "Your currently open positions.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ihre derzeit offenen Positionen."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Your currently open positions."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus posiciones actualmente abiertas."
           }
         },
         "fr": {
@@ -1667,10 +3811,22 @@
     },
     "Your session expired. Please sign in again.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Your session expired. Please sign in again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu sesión ha caducado. Vuelve a iniciar sesión."
           }
         },
         "fr": {
@@ -1683,10 +3839,22 @@
     },
     "Your session has expired. Please sign in again.": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Your session has expired. Please sign in again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu sesión ha caducado. Vuelve a iniciar sesión."
           }
         },
         "fr": {
@@ -1699,10 +3867,22 @@
     },
     "code sent to %@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code gesendet an %@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "code sent to %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "código enviado a %@"
           }
         },
         "fr": {
@@ -1713,12 +3893,52 @@
         }
       }
     },
+    "connected %lld": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld verbunden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "connected %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld conectado(s)"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld connecté(s)"
+          }
+        }
+      }
+    },
     "daily": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "täglich"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "daily"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "diario"
           }
         },
         "fr": {
@@ -1731,10 +3951,22 @@
     },
     "exposure": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exposure"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "exposure"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "exposición"
           }
         },
         "fr": {
@@ -1747,10 +3979,22 @@
     },
     "gain": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gewinn"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "gain"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ganancia"
           }
         },
         "fr": {
@@ -1763,10 +4007,22 @@
     },
     "loss": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verlust"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "loss"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pérdida"
           }
         },
         "fr": {
@@ -1779,10 +4035,22 @@
     },
     "notional": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nominalwert"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "notional"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nocional"
           }
         },
         "fr": {
@@ -1795,10 +4063,22 @@
     },
     "shareholders": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktionäre"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "shareholders"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "accionistas"
           }
         },
         "fr": {
@@ -1809,9 +4089,49 @@
         }
       }
     },
+    "streaming": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "live"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "streaming"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "en directo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "en direct"
+          }
+        }
+      }
+    },
     "· %lld": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· %lld"
+          }
+        },
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "· %lld"
+          }
+        },
+        "es": {
           "stringUnit": {
             "state": "translated",
             "value": "· %lld"
@@ -1827,10 +4147,22 @@
     },
     "✓ Acknowledged%@": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓ Bestätigt%@"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "✓ Acknowledged%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓ Reconocida%@"
           }
         },
         "fr": {
