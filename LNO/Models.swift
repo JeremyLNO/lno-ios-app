@@ -56,6 +56,18 @@ struct Bot: Codable, Identifiable, Equatable {
     var firstSeen: String?
     var lastSeen: String?
     var liquidationPrice: Double? = nil
+    var initialMargin: Double? = nil
+    var lastChanged: String? = nil
+
+    var isClosed: Bool { status == "closed" }
+    /// Realized return on the margin committed to a closed position — mirrors the web's
+    /// PositionsHeatmap cell coloring exactly (base = initialMargin, falling back to
+    /// |notional| when margin wasn't recorded).
+    var realizedPct: Double? {
+        let base = initialMargin ?? (notional != 0 ? abs(notional) : nil)
+        guard let base, base != 0 else { return nil }
+        return unrealizedPnl / base * 100
+    }
 
     var isOpen: Bool { status == "open" }
     var isLong: Bool { side.lowercased() == "long" || side.lowercased() == "buy" }

@@ -40,14 +40,18 @@ struct DashboardView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     header
+                    statusStrip
                     kpiGrid
                     equitySection
                     botAllocationSection
                     byBotSection
                     // Matches web's ActivityPage gating (view_activity) — the rest of Overview
-                    // mirrors the ungated MyEquityPage, but this card's data/component is shared
-                    // with the Activity page's PnL Calendar, so it carries that page's permission.
-                    if auth.user?.can("view_activity") ?? false { pnlCalendarSection }
+                    // mirrors the ungated MyEquityPage, but these cards' data/components are
+                    // shared with the Activity page, so they carry that page's permission.
+                    if auth.user?.can("view_activity") ?? false {
+                        pnlCalendarAndDrawdownSection
+                        closedPositionsHeatmapSection
+                    }
                     fundAllocationSection
                     fundsSummary
                     if let synced = store.live?.syncedDate {
@@ -72,6 +76,14 @@ struct DashboardView: View {
             }
             .font(.subheadline).foregroundStyle(Theme.pnlColor(store.pnlDay))
         }
+    }
+
+    /// "Market data" reads live when the last refresh actually succeeded — there's no
+    /// separate live/partial/offline poll status on iOS (single pull-based refresh, not
+    /// the web's continuous polling loop), so a clean last load is the closest analog.
+    private var statusStrip: some View {
+        StatusStripView(hasActiveIncident: store.hasOngoingIncident, connected: store.live?.connected ?? 0,
+                         marketLive: store.loadError == nil && store.lastLoaded != nil, syncedAt: store.live?.syncedDate)
     }
 
     private var kpiGrid: some View {
@@ -245,9 +257,10 @@ struct DashboardView: View {
     }
 
     // MARK: - PnL calendar (GitHub-style daily heatmap; also feeds the PnL Calendar
-    // widget via PortfolioStore.saveWidgetSnapshot()).
+    // widget via PortfolioStore.saveWidgetSnapshot()) paired with drawdown — the two
+    // "shape of recent performance" views, same pairing as the web's Activity Dashboard.
 
-    @ViewBuilder private var pnlCalendarSection: some View {
+    @ViewBuilder private var pnlCalendarAndDrawdownSection: some View {
         Card {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
@@ -256,6 +269,32 @@ struct DashboardView: View {
                     Text("daily").font(.caption2).foregroundStyle(Theme.faintText)
                 }
                 PnlCalendarView(days: store.pnlCalendar)
+            }
+        }
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text("Drawdown").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                    Spacer()
+                    Text("underwater").font(.caption2).foregroundStyle(Theme.faintText)
+                }
+                UnderwaterView(snapshots: periodSnapshots)
+            }
+        }
+    }
+
+    // MARK: - Closed-positions heatmap — full width, same GitHub-style grid as the PnL
+    // calendar above, but each cell is a closed position (realized PnL %).
+
+    @ViewBuilder private var closedPositionsHeatmapSection: some View {
+        Card {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text("Positions Heatmap").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                    Spacer()
+                    Text("realized %").font(.caption2).foregroundStyle(Theme.faintText)
+                }
+                PositionsHeatmapView(realizedPcts: store.closedBots.map { $0.realizedPct })
             }
         }
     }

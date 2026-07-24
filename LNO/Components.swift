@@ -132,6 +132,97 @@ struct EquityChart: View {
     }
 }
 
+/// Drawdown chart: red area from 0 down to the running drawdown % (equity vs. its
+/// running peak). Mirrors the web's `Underwater` (src/ui.tsx) exactly — same running-peak
+/// math, same -0.1% floor so a flat/all-time-high series still renders a visible baseline.
+struct UnderwaterView: View {
+    let snapshots: [Snapshot]
+    var height: CGFloat = 120
+
+    var body: some View {
+        if snapshots.count < 2 {
+            Text("No data").font(.footnote).foregroundStyle(Theme.faintText)
+                .frame(maxWidth: .infinity, minHeight: height)
+        } else {
+            let dd = drawdownSeries
+            let minDD = min(-0.1, dd.min() ?? -0.1)
+            GeometryReader { geo in
+                let w = geo.size.width
+                let x: (Int) -> CGFloat = { i in dd.count > 1 ? CGFloat(i) / CGFloat(dd.count - 1) * w : 0 }
+                let y: (Double) -> CGFloat = { v in height * CGFloat(v / minDD) }
+                let linePath = Path { p in
+                    for (i, v) in dd.enumerated() {
+                        let pt = CGPoint(x: x(i), y: y(v))
+                        if i == 0 { p.move(to: pt) } else { p.addLine(to: pt) }
+                    }
+                }
+                let fillPath = Path { p in
+                    p.addPath(linePath)
+                    p.addLine(to: CGPoint(x: w, y: 0))
+                    p.addLine(to: CGPoint(x: 0, y: 0))
+                    p.closeSubpath()
+                }
+                ZStack(alignment: .top) {
+                    Rectangle().fill(Color(hex: 0xE2E8F0)).frame(height: 1)
+                    fillPath.fill(Theme.down.opacity(0.12))
+                    linePath.stroke(Theme.down, lineWidth: 1.5)
+                }
+            }
+            .frame(height: height)
+        }
+    }
+
+    /// Running-peak drawdown % per snapshot — always <= 0.
+    private var drawdownSeries: [Double] {
+        var peak = -Double.infinity
+        return snapshots.map { s in
+            peak = max(peak, s.equity)
+            return peak != 0 ? (s.equity - peak) / peak * 100 : 0
+        }
+    }
+}
+
+/// Compact single-row summary of the same health signals the Service Status card covers in
+/// full — a quick "is everything fine?" glance at the top of Overview/Live. Mirrors the web's
+/// `StatusStrip` (src/ui.tsx): System status / Exchange connectivity / Market data / Last sync.
+struct StatusStripView: View {
+    let hasActiveIncident: Bool
+    let connected: Int
+    let marketLive: Bool
+    let syncedAt: Date?
+
+    private func dot(_ ok: Bool?) -> Color {
+        switch ok { case .some(true): return Theme.up; case .some(false): return Theme.down; case .none: return Theme.stroke }
+    }
+
+    var body: some View {
+        let overallOk = !hasActiveIncident && marketLive
+        let exOk: Bool? = connected > 0 ? true : nil
+        Card {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 8) {
+                item(dot(hasActiveIncident ? false : overallOk), "System Status",
+                     hasActiveIncident ? "Ongoing incident" : "Up and running")
+                item(dot(exOk), "Exchange Sync",
+                     connected > 0 ? "\(connected) exchange\(connected == 1 ? "" : "s") connected" : "No exchange connected")
+                item(dot(marketLive), "Market Data", marketLive ? "streaming" : "idle")
+                item(dot(syncedAt != nil), "Last Sync",
+                     syncedAt != nil ? LocalizedStringKey(Fmt.relative(syncedAt)) : "Never synced")
+            }
+        }
+    }
+
+    private func item(_ color: Color, _ label: LocalizedStringKey, _ value: LocalizedStringKey) -> some View {
+        VStack(alignment: .leading, spacing: 2) {
+            HStack(spacing: 5) {
+                Circle().fill(color).frame(width: 6, height: 6)
+                Text(label).font(.caption2).foregroundStyle(Theme.mutedText).lineLimit(1)
+            }
+            Text(value).font(.caption2).fontWeight(.medium).foregroundStyle(Theme.navy)
+                .lineLimit(1).minimumScaleFactor(0.8)
+        }
+    }
+}
+
 /// Full-screen states shared by data tabs.
 struct LoadingView: View {
     var body: some View {

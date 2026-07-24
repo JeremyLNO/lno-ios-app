@@ -121,3 +121,66 @@ struct PnlCalendarView: View {
         }
     }
 }
+
+/// GitHub-style heatmap where each cell is one CLOSED position (not a day), colored by its
+/// realized PnL % — chronological, oldest first. Mirrors the web's `PositionsHeatmap`
+/// (src/ui.tsx) layout and the same width-fill+padding behavior as `PnlCalendarView` above.
+struct PositionsHeatmapView: View {
+    /// Realized PnL % of each closed position, oldest first — kept as plain `Double?` (not
+    /// `Bot`) so this shared file compiles into the widget target too, which has no `Bot` type.
+    let realizedPcts: [Double?]
+    var cellSize: CGFloat = 11
+    var spacing: CGFloat = 3
+    var showLegend: Bool = true
+
+    private var columns: [[Double?]] {
+        var cols: [[Double?]] = []
+        var col: [Double?] = []
+        for p in realizedPcts {
+            col.append(p)
+            if col.count == 7 { cols.append(col); col = [] }
+        }
+        if !col.isEmpty {
+            while col.count < 7 { col.append(nil) }
+            cols.append(col)
+        }
+        return cols
+    }
+
+    var body: some View {
+        if realizedPcts.isEmpty {
+            Text("No data").font(.footnote).foregroundStyle(Theme.faintText)
+        } else {
+            VStack(alignment: .leading, spacing: 8) {
+                GeometryReader { geo in
+                    let allCols = columns
+                    let fittingColumns = max(1, Int((geo.size.width + spacing) / (cellSize + spacing)))
+                    let pad = [[Double?]](repeating: Array(repeating: nil, count: 7), count: max(0, fittingColumns - allCols.count))
+                    let visible = (pad + allCols).suffix(fittingColumns)
+                    HStack(alignment: .top, spacing: spacing) {
+                        ForEach(Array(visible.enumerated()), id: \.offset) { _, col in
+                            VStack(spacing: spacing) {
+                                ForEach(0..<7, id: \.self) { ri in
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .fill(PnlHeat.color(col[ri]))
+                                        .frame(width: cellSize, height: cellSize)
+                                }
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .frame(height: cellSize * 7 + spacing * 6)
+                if showLegend {
+                    HStack(spacing: 6) {
+                        Text("loss").font(.system(size: 9)).foregroundStyle(Theme.faintText)
+                        RoundedRectangle(cornerRadius: 2).fill(Theme.down.opacity(0.9)).frame(width: cellSize, height: cellSize)
+                        RoundedRectangle(cornerRadius: 2).fill(Color(hex: 0xF1F5F9)).frame(width: cellSize, height: cellSize)
+                        RoundedRectangle(cornerRadius: 2).fill(Theme.up.opacity(0.9)).frame(width: cellSize, height: cellSize)
+                        Text("gain").font(.system(size: 9)).foregroundStyle(Theme.faintText)
+                    }
+                }
+            }
+        }
+    }
+}

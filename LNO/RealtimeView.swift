@@ -50,20 +50,27 @@ struct RealtimeView: View {
         } else {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
+                    statusStrip
                     if !store.openBots.isEmpty { marketTicker }
                     fundFilterRow
                     kpiGrid
-                    recentFillsCard
-                    tradeStreamCard
+                    eventStreamCard
+                    criticalAlertsCard
                     orderFlowCard
-                    openPositionsCard
                     serviceHealthCard
-                    recentIncidentsCard
                     if canAdmin { exchangeConnectivityCard }
+                    openPositionsCard
                 }
                 .padding(16)
             }
         }
+    }
+
+    // MARK: - Status strip
+
+    private var statusStrip: some View {
+        StatusStripView(hasActiveIncident: incidents.contains { !$0.isAcked }, connected: store.live?.connected ?? 0,
+                         marketLive: store.loadError == nil && store.lastLoaded != nil, syncedAt: store.live?.syncedDate)
     }
 
     // MARK: - Market ticker strip
@@ -141,37 +148,38 @@ struct RealtimeView: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
-    // MARK: - Recent Fills
+    // MARK: - Live Event Stream (fills + incidents merged into one chronological feed —
+    // replaces the old side-by-side "Recent Fills"/"Trade Stream" panels, which showed
+    // the same fills data twice. Same source data, just one unified timeline now.)
 
-    private var recentFillsCard: some View {
-        Card {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Recent Fills").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
-                if fills.isEmpty {
-                    Text("No data").font(.caption).foregroundStyle(Theme.faintText)
-                } else {
-                    ForEach(fills.prefix(15)) { f in
-                        HStack {
-                            Text(f.symbol).font(.system(.caption, design: .monospaced)).fontWeight(.semibold).foregroundStyle(Theme.navy)
-                            Text(f.side.uppercased()).font(.system(size: 9, weight: .bold)).foregroundStyle(f.isBuy ? Theme.up : Theme.down)
-                            Spacer()
-                            Text(Fmt.number(f.qty, decimals: 3)).font(.caption2).foregroundStyle(Theme.mutedText)
-                            Text(Fmt.price(f.price)).font(.caption2).foregroundStyle(Theme.mutedText)
-                            Text(Fmt.relative(f.date)).font(.caption2).foregroundStyle(Theme.faintText)
-                        }
-                    }
-                }
-            }
-        }
+    private struct StreamEvent: Identifiable {
+        let id: String
+        let date: Date?
+        let isIncident: Bool
+        let symbol: String?
+        let detail: String
+        let amount: Double?
+        let ackedOrBuy: Bool // incident: acked; fill: isBuy
     }
 
-    // MARK: - Trade Stream (same data, log-styled)
+    private var events: [StreamEvent] {
+        let fillEvents = fills.map {
+            StreamEvent(id: "f-\($0.id)", date: $0.date, isIncident: false, symbol: $0.symbol,
+                        detail: "\(Fmt.number($0.qty, decimals: $0.qty < 1 ? 4 : 2)) @ \(Fmt.price($0.price))",
+                        amount: $0.realizedPnl, ackedOrBuy: $0.isBuy)
+        }
+        let incidentEvents = incidents.map {
+            StreamEvent(id: "a-\($0.id)", date: $0.date, isIncident: true, symbol: nil,
+                        detail: $0.summary, amount: nil, ackedOrBuy: $0.isAcked)
+        }
+        return (fillEvents + incidentEvents).sorted { ($0.date ?? .distantPast) > ($1.date ?? .distantPast) }.prefix(50).map { $0 }
+    }
 
-    private var tradeStreamCard: some View {
+    private var eventStreamCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text("Trade Stream").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                    Text("Live Event Stream").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
                     if !fills.isEmpty {
                         Spacer()
                         HStack(spacing: 4) {
@@ -180,16 +188,29 @@ struct RealtimeView: View {
                         }
                     }
                 }
-                if fills.isEmpty {
+                let list = events
+                if list.isEmpty {
                     Text("No data").font(.caption).foregroundStyle(Theme.faintText)
                 } else {
-                    VStack(alignment: .leading, spacing: 4) {
-                        ForEach(fills.prefix(20)) { f in
-                            Text("\(f.side.uppercased()) \(f.symbol) \(Fmt.number(f.qty, decimals: 3)) @ \(Fmt.price(f.price))")
-                                .font(.system(size: 10, design: .monospaced))
-                                .foregroundStyle(f.isBuy ? Theme.up : Theme.down)
+                    ForEach(list) { e in
+                        HStack(spacing: 8) {
+                            Image(systemName: e.isIncident ? (e.ackedOrBuy ? "checkmark.circle" : "exclamationmark.triangle.fill")
+                                                            : "arrow.up.right")
+                                .font(.caption2)
+                                .foregroundStyle(e.isIncident ? (e.ackedOrBuy ? Theme.mutedText : Theme.down) : (e.ackedOrBuy ? Theme.up : Theme.down))
+                                .rotationEffect(.degrees(!e.isIncident && !e.ackedOrBuy ? 90 : 0))
+                            if let symbol = e.symbol {
+                                Text(symbol).font(.system(.caption, design: .monospaced)).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                            }
+                            Text(e.detail).font(.caption2).foregroundStyle(Theme.mutedText).lineLimit(1)
+                            Spacer()
+                            if let amount = e.amount {
+                                Text(Fmt.signedUSD(amount, decimals: 2)).font(.caption2).foregroundStyle(Theme.pnlColor(amount))
+                            }
+                            Text(Fmt.relative(e.date)).font(.caption2).foregroundStyle(Theme.faintText)
                         }
                     }
+                    Text("Showing latest \(list.count)").font(.caption2).foregroundStyle(Theme.faintText).padding(.top, 2)
                 }
             }
         }
@@ -316,12 +337,12 @@ struct RealtimeView: View {
         }
     }
 
-    // MARK: - Recent Incidents
+    // MARK: - Critical Alerts (renamed from "Incidents", matching the web's rail card)
 
-    private var recentIncidentsCard: some View {
+    private var criticalAlertsCard: some View {
         Card {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Incidents").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                Text("Critical Alerts").font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
                 if incidents.isEmpty {
                     Text("No incidents").font(.caption).foregroundStyle(Theme.faintText)
                 } else {

@@ -16,6 +16,13 @@ final class PortfolioStore: ObservableObject {
     @Published var lastLoaded: Date?
 
     var openBots: [Bot] { bots.filter { $0.isOpen } }
+    /// Closed positions, oldest first — matches the web's PositionsHeatmap ordering
+    /// (`lastChanged||lastSeen`), so the two render identical grids.
+    var closedBots: [Bot] {
+        bots.filter { $0.isClosed }.sorted {
+            (Fmt.date($0.lastChanged ?? $0.lastSeen) ?? .distantPast) < (Fmt.date($1.lastChanged ?? $1.lastSeen) ?? .distantPast)
+        }
+    }
 
     // Derived KPIs (mirror api/_lib/portfolio.js buildPortfolio).
     var equity: Double { live?.equity ?? 0 }
