@@ -39,6 +39,7 @@
 		5A0A0A3181BD2F71E9E8B09D /* FundsEquityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */; };
 		0FA581535694D9989834F853 /* GlobalEquityWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D386C63B4F2C1A6487CB9E /* GlobalEquityWidget.swift */; };
 		E8828914F2D6476AFD3D34F9 /* LNOWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDADA1EC86F58E1C9EC4C2F /* LNOWidgetsBundle.swift */; };
+		B67325356963FF73DAC4739C /* LockScreenWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B113C1712E10DCC6768A9A2 /* LockScreenWidget.swift */; };
 		51D19824A2E77B00977836B4 /* PnlCalendarWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB0BFDB869F405909929C99 /* PnlCalendarWidget.swift */; };
 		ADF8EAD12B30C5218DE5656E /* PortfolioProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F45DD8956AE8025AF0A2CAA /* PortfolioProvider.swift */; };
 		F6C70A91636AE3AC41DF36B5 /* PositionsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13700883D2F66D6D691A7778 /* PositionsWidget.swift */; };
@@ -92,6 +93,7 @@
 		BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundsEquityWidget.swift; sourceTree = "<group>"; };
 		F9D386C63B4F2C1A6487CB9E /* GlobalEquityWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEquityWidget.swift; sourceTree = "<group>"; };
 		6DDADA1EC86F58E1C9EC4C2F /* LNOWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNOWidgetsBundle.swift; sourceTree = "<group>"; };
+		9B113C1712E10DCC6768A9A2 /* LockScreenWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenWidget.swift; sourceTree = "<group>"; };
 		BCB0BFDB869F405909929C99 /* PnlCalendarWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PnlCalendarWidget.swift; sourceTree = "<group>"; };
 		4F45DD8956AE8025AF0A2CAA /* PortfolioProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioProvider.swift; sourceTree = "<group>"; };
 		13700883D2F66D6D691A7778 /* PositionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsWidget.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				BB11DE6E77535C29E886E386 /* FundsEquityWidget.swift */,
 				F9D386C63B4F2C1A6487CB9E /* GlobalEquityWidget.swift */,
 				6DDADA1EC86F58E1C9EC4C2F /* LNOWidgetsBundle.swift */,
+				9B113C1712E10DCC6768A9A2 /* LockScreenWidget.swift */,
 				BCB0BFDB869F405909929C99 /* PnlCalendarWidget.swift */,
 				4F45DD8956AE8025AF0A2CAA /* PortfolioProvider.swift */,
 				13700883D2F66D6D691A7778 /* PositionsWidget.swift */,
@@ -410,6 +413,7 @@
 				5A0A0A3181BD2F71E9E8B09D /* FundsEquityWidget.swift in Sources */,
 				0FA581535694D9989834F853 /* GlobalEquityWidget.swift in Sources */,
 				E8828914F2D6476AFD3D34F9 /* LNOWidgetsBundle.swift in Sources */,
+				B67325356963FF73DAC4739C /* LockScreenWidget.swift in Sources */,
 				51D19824A2E77B00977836B4 /* PnlCalendarWidget.swift in Sources */,
 				ADF8EAD12B30C5218DE5656E /* PortfolioProvider.swift in Sources */,
 				F6C70A91636AE3AC41DF36B5 /* PositionsWidget.swift in Sources */,
