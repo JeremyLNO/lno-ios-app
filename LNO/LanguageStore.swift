@@ -10,6 +10,18 @@ final class LanguageStore: ObservableObject {
     @Published private(set) var lang: Lang
 
     init() {
+        #if DEBUG
+        // Test hook, same shape as -LNODemo / -LNOTab:
+        //   xcrun simctl launch <device> company.lno.controlcenter -LNOLang fr
+        // Writes through LanguagePersistence so the App Group copy is set too — which is what
+        // the widget extension and the Live Activity actually read. Setting the preference
+        // from outside the app (defaults write) does NOT reach that container.
+        if let raw = UserDefaults.standard.string(forKey: "LNOLang"), let forced = Lang(rawValue: raw) {
+            LanguagePersistence.save(forced)
+            lang = forced
+            return
+        }
+        #endif
         lang = LanguagePersistence.load() ?? Lang.detectDeviceLanguage()
     }
 

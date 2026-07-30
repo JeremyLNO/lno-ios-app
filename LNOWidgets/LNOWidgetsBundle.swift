@@ -10,5 +10,6 @@ struct LNOWidgetsBundle: WidgetBundle {
         ServiceStatusWidget()
         PnlCalendarWidget()
         LockScreenWidget()
+        PositionsLiveActivity()
     }
 }

@@ -14,6 +14,7 @@ struct SettingsView: View {
                         profileCard
                         languageCard
                         securityCard
+                        liveActivityCard
                         infoCard
                         Button(role: .destructive) {
                             auth.signOut(); dismiss()
@@ -81,6 +82,34 @@ struct SettingsView: View {
     }
 
     @State private var faceIDBusy = false
+    @ObservedObject private var liveActivity = LiveActivityController.shared
+
+    /// Admin-only, and only where the system will actually run one. A Live Activity is
+    /// readable on a LOCKED phone — the desk's whole exposure, visible to whoever picks the
+    /// device up — so it is offered to the role that already sees everything, and to nobody
+    /// else. Hidden rather than disabled for the others: a greyed switch invites a request
+    /// for access to something that isn't theirs to have.
+    @ViewBuilder private var liveActivityCard: some View {
+        if auth.user?.isAdmin == true {
+            Card {
+                VStack(alignment: .leading, spacing: 4) {
+                    Toggle(isOn: Binding(
+                        get: { liveActivity.enabled },
+                        set: { liveActivity.setEnabled($0) }
+                    )) {
+                        Label("Live Activity", systemImage: "bolt.horizontal.circle")
+                            .foregroundStyle(Theme.navy)
+                    }
+                    .tint(Theme.gold)
+                    .disabled(!liveActivity.systemAllows)
+                    Text(liveActivity.systemAllows
+                         ? "Show open positions and unrealized P&L on the Lock Screen and in the Dynamic Island."
+                         : "Turn Live Activities on in iOS Settings to use this.")
+                        .font(.caption).foregroundStyle(Theme.mutedText)
+                }
+            }
+        }
+    }
 
     @ViewBuilder private var securityCard: some View {
         if BiometricAuth.isAvailable {

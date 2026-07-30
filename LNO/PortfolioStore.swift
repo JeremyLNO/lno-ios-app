@@ -158,6 +158,7 @@ final class PortfolioStore: ObservableObject {
             loadError = nil
             lastLoaded = Date()
             saveWidgetSnapshot()
+            LiveActivityController.shared.sync(store: self, auth: auth)
             return
         }
         loading = true; loadError = nil; defer { loading = false }
@@ -179,6 +180,7 @@ final class PortfolioStore: ObservableObject {
             anomalies = anomaliesRes
             lastLoaded = Date()
             saveWidgetSnapshot()
+            LiveActivityController.shared.sync(store: self, auth: auth)
         } catch APIClientError.unauthorized {
             auth.handleUnauthorized()
         } catch {
@@ -226,6 +228,9 @@ final class PortfolioStore: ObservableObject {
             alerts = a
             lastLoaded = Date()
             saveWidgetSnapshot()
+            // The background poll is what keeps the Lock Screen card honest between manual
+            // refreshes — without it the activity would freeze at whatever the last pull saw.
+            LiveActivityController.shared.sync(store: self, auth: auth)
         } catch APIClientError.unauthorized {
             auth.handleUnauthorized()
         } catch {

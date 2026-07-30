@@ -55,6 +55,27 @@ enum LanguagePersistence {
         UserDefaults(suiteName: WidgetSnapshot.appGroup)?.set(lang.rawValue, forKey: key)
     }
 
+    /// The .lproj bundle for the chosen language, for string lookups that must NOT rely on
+    /// `.environment(\.locale, …)`.
+    ///
+    /// That environment override does drive Text/LocalizedStringKey in ordinary widgets, but
+    /// it does NOT reach a Live Activity's presentation — verified on the Simulator with the
+    /// App Group language set to `fr` and the fr.lproj present in the .appex: the card still
+    /// rendered the English source strings. Looking the string up explicitly is the only way
+    /// to make a Live Activity honour the in-app language choice.
+    static func bundleForWidget() -> Bundle {
+        let lang = loadForWidget().rawValue
+        guard let path = Bundle.main.path(forResource: lang, ofType: "lproj"),
+              let bundle = Bundle(path: path) else { return .main }
+        return bundle
+    }
+
+    /// Localized lookup through `bundleForWidget()`. `key` is the English source string, the
+    /// same key Localizable.xcstrings is keyed by, so nothing has to be kept in sync by hand.
+    static func widgetString(_ key: String) -> String {
+        bundleForWidget().localizedString(forKey: key, value: key, table: nil)
+    }
+
     /// Widget-extension-side read (no `UserDefaults.standard` access needed there).
     static func loadForWidget() -> Lang {
         guard let raw = UserDefaults(suiteName: WidgetSnapshot.appGroup)?.string(forKey: key), let l = Lang(rawValue: raw) else {

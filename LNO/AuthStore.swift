@@ -212,6 +212,9 @@ final class AuthStore: NSObject, ObservableObject {
         user = nil
         isDemo = false
         phase = .signedOut
+        // A Live Activity outlives the app process: signing out has to take the card off the
+        // Lock Screen too, or the previous account's exposure stays readable on the device.
+        Task { await LiveActivityController.shared.end() }
     }
 
     /// Called by data views when the API returns 401 mid-session.
