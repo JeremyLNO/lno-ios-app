@@ -60,6 +60,74 @@ enum MockData {
               createdAt: isoMinutesAgo(60 * 14), ackedAt: isoMinutesAgo(60 * 14), ackedBy: "system"),
     ]
 
+    /// Sample findings for the demo/App Review session. Non-confidential and static, like
+    /// everything else here — the point is that a reviewer sees a populated screen rather
+    /// than an empty state that looks like a broken feature.
+    static let anomalies: [Anomaly] = [
+        Anomaly(id: 1, code: "profit_factor_drop", scope: "bot:binance:SOLUSDT", severity: "critical",
+                summary: "Profit factor collapsed from 1.62 to 0.71",
+                cause: "The recent window is losing money overall.",
+                evidence: ["variant": .text("losing"), "baselinePF": .number(1.62), "recentPF": .number(0.71),
+                           "dropPct": .number(56.2), "recentTrades": .number(19)],
+                detectedAt: isoMinutesAgo(90), resolvedAt: nil, ackedAt: nil, ackedBy: nil),
+        Anomaly(id: 2, code: "dormant_position", scope: "bot:binance:XRPUSDT", severity: "warning",
+                summary: "XRPUSDT open and unchanged for 61h",
+                cause: "The position has not moved in either direction for days while remaining exposed.",
+                evidence: ["variant": .text("default"), "symbol": .text("XRPUSDT"), "hoursIdle": .number(61),
+                           "thresholdHours": .number(48)],
+                detectedAt: isoMinutesAgo(300), resolvedAt: nil, ackedAt: nil, ackedBy: nil),
+        Anomaly(id: 3, code: "slippage_rise", scope: "bot:binance:ETHUSDT", severity: "warning",
+                summary: "Slippage per trade rose from 1.10 to 2.40",
+                cause: "Orders are executing further from their asked price than usual.",
+                evidence: ["variant": .text("default"), "baselineAvg": .number(1.10), "recentAvg": .number(2.40),
+                           "risePct": .number(118), "recentTrades": .number(23)],
+                detectedAt: isoMinutesAgo(420), resolvedAt: nil, ackedAt: nil, ackedBy: nil),
+    ]
+
+    static let closedTrades: [ClosedTrade] = [
+        ClosedTrade(id: "binance:BTCUSDT:9001", symbol: "BTCUSDT", direction: "LONG", qty: 0.4,
+                    entryPrice: 59_820, exitPrice: 60_640, netPnl: 312.40, commission: 19.10, funding: -4.20,
+                    openedAt: isoMinutesAgo(60 * 9), closedAt: isoMinutesAgo(60 * 6), durationS: 10_800,
+                    leverage: 5, version: "v1.1"),
+        ClosedTrade(id: "binance:ETHUSDT:9002", symbol: "ETHUSDT", direction: "SHORT", qty: 3,
+                    entryPrice: 3_255, exitPrice: 3_291, netPnl: -118.60, commission: 8.40, funding: 1.10,
+                    openedAt: isoMinutesAgo(60 * 26), closedAt: isoMinutesAgo(60 * 22), durationS: 14_400,
+                    leverage: 10, version: "v1.1"),
+        ClosedTrade(id: "binance:SOLUSDT:9003", symbol: "SOLUSDT", direction: "LONG", qty: 60,
+                    entryPrice: 146.20, exitPrice: 149.05, netPnl: 158.90, commission: 7.05, funding: -0.80,
+                    openedAt: isoMinutesAgo(60 * 50), closedAt: isoMinutesAgo(60 * 47), durationS: 10_800,
+                    leverage: 5, version: "v1.0"),
+    ]
+
+    /// The audit view for whichever demo trade was tapped. Keyed by id so the numbers on the
+    /// detail screen agree with the row that opened it.
+    static func tradeDetail(for t: ClosedTrade) -> TradeDetail {
+        TradeDetail(id: t.id, symbol: t.symbol, direction: t.direction, qty: t.qty,
+                    entryPrice: t.entryPrice, exitPrice: t.exitPrice,
+                    grossPnl: t.netPnl + t.commission - t.funding, commission: t.commission, funding: t.funding,
+                    netPnl: t.netPnl, openedAt: t.openedAt, closedAt: t.closedAt, durationS: t.durationS,
+                    leverage: t.leverage, notional: (t.entryPrice ?? 0) * t.qty,
+                    mae: -abs(t.netPnl) * 1.4, mfe: abs(t.netPnl) * 1.9,
+                    slippage: 2.35, rMultiple: t.netPnl / 420, unfilledOrders: 1,
+                    orders: [
+                        TradeOrder(orderId: 1, side: t.direction == "LONG" ? "BUY" : "SELL", type: "LIMIT", status: "FILLED",
+                                   intendedPrice: t.entryPrice, avgPrice: (t.entryPrice ?? 0) * 1.0002,
+                                   slippage: 1.20, unfilled: false, placedAt: t.openedAt),
+                        TradeOrder(orderId: 2, side: t.direction == "LONG" ? "SELL" : "BUY", type: "STOP_MARKET", status: "CANCELED",
+                                   intendedPrice: (t.entryPrice ?? 0) * 0.97, avgPrice: nil,
+                                   slippage: nil, unfilled: true, placedAt: t.openedAt),
+                        TradeOrder(orderId: 3, side: t.direction == "LONG" ? "SELL" : "BUY", type: "LIMIT", status: "FILLED",
+                                   intendedPrice: t.exitPrice, avgPrice: (t.exitPrice ?? 0) * 0.9998,
+                                   slippage: 1.15, unfilled: false, placedAt: t.closedAt),
+                    ],
+                    fills: [
+                        TradeFill(tradeId: 1, side: t.direction == "LONG" ? "BUY" : "SELL", qty: t.qty,
+                                  price: t.entryPrice ?? 0, realizedPnl: 0, commission: t.commission / 2, occurredAt: t.openedAt),
+                        TradeFill(tradeId: 2, side: t.direction == "LONG" ? "SELL" : "BUY", qty: t.qty,
+                                  price: t.exitPrice ?? 0, realizedPnl: t.netPnl + t.commission, commission: t.commission / 2, occurredAt: t.closedAt),
+                    ])
+    }
+
     private static func isoMinutesAgo(_ m: Int) -> String {
         let d = Date().addingTimeInterval(-Double(m) * 60)
         let f = ISO8601DateFormatter()

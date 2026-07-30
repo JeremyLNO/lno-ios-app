@@ -190,3 +190,151 @@ struct ExchangeStatus: Codable, Identifiable, Equatable {
     var isConnected: Bool { status == "connected" || status == "ok" }
 }
 struct ExchangesResponse: Codable { let exchanges: [ExchangeStatus] }
+
+// MARK: - Anomalies
+
+/// A detected behavioural anomaly (api/_lib/anomalies.js). Distinct from `Alert`: an alert is
+/// a threshold crossed right now, an anomaly is a PATTERN in how a bot is behaving.
+///
+/// `summary`/`cause` arrive from the server in English — they are the stored fallback and what
+/// an email digest would send. Like the web client, this app rebuilds the sentence in the
+/// reader's language from `code` + `evidence.variant`, falling back to the server text when a
+/// detector has shipped without translations.
+struct Anomaly: Codable, Identifiable, Equatable {
+    let id: Int
+    let code: String
+    let scope: String
+    let severity: String
+    let summary: String
+    let cause: String
+    let evidence: [String: EvidenceValue]
+    let detectedAt: String?
+    let resolvedAt: String?
+    let ackedAt: String?
+    let ackedBy: String?
+
+    var isCritical: Bool { severity == "critical" }
+    var isResolved: Bool { resolvedAt != nil }
+    var date: Date? { Fmt.date(detectedAt) }
+    var variant: String { evidence["variant"]?.stringValue ?? "default" }
+
+    /// "bot:binance:BTCUSDT" -> "binance:BTCUSDT"; "portfolio" and "strategy:x" get their own
+    /// wording. Scope is stored machine-readable so detectors can dedupe on it; only the
+    /// display is humanised.
+    var scopeLabel: String {
+        let parts = scope.split(separator: ":", maxSplits: 1).map(String.init)
+        guard parts.count == 2 else { return scope == "portfolio" ? "" : scope }
+        return parts[1]
+    }
+}
+
+/// Evidence values are whatever the detector measured — a number, a string, or a small list.
+/// Decoded permissively so a new detector shipping an unfamiliar shape cannot break the screen.
+enum EvidenceValue: Codable, Equatable {
+    case number(Double), text(String), other
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.singleValueContainer()
+        if let d = try? c.decode(Double.self) { self = .number(d) }
+        else if let s = try? c.decode(String.self) { self = .text(s) }
+        else { self = .other }
+    }
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        switch self {
+        case .number(let d): try c.encode(d)
+        case .text(let s): try c.encode(s)
+        case .other: try c.encodeNil()
+        }
+    }
+    var stringValue: String? { if case .text(let s) = self { return s }; return nil }
+    var display: String {
+        switch self {
+        case .number(let d): return d == d.rounded() && abs(d) < 1e9 ? String(Int(d)) : String(format: "%.2f", d)
+        case .text(let s): return s
+        case .other: return "—"
+        }
+    }
+}
+struct AnomaliesResponse: Codable { let entries: [Anomaly]; let total: Int }
+
+// MARK: - Closed round trips
+
+/// One completed round trip, reconstructed server-side from real fills. Distinct from `Bot`,
+/// which is the CURRENT state of an (exchange, symbol) pair: this is what was actually done.
+struct ClosedTrade: Codable, Identifiable, Equatable {
+    let id: String
+    let symbol: String
+    let direction: String
+    let qty: Double
+    let entryPrice: Double?
+    let exitPrice: Double?
+    let netPnl: Double
+    let commission: Double
+    let funding: Double
+    let openedAt: String?
+    let closedAt: String?
+    let durationS: Int?
+    let leverage: Double?
+    let version: String?
+
+    var isLong: Bool { direction == "LONG" }
+    var date: Date? { Fmt.date(closedAt) }
+}
+struct ClosedTradesResponse: Codable { let trades: [ClosedTrade]; let total: Int }
+
+struct TradeOrder: Codable, Identifiable, Equatable {
+    let orderId: Int
+    let side: String
+    let type: String
+    let status: String
+    let intendedPrice: Double?
+    let avgPrice: Double?
+    let slippage: Double?
+    let unfilled: Bool
+    let placedAt: String?
+
+    var id: Int { orderId }
+    var isBuy: Bool { side == "BUY" }
+}
+
+struct TradeFill: Codable, Identifiable, Equatable {
+    let tradeId: Int
+    let side: String
+    let qty: Double
+    let price: Double
+    let realizedPnl: Double
+    let commission: Double
+    let occurredAt: String?
+    var id: Int { tradeId }
+    var isBuy: Bool { side == "BUY" }
+}
+
+/// Everything known about one round trip — the audit view. Fields the desk has not
+/// instrumented arrive as null and are shown as "—" rather than as a measured zero.
+struct TradeDetail: Codable, Equatable {
+    let id: String
+    let symbol: String
+    let direction: String
+    let qty: Double
+    let entryPrice: Double?
+    let exitPrice: Double?
+    let grossPnl: Double
+    let commission: Double
+    let funding: Double
+    let netPnl: Double
+    let openedAt: String?
+    let closedAt: String?
+    let durationS: Int?
+    let leverage: Double?
+    let notional: Double?
+    let mae: Double?
+    let mfe: Double?
+    let slippage: Double?
+    let rMultiple: Double?
+    let unfilledOrders: Int?
+    var orders: [TradeOrder] = []
+    var fills: [TradeFill] = []
+
+    var isLong: Bool { direction == "LONG" }
+}

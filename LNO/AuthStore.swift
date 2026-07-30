@@ -55,6 +55,13 @@ final class AuthStore: NSObject, ObservableObject {
     // MARK: - Bootstrap
 
     func bootstrap() async {
+        #if DEBUG
+        // Launch straight into the sample session, for screenshotting and for automated
+        // checks that cannot tap the "Preview demo" button:
+        //   xcrun simctl launch <device> company.lno.controlcenter -LNODemo YES
+        // DEBUG-only, so it cannot exist in a shipped build.
+        if UserDefaults.standard.bool(forKey: "LNODemo") { enterDemoMode(); return }
+        #endif
         token = Keychain.load()
         guard token != nil else { phase = .signedOut; return }
         if faceIDEnabled && BiometricAuth.isAvailable {

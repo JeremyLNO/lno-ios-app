@@ -101,6 +101,18 @@ enum Fmt {
         }
         return nil
     }
+    /// Human duration from a second count — mirrors fmtSeconds() in the web's ui.tsx so a
+    /// trade that reads "2h 30m" there reads the same here.
+    static func duration(seconds: Int) -> String {
+        if seconds < 60 { return "\(seconds)s" }
+        let m = seconds / 60, s = seconds % 60
+        if m < 60 { return s > 0 ? "\(m)m \(s)s" : "\(m)m" }
+        let h = m / 60, mm = m % 60
+        if h < 24 { return mm > 0 ? "\(h)h \(mm)m" : "\(h)h" }
+        let d = h / 24, hh = h % 24
+        return hh > 0 ? "\(d)d \(hh)h" : "\(d)d"
+    }
+
     static func relative(_ date: Date?) -> String {
         guard let date else { return "—" }
         let f = RelativeDateTimeFormatter()

@@ -126,6 +126,36 @@ struct APIClient {
     // MARK: - Data (read-only)
 
     func bots() async throws -> BotsResponse { try decode(BotsResponse.self, from: await request("bots")) }
+
+    /// Detected behavioural anomalies. Open ones only by default — this screen answers
+    /// "what is wrong now", and the resolved history belongs on the desktop dashboard.
+    func anomalies(status: String = "open") async throws -> AnomaliesResponse {
+        try decode(AnomaliesResponse.self, from: await request("alerts", query: [
+            .init(name: "anomalies", value: "1"), .init(name: "status", value: status),
+        ]))
+    }
+
+    /// Same call, but a 403 (no view_trades) or a transient failure yields an empty list
+    /// instead of failing the whole dashboard refresh alongside it.
+    func anomaliesOrEmpty() async -> [Anomaly] {
+        (try? await anomalies().entries) ?? []
+    }
+
+    /// Completed round trips, newest first. Paged like every other list in the system.
+    func closedTrades(limit: Int = 50, offset: Int = 0) async throws -> ClosedTradesResponse {
+        try decode(ClosedTradesResponse.self, from: await request("snapshots", query: [
+            .init(name: "analysis", value: "1"), .init(name: "list", value: "1"),
+            .init(name: "limit", value: String(limit)), .init(name: "offset", value: String(offset)),
+        ]))
+    }
+
+    /// One round trip in full. Fetched on demand rather than with the list: it costs the
+    /// server a klines call for MAE/MFE, which is not worth paying 50 times for a scroll.
+    func tradeDetail(id: String) async throws -> TradeDetail {
+        try decode(TradeDetail.self, from: await request("snapshots", query: [
+            .init(name: "analysis", value: "1"), .init(name: "trade", value: id),
+        ]))
+    }
     func funds() async throws -> [Fund] { try decode(FundsResponse.self, from: await request("funds")).funds }
     func snapshots(limit: Int = 365) async throws -> [Snapshot] {
         try decode(SnapshotsResponse.self, from: await request("snapshots", query: [.init(name: "limit", value: String(limit))])).snapshots

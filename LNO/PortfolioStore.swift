@@ -10,6 +10,7 @@ final class PortfolioStore: ObservableObject {
     @Published var live: LiveEquity?
     @Published var snapshots: [Snapshot] = []
     @Published var alerts: [Alert] = []
+    @Published var anomalies: [Anomaly] = []
 
     @Published var loading = false
     @Published var loadError: String?
@@ -37,6 +38,9 @@ final class PortfolioStore: ObservableObject {
     // not portfolio performance breaches (drawdown/PnL), which are a different alert type.
     var ongoingIncidents: Int { alerts.filter { $0.isIncident && !$0.isAcked }.count }
     var hasOngoingIncident: Bool { ongoingIncidents > 0 }
+    /// Unresolved findings, criticals first — the count the Alerts tab badges on.
+    var openAnomalies: [Anomaly] { anomalies.filter { !$0.isResolved } }
+    var criticalAnomalies: Int { openAnomalies.filter(\.isCritical).count }
 
     /// Day-over-day PnL% series for the GitHub-style calendar heatmap — mirrors the
     /// web dashboard's `PnlCalendar` derivation from the same snapshot history.
@@ -150,6 +154,7 @@ final class PortfolioStore: ObservableObject {
             funds = MockData.funds
             snapshots = MockData.snapshots
             alerts = MockData.alerts
+            anomalies = MockData.anomalies
             loadError = nil
             lastLoaded = Date()
             saveWidgetSnapshot()
@@ -162,12 +167,16 @@ final class PortfolioStore: ObservableObject {
             async let f = c.funds()
             async let s = c.snapshots()
             async let a = c.alerts()
-            let (botsRes, fundsRes, snapsRes, alertsRes) = try await (b, f, s, a)
+            // Anomalies need view_trades; a shareholder simply gets none rather than a 403
+            // that would fail the whole refresh, so the call is optional and swallowed.
+            async let an = c.anomaliesOrEmpty()
+            let (botsRes, fundsRes, snapsRes, alertsRes, anomaliesRes) = try await (b, f, s, a, an)
             bots = botsRes.bots
             live = botsRes.live
             funds = fundsRes
             snapshots = snapsRes
             alerts = alertsRes
+            anomalies = anomaliesRes
             lastLoaded = Date()
             saveWidgetSnapshot()
         } catch APIClientError.unauthorized {

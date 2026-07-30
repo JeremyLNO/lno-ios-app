@@ -28,6 +28,25 @@ struct AlertsView: View {
 
     private var unreadCount: Int { readStore.unreadCount(in: store.alerts) }
 
+    /// Incidents and anomalies answer different questions — "is the service healthy" vs
+    /// "is a bot behaving differently than it used to" — so they are two segments rather
+    /// than one merged list that would bury the slow-moving findings under the loud ones.
+    private enum Segment: String, CaseIterable, Identifiable {
+        case incidents, anomalies
+        var id: String { rawValue }
+        var title: LocalizedStringKey { self == .incidents ? "Incidents" : "Anomalies" }
+    }
+    @State private var segment: Segment = {
+        #if DEBUG
+        // Same DEBUG launch-argument hook the tab selection uses, so a headless screenshot
+        // can land directly on the anomalies list. See DeepLinkRouter.selectedTab.
+        if UserDefaults.standard.string(forKey: "LNOTab") == "anomalies" { return .anomalies }
+        #endif
+        return .incidents
+    }()
+    /// The segment is only worth showing to someone who can actually see anomalies.
+    private var canSeeAnomalies: Bool { auth.user?.can("view_trades") ?? false }
+
     var body: some View {
         ZStack {
             AppBackground()
@@ -35,7 +54,7 @@ struct AlertsView: View {
         }
         .lnoTopBar("Alerts", auth: auth, showSettings: $showSettings)
         .toolbar {
-            if unreadCount > 0 {
+            if unreadCount > 0 && segment == .incidents {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Mark all as read") {
                         readStore.markAllRead(store.alerts.map(\.id))
@@ -48,6 +67,81 @@ struct AlertsView: View {
     }
 
     @ViewBuilder private var content: some View {
+        VStack(spacing: 0) {
+            if canSeeAnomalies {
+                Picker("", selection: $segment) {
+                    ForEach(Segment.allCases) { seg in
+                        Text(seg.title).tag(seg)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+            }
+            if segment == .anomalies && canSeeAnomalies { anomalyContent } else { incidentContent }
+        }
+    }
+
+    @ViewBuilder private var anomalyContent: some View {
+        if store.loading && store.lastLoaded == nil {
+            LoadingView()
+        } else if store.openAnomalies.isEmpty {
+            EmptyStateView(icon: "checkmark.seal", title: "No open anomaly",
+                           subtitle: "Detectors compare the last two weeks against the six before them.")
+        } else {
+            ScrollView {
+                VStack(spacing: 10) {
+                    ForEach(store.openAnomalies) { a in anomalyRow(a) }
+                }
+                .padding(16)
+            }
+        }
+    }
+
+    /// One finding: severity, what it is about, the rebuilt sentence, the likely cause, and
+    /// the numbers that triggered it. The evidence is the point — a detector whose reasoning
+    /// cannot be checked gets ignored after its first false positive.
+    private func anomalyRow(_ a: Anomaly) -> some View {
+        Card {
+            VStack(alignment: .leading, spacing: 7) {
+                HStack(spacing: 8) {
+                    Text(AnomalyText.severity(a.severity))
+                        .font(.caption2).fontWeight(.bold)
+                        .padding(.horizontal, 6).padding(.vertical, 2)
+                        .background(a.isCritical ? Theme.down.opacity(0.12) : Color.orange.opacity(0.14))
+                        .foregroundStyle(a.isCritical ? Theme.down : .orange)
+                        .clipShape(Capsule())
+                    Text(AnomalyText.code(a.code)).font(.caption2).foregroundStyle(Theme.faintText)
+                    if !a.scopeLabel.isEmpty {
+                        Text(a.scopeLabel).font(.system(.caption2, design: .monospaced)).foregroundStyle(Theme.mutedText)
+                    }
+                    Spacer(minLength: 0)
+                    Text(Fmt.relative(a.date)).font(.caption2).foregroundStyle(Theme.faintText)
+                }
+                Text(AnomalyText.summary(a))
+                    .font(.subheadline).fontWeight(.semibold).foregroundStyle(Theme.navy)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(AnomalyText.cause(a))
+                    .font(.caption).foregroundStyle(Theme.mutedText)
+                    .fixedSize(horizontal: false, vertical: true)
+                let ev = a.evidence.filter { $0.key != "variant" }.sorted { $0.key < $1.key }
+                if !ev.isEmpty {
+                    Divider().padding(.vertical, 2)
+                    VStack(alignment: .leading, spacing: 3) {
+                        ForEach(ev, id: \.key) { k, v in
+                            HStack {
+                                Text(k).font(.caption2).foregroundStyle(Theme.faintText)
+                                Spacer()
+                                Text(v.display).font(.system(.caption2, design: .monospaced)).foregroundStyle(Theme.navy)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder private var incidentContent: some View {
         if store.loading && store.lastLoaded == nil {
             LoadingView()
         } else if store.alerts.isEmpty {
