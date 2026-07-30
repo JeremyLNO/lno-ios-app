@@ -80,6 +80,12 @@ jobs:
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        # Build number = 35700 + run_number. The offset exists because build 35669 was
+        # uploaded by hand from Xcode on 2026-07-29, outside this workflow. TestFlight sorts
+        # builds by NUMBER, not by upload date, so anything below 35669 shows up underneath a
+        # build that is older — testers were offered a stale build as "the latest". The
+        # offset puts every CI build back on top; run_number still increments by one per run,
+        # so the sequence stays strictly increasing, which is Apple's only real requirement.
         run: |
           xcodebuild archive \
             -project LNO.xcodeproj \
@@ -88,7 +94,7 @@ jobs:
             -archivePath build/LNO.xcarchive \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
-            CURRENT_PROJECT_VERSION=${{ github.run_number }} \
+            CURRENT_PROJECT_VERSION=$(( 35700 + ${{ github.run_number }} )) \
             -authenticationKeyPath "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID"
