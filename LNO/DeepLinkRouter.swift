@@ -14,7 +14,7 @@ final class DeepLinkRouter: ObservableObject {
         // A deep link would do the same, but iOS interposes an "Open in …?" confirmation that
         // a headless check cannot dismiss. DEBUG-only.
         switch UserDefaults.standard.string(forKey: "LNOTab") {
-        case "positions", "closed": return .positions
+        case "positions", "closed", "detail": return .positions
         case "prices":    return .prices
         case "realtime":  return .realtime
         case "alerts", "anomalies": return .alerts

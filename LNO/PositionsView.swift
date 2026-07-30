@@ -31,9 +31,12 @@ struct PositionsView: View {
         var id: String { rawValue }
         var title: LocalizedStringKey { self == .open ? "Open" : "Closed trades" }
     }
+    #if DEBUG
+    @State private var autoOpen = false
+    #endif
     @State private var scope: Scope = {
         #if DEBUG
-        if UserDefaults.standard.string(forKey: "LNOTab") == "closed" { return .closed }
+        if ["closed", "detail"].contains(UserDefaults.standard.string(forKey: "LNOTab") ?? "") { return .closed }
         #endif
         return .open
     }()
@@ -105,6 +108,16 @@ struct PositionsView: View {
                 }
                 .padding(.horizontal, 16)
             }
+            #if DEBUG
+            // -LNOTab detail opens the first trade's audit view straight away, so it can be
+            // screenshotted without a tap. Same hook as the other launch arguments.
+            .navigationDestination(isPresented: $autoOpen) {
+                if let first = closed.trades.first { TradeDetailView(trade: first) }
+            }
+            .onAppear {
+                if UserDefaults.standard.string(forKey: "LNOTab") == "detail" && !closed.trades.isEmpty { autoOpen = true }
+            }
+            #endif
         }
     }
 
