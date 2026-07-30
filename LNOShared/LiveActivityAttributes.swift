@@ -22,7 +22,10 @@ struct PositionsActivityAttributes: ActivityAttributes {
         /// Equity trail for the sparkline. Plain values, not normalised — the view scales
         /// them, so the app never has to guess the rendered size.
         var spark: [Double]
-        var updatedAt: Date
+        /// Epoch seconds, NOT a `Date`. The server builds this same payload as JSON, and a
+        /// bare number is the one representation both sides agree on without having to match
+        /// a date-decoding strategy.
+        var updatedAt: Double
 
         /// A position with no liquidation price reports no band; an empty book is "ok"
         /// rather than unknown — nothing is at risk when nothing is open.

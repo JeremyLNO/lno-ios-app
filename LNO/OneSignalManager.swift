@@ -1,5 +1,7 @@
 import Foundation
 import OneSignalFramework
+import OneSignalLiveActivities
+import ActivityKit
 
 /// Centralized wrapper around the OneSignal SDK — per OneSignal's integration
 /// guidance, this is the ONLY file that calls OneSignal directly. Everything else
@@ -66,6 +68,37 @@ final class OneSignalManager: NSObject, ObservableObject {
     /// shows again on a future launch.
     func markIntegrationAlertShown() {
         UserDefaults.standard.set(true, forKey: Self.hasShownAlertKey)
+    }
+
+    // MARK: - Live Activities
+    //
+    // OneSignal's `enter`/`exit` take a raw ActivityKit push token, so the activity's
+    // attributes stay a plain `ActivityAttributes` and never have to conform to
+    // `OneSignalLiveActivityAttributes`. That matters here: the attributes live in
+    // LNOShared, which is compiled into the WIDGET EXTENSION too — and the extension does
+    // not link OneSignal. Conforming would break that target outright.
+
+    /// Register a running activity's update token so the server can push new content to it.
+    /// `activityId` is the handle the backend addresses; one shared id means one REST call
+    /// updates every admin's card.
+    func liveActivityEnter(id: String, token: String) {
+        OneSignal.LiveActivities.enter(id, withToken: token)
+    }
+
+    func liveActivityExit(id: String) {
+        OneSignal.LiveActivities.exit(id)
+    }
+
+    /// Push-to-start token (iOS 17.2+): lets the server CREATE the card on a device where
+    /// the app isn't running at all.
+    ///
+    /// Called on the concrete manager, not through `OneSignal.LiveActivities`: that property
+    /// is typed as the `OSLiveActivities` PROTOCOL metatype, and the generic overload lives in
+    /// an extension on it that a protocol existential cannot dispatch. `enter`/`exit` above are
+    /// @objc protocol members, which is why they resolve the normal way.
+    @available(iOS 17.2, *)
+    func setPushToStartToken<T: ActivityAttributes>(_ type: T.Type, token: String) {
+        OneSignalLiveActivitiesManagerImpl.setPushToStartToken(type, withToken: token)
     }
 }
 
