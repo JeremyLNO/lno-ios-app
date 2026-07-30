@@ -71,6 +71,21 @@ final class AuthStore: NSObject, ObservableObject {
         await validateSession()
     }
 
+    /// Re-read the account (role + effective permissions) for an already-signed-in session.
+    ///
+    /// Permissions are NOT baked into the JWT — the server derives them per request from the
+    /// role→permission map the Rules page owns (`permsForRole`). So a role edited while this
+    /// app is open would otherwise only reach it at the next cold launch: the tabs would stay
+    /// as they were, and the user would hit 403s they cannot explain. Called when the app
+    /// returns to the foreground.
+    ///
+    /// Deliberately silent on failure: this is a background refresh, and a flaky network must
+    /// not sign anyone out or surface an error over whatever they were reading.
+    func refreshPermissions() async {
+        guard phase == .signedIn, !isDemo else { return }
+        if let fresh = try? await client.me() { user = fresh }
+    }
+
     private func validateSession() async {
         #if DEBUG
         if token == Self.demoToken {

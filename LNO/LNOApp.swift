@@ -2,6 +2,7 @@ import SwiftUI
 
 @main
 struct LNOApp: App {
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var auth = AuthStore()
     @StateObject private var router = DeepLinkRouter()
     @StateObject private var languageStore = LanguageStore()
@@ -25,6 +26,11 @@ struct LNOApp: App {
                 .preferredColorScheme(.light)
                 .tint(Theme.gold)
                 .onOpenURL { router.handle($0) }
+                // Coming back to the foreground is the natural moment to re-check who this
+                // account is now: rights may have changed on the dashboard in the meantime.
+                .onChange(of: scenePhase) { _, phase in
+                    if phase == .active { Task { await auth.refreshPermissions() } }
+                }
                 .task {
                     guard auth.phase == .loading else { return }
                     #if DEBUG
