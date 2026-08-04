@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 // Codable models mirroring the LNO Control Center API responses. Extra JSON keys
 // are ignored automatically; only fields the read-only client needs are declared.
@@ -257,6 +258,53 @@ enum EvidenceValue: Codable, Equatable {
     }
 }
 struct AnomaliesResponse: Codable { let entries: [Anomaly]; let total: Int }
+
+// MARK: - Milestones
+
+/// One entry of the desk's scoreboard. `scope` is "monthly" (measured within the current
+/// month, reachable again every month) or "global" (all-time, reached exactly once) — the app
+/// only READS this; awarding and announcing happen server-side.
+struct Milestone: Codable, Identifiable, Equatable {
+    let id: Int
+    let scope: String
+    let metric: String
+    let threshold: Double
+    let achievedAt: String?
+    let period: String?
+
+    var isAchieved: Bool { achievedAt != nil }
+    var date: Date? { Fmt.date(achievedAt) }
+
+    /// A LocalizedStringKey, NOT a String built with NSLocalizedString: the latter resolves
+    /// against the SYSTEM language, so the label stayed English while the rest of the card
+    /// followed the in-app language choice (which travels through .environment(\.locale)).
+    /// Interpolating a String yields the key "… %@ …", which is what the catalog is keyed by.
+    /// Mirrors milestoneLabel() on the server.
+    var label: LocalizedStringKey {
+        let n = threshold
+        // Space-grouped, like the web's labels — "+10 000 USDT" is readable where "+10000"
+        // is a number you have to count.
+        let f = NumberFormatter()
+        f.numberStyle = .decimal; f.groupingSeparator = " "; f.maximumFractionDigits = 0
+        let num = f.string(from: NSNumber(value: n)) ?? Fmt.number(n)
+        // The percent sign travels INSIDE the interpolated value: a literal '%' in the key
+        // would have to be escaped consistently on both sides, and one mismatch silently
+        // falls back to the untranslated key.
+        let pctText = Fmt.number(n, decimals: n == n.rounded() ? 0 : 1) + "%"
+        switch metric {
+        case "equity_gain":  return "Equity +\(num) USDT"
+        case "equity_pct":   return "Equity growth \(pctText)"
+        case "equity_level": return "Equity reaches \(num) USDT"
+        case "position_pct": return "A single position at +\(pctText)"
+        default:             return LocalizedStringKey("\(metric) \(num)")
+        }
+    }
+}
+
+struct MilestonesResponse: Codable {
+    let milestones: [Milestone]
+    let measured: [String: [String: Double]]?
+}
 
 // MARK: - Closed round trips
 

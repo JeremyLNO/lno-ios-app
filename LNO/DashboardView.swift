@@ -41,6 +41,7 @@ struct DashboardView: View {
                 VStack(alignment: .leading, spacing: 14) {
                     header
                     statusStrip
+                    milestoneSection
                     kpiGrid
                     equitySection
                     botAllocationSection
@@ -61,6 +62,61 @@ struct DashboardView: View {
                     }
                 }
                 .padding(16)
+            }
+        }
+    }
+
+    /// The scoreboard, in the one shape a phone has room for: what was just reached, and what
+    /// is closest to being reached. Absent entirely for a role without view_milestones — the
+    /// API returns nothing for them, so there is no empty frame to explain.
+    @ViewBuilder private var milestoneSection: some View {
+        let done = store.milestones.filter { $0.isAchieved }
+            .sorted { ($0.date ?? .distantPast) > ($1.date ?? .distantPast) }
+        let next = store.milestones
+            .filter { !$0.isAchieved }
+            .map { m -> (Milestone, Double) in
+                let cur = store.milestoneProgress(m)
+                return (m, m.threshold > 0 ? min(1, cur / m.threshold) : 0)
+            }
+            .max { $0.1 < $1.1 }
+        if done.first != nil || next != nil {
+            Card {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Milestones").font(.subheadline.weight(.semibold)).foregroundStyle(Theme.navy)
+                    if let latest = done.first {
+                        HStack(spacing: 10) {
+                            Text("🏆").font(.title2)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(latest.label).font(.callout.weight(.semibold)).foregroundStyle(Theme.navy)
+                                if let d = latest.date {
+                                    Text("Reached \(Fmt.relative(d))").font(.caption2).foregroundStyle(Theme.mutedText)
+                                }
+                            }
+                            Spacer(minLength: 0)
+                        }
+                        .padding(10)
+                        .background(Theme.gold.opacity(0.09))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Theme.gold.opacity(0.3)))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    if let (m, ratio) = next {
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack {
+                                Text("Closest to being reached").font(.caption2).foregroundStyle(Theme.mutedText)
+                                Spacer()
+                                Text("\(Int(ratio * 100))%").font(.caption2.monospacedDigit()).foregroundStyle(Theme.mutedText)
+                            }
+                            Text(m.label).font(.callout).foregroundStyle(Theme.navy)
+                            GeometryReader { geo in
+                                ZStack(alignment: .leading) {
+                                    Capsule().fill(Theme.stroke.opacity(0.5))
+                                    Capsule().fill(Theme.gold).frame(width: geo.size.width * ratio)
+                                }
+                            }
+                            .frame(height: 6)
+                        }
+                    }
+                }
             }
         }
     }

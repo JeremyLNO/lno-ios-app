@@ -337,6 +337,34 @@
         }
       }
     },
+    "A single position at +%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A single position at +%@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une position à +%@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Position bei +%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una posición al +%@"
+          }
+        }
+      }
+    },
     "Access denied": {
       "localizations": {
         "de": {
@@ -837,6 +865,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Operaciones cerradas"
+          }
+        }
+      }
+    },
+    "Closest to being reached": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Closest to being reached"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le plus proche"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Am nächsten dran"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lo más cercano"
           }
         }
       }
@@ -1373,6 +1429,34 @@
         }
       }
     },
+    "Equity +%@ USDT": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity +%@ USDT"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity +%@ USDT"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity +%@ USDT"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity +%@ USDT"
+          }
+        }
+      }
+    },
     "Equity curve": {
       "localizations": {
         "de": {
@@ -1397,6 +1481,62 @@
           "stringUnit": {
             "state": "translated",
             "value": "Courbe d'équité"
+          }
+        }
+      }
+    },
+    "Equity growth %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity growth %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Croissance d’equity %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity-Wachstum %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crecimiento de equity %@"
+          }
+        }
+      }
+    },
+    "Equity reaches %@ USDT": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity reaches %@ USDT"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity atteint %@ USDT"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity erreicht %@ USDT"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Equity alcanza %@ USDT"
           }
         }
       }
@@ -2489,6 +2629,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sentiment du marché"
+          }
+        }
+      }
+    },
+    "Milestones": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Milestones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Milestones"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meilensteine"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hitos"
           }
         }
       }
@@ -3721,6 +3889,34 @@
           "stringUnit": {
             "state": "translated",
             "value": "Quantité"
+          }
+        }
+      }
+    },
+    "Reached %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reached %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atteint %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erreicht %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alcanzado %@"
           }
         }
       }

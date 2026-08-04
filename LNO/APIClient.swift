@@ -141,6 +141,13 @@ struct APIClient {
         (try? await anomalies().entries) ?? []
     }
 
+    /// The scoreboard. Needs view_milestones, so — like anomalies — a role without it must
+    /// degrade to "no milestones" rather than fail the whole dashboard refresh.
+    func milestones() async throws -> MilestonesResponse {
+        try decode(MilestonesResponse.self, from: await request("alerts", query: [.init(name: "milestones", value: "1")]))
+    }
+    func milestonesOrEmpty() async -> MilestonesResponse? { try? await milestones() }
+
     /// Completed round trips, newest first. Paged like every other list in the system.
     func closedTrades(limit: Int = 50, offset: Int = 0) async throws -> ClosedTradesResponse {
         try decode(ClosedTradesResponse.self, from: await request("snapshots", query: [

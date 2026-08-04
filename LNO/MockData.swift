@@ -51,6 +51,16 @@ enum MockData {
         return out
     }()
 
+    static let milestones: [Milestone] = [
+        Milestone(id: 1, scope: "monthly", metric: "equity_gain", threshold: 10_000, achievedAt: isoMinutesAgo(90), period: "2026-08"),
+        Milestone(id: 2, scope: "monthly", metric: "equity_gain", threshold: 100_000, achievedAt: nil, period: nil),
+        Milestone(id: 3, scope: "global", metric: "equity_level", threshold: 1_000_000, achievedAt: nil, period: nil),
+    ]
+    static let milestoneMeasured: [String: [String: Double]] = [
+        "monthly": ["equity_gain": 28_450, "equity_pct": 12.4, "equity_level": 512_430, "position_pct": 6.2],
+        "global": ["equity_gain": 112_430, "equity_pct": 28.1, "equity_level": 512_430, "position_pct": 6.2],
+    ]
+
     static let alerts: [Alert] = [
         Alert(id: 1, type: "breach", code: "A2F9", summary: "Drawdown breach on Core Momentum: -4.2% intraday.",
               createdAt: isoMinutesAgo(35), ackedAt: nil, ackedBy: nil),

@@ -11,6 +11,10 @@ final class PortfolioStore: ObservableObject {
     @Published var snapshots: [Snapshot] = []
     @Published var alerts: [Alert] = []
     @Published var anomalies: [Anomaly] = []
+    @Published var milestones: [Milestone] = []
+    /// Live measurements per scope/metric, as the server computed them — the app does NOT
+    /// recompute a milestone's progress, or the bar could disagree with the award.
+    @Published var milestoneMeasured: [String: [String: Double]] = [:]
 
     @Published var loading = false
     @Published var loadError: String?
@@ -32,6 +36,8 @@ final class PortfolioStore: ObservableObject {
     var lastSnapshotEquity: Double { snapshots.last?.equity ?? equity }
     var pnlDay: Double { equity - lastSnapshotEquity }
     var pnlDayPct: Double { lastSnapshotEquity != 0 ? pnlDay / lastSnapshotEquity * 100 : 0 }
+
+    func milestoneProgress(_ m: Milestone) -> Double { milestoneMeasured[m.scope]?[m.metric] ?? 0 }
 
     var pendingAlerts: Int { alerts.filter { !$0.isAcked }.count }
     // Real-time incident status (Overview) counts service-health alerts only (api_error) —
@@ -155,6 +161,8 @@ final class PortfolioStore: ObservableObject {
             snapshots = MockData.snapshots
             alerts = MockData.alerts
             anomalies = MockData.anomalies
+            milestones = MockData.milestones
+            milestoneMeasured = MockData.milestoneMeasured
             loadError = nil
             lastLoaded = Date()
             saveWidgetSnapshot()
@@ -171,13 +179,18 @@ final class PortfolioStore: ObservableObject {
             // Anomalies need view_trades; a shareholder simply gets none rather than a 403
             // that would fail the whole refresh, so the call is optional and swallowed.
             async let an = c.anomaliesOrEmpty()
-            let (botsRes, fundsRes, snapsRes, alertsRes, anomaliesRes) = try await (b, f, s, a, an)
+            // Same treatment as anomalies: a role without view_milestones simply gets none,
+            // rather than a 403 that would fail the whole refresh.
+            async let ms = c.milestonesOrEmpty()
+            let (botsRes, fundsRes, snapsRes, alertsRes, anomaliesRes, milestonesRes) = try await (b, f, s, a, an, ms)
             bots = botsRes.bots
             live = botsRes.live
             funds = fundsRes
             snapshots = snapsRes
             alerts = alertsRes
             anomalies = anomaliesRes
+            milestones = milestonesRes?.milestones ?? []
+            milestoneMeasured = milestonesRes?.measured ?? [:]
             lastLoaded = Date()
             saveWidgetSnapshot()
             LiveActivityController.shared.sync(store: self, auth: auth)
