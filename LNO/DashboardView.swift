@@ -139,11 +139,23 @@ struct DashboardView: View {
         }
     }
 
-    /// Snapshots trimmed to the selected period (chart only — headline equity/P&L
+    /// Snapshots trimmed to the selected period (charts only — headline equity/P&L
     /// above always reflect the live/latest values regardless of this selector).
+    ///
+    /// Filters by DATE, not by row count, mirroring the web's `sliceByPeriod()` exactly:
+    /// "90D" means the last 90 calendar days, not the last 90 recorded rows. With gaps in
+    /// the history (days the cron didn't run) a row-count slice reaches much further back
+    /// than the label claims, which is what made the iOS charts show older data than the
+    /// dashboard for the same account.
     private var periodSnapshots: [Snapshot] {
         guard let days = period.days else { return store.snapshots }
-        return Array(store.snapshots.suffix(days))
+        guard let cutoff = Calendar(identifier: .gregorian).date(byAdding: .day, value: -days, to: Date()) else {
+            return store.snapshots
+        }
+        return store.snapshots.filter { snap in
+            guard let d = Fmt.day(snap.day) else { return false }
+            return d >= cutoff
+        }
     }
 
     @ViewBuilder private var equitySection: some View {
@@ -300,7 +312,9 @@ struct DashboardView: View {
                     Spacer()
                     Text("daily").font(.caption2).foregroundStyle(Theme.faintText)
                 }
-                PnlCalendarView(days: store.pnlCalendar)
+                // Same input as the web's PnL calendar: the period-sliced series, not the
+                // full history — otherwise the two render different windows for one account.
+                PnlCalendarView(days: PnlCalendarDay.series(fromEquityByDay: periodSnapshots.map { ($0.day, $0.equity) }))
             }
         }
         Card {

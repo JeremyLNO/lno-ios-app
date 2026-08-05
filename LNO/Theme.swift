@@ -83,6 +83,16 @@ enum Fmt {
         let decimals: Int = v >= 1000 ? 1 : (v >= 1 ? 2 : (v >= 0.01 ? 4 : 6))
         return usd(v, decimals: decimals)
     }
+    /// Parse a "YYYY-MM-DD" snapshot day (UTC), used for period slicing.
+    static let dayFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.timeZone = TimeZone(identifier: "UTC")
+        f.dateFormat = "yyyy-MM-dd"
+        return f
+    }()
+    static func day(_ s: String) -> Date? { dayFormatter.date(from: s) }
+
     /// Parse an ISO-8601 / Postgres timestamp string leniently.
     static func date(_ s: String?) -> Date? {
         guard let s else { return nil }
