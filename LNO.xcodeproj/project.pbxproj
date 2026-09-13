@@ -60,6 +60,8 @@
 		6DD9C133694F74FB87B20B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87D082A130B664A5357AC999 /* Assets.xcassets */; };
 		80738F73FB9FB9161B114A42 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */; };
 		E5050034051D83A723D6FE2C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */; };
+		71E6E89D78EB1ABB97F1B537 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 3635D95C746C84E92A3B4BAF /* PrivacyInfo.xcprivacy */; };
+		E48887C25A2ED02FE1198171 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 97C31586AA54A8C1FC0B5917 /* PrivacyInfo.xcprivacy */; };
 		ADC2456E1605FD79E7C4B520 /* OneSignalFramework in Frameworks */ = {isa = PBXBuildFile; productRef = 441CA140E443CD314CCCE1F6 /* OneSignalFramework */; };
 		53F85E2D092373A8A32EB350 /* LNOWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0FD7488223EA0E20BD335592 /* LNOWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -111,6 +113,8 @@
 		3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceStatusWidget.swift; sourceTree = "<group>"; };
 		87D082A130B664A5357AC999 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		3635D95C746C84E92A3B4BAF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		97C31586AA54A8C1FC0B5917 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		A8A099B64061A1652B5F5763 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		709D7B15D79D5B2C291169B5 /* LNO.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LNO.entitlements; sourceTree = "<group>"; };
 		D0B978D3732C2E3C0AB384B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -193,6 +197,7 @@
 				0206E6C217BAE8F0ACAF1DCF /* TradeDetailView.swift */,
 				87D082A130B664A5357AC999 /* Assets.xcassets */,
 				CEE399DBE2919C0AF8A276B7 /* Localizable.xcstrings */,
+				3635D95C746C84E92A3B4BAF /* PrivacyInfo.xcprivacy */,
 				A8A099B64061A1652B5F5763 /* Info.plist */,
 				709D7B15D79D5B2C291169B5 /* LNO.entitlements */,
 			);
@@ -224,6 +229,7 @@
 				13700883D2F66D6D691A7778 /* PositionsWidget.swift */,
 				3294CE1EB2B9F7F839B7AA66 /* ServiceStatusWidget.swift */,
 				D0B978D3732C2E3C0AB384B2 /* Info.plist */,
+				97C31586AA54A8C1FC0B5917 /* PrivacyInfo.xcprivacy */,
 				F55EE5156209B945DA1BC3E9 /* LNOWidgets.entitlements */,
 			);
 			path = LNOWidgets;
@@ -372,6 +378,7 @@
 			files = (
 				6DD9C133694F74FB87B20B01 /* Assets.xcassets in Resources */,
 				80738F73FB9FB9161B114A42 /* Localizable.xcstrings in Resources */,
+				71E6E89D78EB1ABB97F1B537 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5050034051D83A723D6FE2C /* Localizable.xcstrings in Resources */,
+				E48887C25A2ED02FE1198171 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
