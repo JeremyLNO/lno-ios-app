@@ -30,5 +30,5 @@ enum Config {
     /// non-confidential sample data used for local demos — see
     /// AuthStore.requestOtp. No real backend call is made and no real account
     /// or production data is touched.
-    static let appReviewEmail = "apple@lno.company"
+    static let appReviewEmail = "review@wearelno.com"
 }
