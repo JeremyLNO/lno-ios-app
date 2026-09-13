@@ -94,7 +94,10 @@ jobs:
             -archivePath build/LNO.xcarchive \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
-            CURRENT_PROJECT_VERSION=$(( 35700 + ${{ github.run_number }} )) \
+            # Minutes écoulées depuis 2023-11-14 : strictement croissant, et partagé avec
+            # les uploads manuels depuis le Mac, donc jamais de numéro plus bas qu'un build
+            # déjà en ligne (ce que faisait 35700+run_number après un upload manuel).
+            CURRENT_PROJECT_VERSION=$(( ($(date +%s) - 1700000000) / 60 )) \
             -authenticationKeyPath "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID"
