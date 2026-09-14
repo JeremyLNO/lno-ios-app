@@ -107,26 +107,24 @@ struct LNOLogo: View {
 /// no equivalent to the web's official GIS-rendered button.
 struct GoogleGMark: View {
     var size: CGFloat = 18
+
+    /// Vrai logo « G » de Google, pas une approximation : les quatre tracés officiels
+    /// (viewBox 48×48) convertis en M/L/C/Z absolus, seule forme que sait lire SVGPath.
+    private static let paths: [(String, UInt32)] = [
+        ("M45.12 24.5C45.12 22.94 44.98 21.44 44.72 20L24 20L24 28.51L35.84 28.51C35.33 31.26 33.78 33.59 31.45 35.15L31.45 40.67L38.56 40.67C42.72 36.84 45.12 31.2 45.12 24.5Z", 0x4285F4),
+        ("M24 46C29.94 46 34.92 44.03 38.56 40.67L31.45 35.15C29.48 36.47 26.96 37.25 24 37.25C18.27 37.25 13.42 33.38 11.69 28.18L4.34 28.18L4.34 33.88C7.96 41.07 15.4 46 24 46Z", 0x34A853),
+        ("M11.69 28.18C11.25 26.86 11 25.45 11 24C11 22.55 11.25 21.14 11.69 19.82L11.69 14.12L4.34 14.12C2.85 17.09 2 20.45 2 24C2 27.55 2.85 30.91 4.34 33.88L11.69 28.18Z", 0xFBBC05),
+        ("M24 10.75C27.23 10.75 30.13 11.86 32.41 14.04L38.72 7.73C34.91 4.18 29.93 2 24 2C15.4 2 7.96 6.93 4.34 14.12L11.69 19.82C13.42 14.62 18.27 10.75 24 10.75Z", 0xEA4335),
+    ]
+
     var body: some View {
-        ZStack {
-            PieSlice(start: .degrees(-90), end: .degrees(0)).fill(Color(hex: 0x4285F4))
-            PieSlice(start: .degrees(0), end: .degrees(90)).fill(Color(hex: 0x34A853))
-            PieSlice(start: .degrees(90), end: .degrees(180)).fill(Color(hex: 0xFBBC05))
-            PieSlice(start: .degrees(180), end: .degrees(270)).fill(Color(hex: 0xEA4335))
+        Canvas { ctx, canvasSize in
+            let scale = min(canvasSize.width, canvasSize.height) / 48
+            for (d, hex) in Self.paths {
+                ctx.fill(SVGPath.parse(d, scale: scale, offset: .zero), with: .color(Color(hex: hex)))
+            }
         }
         .frame(width: size, height: size)
-        .clipShape(Circle())
-    }
-    private struct PieSlice: Shape {
-        var start: Angle
-        var end: Angle
-        func path(in rect: CGRect) -> Path {
-            var p = Path()
-            let c = CGPoint(x: rect.midX, y: rect.midY)
-            p.move(to: c)
-            p.addArc(center: c, radius: rect.width / 2, startAngle: start, endAngle: end, clockwise: false)
-            p.closeSubpath()
-            return p
-        }
     }
 }
+
