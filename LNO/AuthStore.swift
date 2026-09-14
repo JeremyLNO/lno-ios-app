@@ -21,6 +21,10 @@ final class AuthStore: NSObject, ObservableObject {
         UserDefaults.standard.set(on, forKey: Self.faceIDKey)
     }
 
+    /// Last Google account seen by this app (see RememberedGoogleUser). Drives the
+    /// personalised sign-in button; survives sign-out, like Google's own button does.
+    @Published private(set) var rememberedGoogleUser: RememberedGoogleUser? = RememberedGoogleUser.load()
+
     private(set) var token: String? { didSet { client = APIClient(token: token) } }
     private(set) var client = APIClient(token: nil)
 
@@ -97,6 +101,7 @@ final class AuthStore: NSObject, ObservableObject {
         #endif
         do {
             user = try await client.me()
+            user.map(rememberGoogle)
             phase = .signedIn
         } catch APIClientError.unauthorized {
             signOut()
@@ -167,7 +172,13 @@ final class AuthStore: NSObject, ObservableObject {
         errorMessage = nil; busy = true; defer { busy = false }
         do {
             var comps = URLComponents(url: Config.webBase, resolvingAgainstBaseURL: false)!
-            comps.queryItems = [.init(name: "mobile_redirect", value: "\(Config.authCallbackScheme)://auth")]
+            var items = [URLQueryItem(name: "mobile_redirect", value: "\(Config.authCallbackScheme)://auth")]
+            // Naming the account lets the web skip Google's chooser: the sign-in button
+            // already said which account this is, so the chooser would be a pure extra tap.
+            if let hint = rememberedGoogleUser?.email, !hint.isEmpty {
+                items.append(URLQueryItem(name: "login_hint", value: hint))
+            }
+            comps.queryItems = items
             let callbackURL = try await webAuth(url: comps.url!, scheme: Config.authCallbackScheme)
             guard let token = URLComponents(url: callbackURL, resolvingAgainstBaseURL: false)?
                 .queryItems?.first(where: { $0.name == "token" })?.value else {
@@ -202,8 +213,25 @@ final class AuthStore: NSObject, ObservableObject {
         Keychain.save(res.token)
         token = res.token
         user = res.user
+        rememberGoogle(res.user)
         errorMessage = nil
         phase = .signedIn
+    }
+
+    /// Keeps the offered account in step with the server (name or photo can change).
+    /// A non-Google account leaves any previously remembered one untouched: the button
+    /// still belongs to whoever last used Google on this device.
+    private func rememberGoogle(_ user: User) {
+        guard let remembered = RememberedGoogleUser(user: user) else { return }
+        remembered.save()
+        rememberedGoogleUser = remembered
+    }
+
+    /// "Use another account" on the sign-in screen — drops the offered identity and
+    /// falls back to the plain "Sign in with Google" button.
+    func useAnotherAccount() {
+        RememberedGoogleUser.forget()
+        rememberedGoogleUser = nil
     }
 
     func signOut() {

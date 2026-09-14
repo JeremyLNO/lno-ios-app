@@ -85,7 +85,65 @@ struct LoginView: View {
 
     /// Mirrors the web dashboard's official Google Identity Services button
     /// (theme "outline", shape "pill", text "signin_with").
-    private var googleButton: some View {
+    @ViewBuilder private var googleButton: some View {
+        if let remembered = auth.rememberedGoogleUser {
+            personalisedGoogleButton(remembered)
+        } else {
+            plainGoogleButton
+        }
+    }
+
+    /// Mirrors the personalised button Google Identity Services renders on the web
+    /// dashboard: avatar, "Sign in as <first name>", the account's address, and the G
+    /// mark. The chevron drops the remembered account and returns to the plain button.
+    private func personalisedGoogleButton(_ remembered: RememberedGoogleUser) -> some View {
+        HStack(spacing: 10) {
+            Button {
+                focus = nil
+                googleBusy = true
+                Task { await auth.signInWithGoogle(); googleBusy = false }
+            } label: {
+                HStack(spacing: 10) {
+                    if googleBusy {
+                        ProgressView().tint(Color(hex: 0x3C4043)).frame(width: 28, height: 28)
+                    } else {
+                        RememberedAvatarView(remembered: remembered, diameter: 28)
+                    }
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Sign in as \(remembered.firstName.isEmpty ? remembered.displayName : remembered.firstName)")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundStyle(Color(hex: 0x3C4043))
+                        Text(remembered.email)
+                            .font(.system(size: 12))
+                            .foregroundStyle(Color(hex: 0x5F6368))
+                    }
+                    .lineLimit(1)
+                    Spacer(minLength: 0)
+                }
+            }
+            .buttonStyle(.plain)
+
+            Button { auth.useAnotherAccount() } label: {
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundStyle(Color(hex: 0x5F6368))
+                    .padding(6)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Use another account")
+
+            GoogleGMark(size: 20)
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .background(Color.white)
+        .overlay(Capsule().stroke(Color(hex: 0xDADCE0), lineWidth: 1))
+        .clipShape(Capsule())
+        .disabled(auth.busy)
+        .opacity(auth.busy ? 0.7 : 1)
+    }
+
+    private var plainGoogleButton: some View {
         Button {
             focus = nil
             googleBusy = true

@@ -6,8 +6,13 @@ import Security
 enum Keychain {
     private static let account = "lno_jwt"
     private static let service = "company.lno.controlcenter"
+    /// Who signed in with Google last, so the sign-in screen can offer that account
+    /// again instead of a bare "Sign in with Google". Name/email/photo of the device
+    /// owner — not a credential, but kept here rather than UserDefaults so it never
+    /// rides along in an unencrypted backup.
+    static let lastGoogleUserAccount = "lno_last_google_user"
 
-    static func save(_ token: String) {
+    static func save(_ token: String, account: String = Keychain.account) {
         let data = Data(token.utf8)
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -21,7 +26,7 @@ enum Keychain {
         SecItemAdd(add as CFDictionary, nil)
     }
 
-    static func load() -> String? {
+    static func load(account: String = Keychain.account) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -35,7 +40,7 @@ enum Keychain {
         return s
     }
 
-    static func clear() {
+    static func clear(account: String = Keychain.account) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,

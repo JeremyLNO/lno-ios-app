@@ -345,7 +345,7 @@ struct AvatarView: View {
 
     var body: some View {
         Group {
-            if let uiImage = Self.decode(user.avatar) {
+            if let uiImage = Self.decodeDataURL(user.avatar) {
                 Image(uiImage: uiImage).resizable().scaledToFill()
             } else {
                 Circle().fill(Theme.navy).overlay(
@@ -365,10 +365,40 @@ struct AvatarView: View {
         return combined.isEmpty ? String(user.email.prefix(1)).uppercased() : combined
     }
 
-    private static func decode(_ dataURL: String?) -> UIImage? {
+    static func decodeDataURL(_ dataURL: String?) -> UIImage? {
         guard let dataURL, let comma = dataURL.firstIndex(of: ",") else { return nil }
         let base64 = dataURL[dataURL.index(after: comma)...]
         guard let data = Data(base64Encoded: String(base64)) else { return nil }
         return UIImage(data: data)
+    }
+}
+
+/// Avatar for the remembered Google account on the sign-in screen. Same decoding as
+/// `AvatarView`, but sourced from `RememberedGoogleUser` (there is no `User` yet at
+/// that point) and falling back to the account's initials.
+struct RememberedAvatarView: View {
+    let remembered: RememberedGoogleUser
+    var diameter: CGFloat = 28
+
+    var body: some View {
+        Group {
+            if let image = AvatarView.decodeDataURL(remembered.avatar) {
+                Image(uiImage: image).resizable().scaledToFill()
+            } else {
+                Circle().fill(Theme.navy).overlay(
+                    Text(initials).font(.system(size: diameter * 0.38, weight: .semibold))
+                        .foregroundStyle(.white)
+                )
+            }
+        }
+        .frame(width: diameter, height: diameter)
+        .clipShape(Circle())
+    }
+
+    private var initials: String {
+        let f = remembered.firstName.first.map(String.init) ?? ""
+        let l = remembered.lastName.first.map(String.init) ?? ""
+        let combined = (f + l).uppercased()
+        return combined.isEmpty ? String(remembered.email.prefix(1)).uppercased() : combined
     }
 }

@@ -32,6 +32,7 @@
 		70B0E50BBDD6889717E9A242 /* PositionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08191A9958DE3CB7E4791BF /* PositionsView.swift */; };
 		A1AE2CC97CBDE45696DF0809 /* PricesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62819777DDE50E6F351243A4 /* PricesView.swift */; };
 		AC68102901F6D422B7F90944 /* RealtimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9108AF8F8A0FDA337D917D70 /* RealtimeView.swift */; };
+		AE176109B78B036A77B2D7EB /* RememberedGoogleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DAEFC036C0CC9D317BBB4 /* RememberedGoogleUser.swift */; };
 		05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */; };
 		60A241169C62B2007AC91F03 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9B45389C61A31D07AA617A /* Theme.swift */; };
 		89EA2B09878659E19D48B58E /* TradeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0206E6C217BAE8F0ACAF1DCF /* TradeDetailView.swift */; };
@@ -94,6 +95,7 @@
 		A08191A9958DE3CB7E4791BF /* PositionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionsView.swift; sourceTree = "<group>"; };
 		62819777DDE50E6F351243A4 /* PricesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PricesView.swift; sourceTree = "<group>"; };
 		9108AF8F8A0FDA337D917D70 /* RealtimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeView.swift; sourceTree = "<group>"; };
+		898DAEFC036C0CC9D317BBB4 /* RememberedGoogleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RememberedGoogleUser.swift; sourceTree = "<group>"; };
 		DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EF9B45389C61A31D07AA617A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		0206E6C217BAE8F0ACAF1DCF /* TradeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeDetailView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				A08191A9958DE3CB7E4791BF /* PositionsView.swift */,
 				62819777DDE50E6F351243A4 /* PricesView.swift */,
 				9108AF8F8A0FDA337D917D70 /* RealtimeView.swift */,
+				898DAEFC036C0CC9D317BBB4 /* RememberedGoogleUser.swift */,
 				DB2C1E0EC2FC337BE1A05283 /* SettingsView.swift */,
 				EF9B45389C61A31D07AA617A /* Theme.swift */,
 				0206E6C217BAE8F0ACAF1DCF /* TradeDetailView.swift */,
@@ -423,6 +426,7 @@
 				70B0E50BBDD6889717E9A242 /* PositionsView.swift in Sources */,
 				A1AE2CC97CBDE45696DF0809 /* PricesView.swift in Sources */,
 				AC68102901F6D422B7F90944 /* RealtimeView.swift in Sources */,
+				AE176109B78B036A77B2D7EB /* RememberedGoogleUser.swift in Sources */,
 				05EA6E2B494EC07A8B697993 /* SettingsView.swift in Sources */,
 				60A241169C62B2007AC91F03 /* Theme.swift in Sources */,
 				89EA2B09878659E19D48B58E /* TradeDetailView.swift in Sources */,
