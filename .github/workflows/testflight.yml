@@ -39,14 +39,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select latest available Xcode
-        # App Store Connect rejects uploads built with an SDK older than the
-        # current-year iOS SDK — the runner image's *default* Xcode lags behind
-        # what's actually installed side-by-side on it, so pick the newest one.
+      - name: Select latest non-beta Xcode
+        # Deux contraintes opposées :
+        #  - le Xcode *par défaut* de l'image est plus vieux que ce qui est installé à côté,
+        #    et App Store Connect refuse un SDK trop ancien ;
+        #  - mais il refuse AUSSI, et sèchement, tout binaire construit avec une bêta :
+        #    « Unsupported SDK or Xcode version […] you need to use the latest Release
+        #    Candidates (RC) ». L'image xcode-27 ne livre que Xcode_27_beta_6 comme
+        #    version la plus haute, donc « la plus récente » tombait pile dessus.
+        # On prend donc la plus récente NON bêta, et on inventorie ce qui est installé
+        # pour que le prochain échec se diagnostique en lisant le log.
         run: |
-          latest=$(ls -d /Applications/Xcode_*.app 2>/dev/null | sort -V | tail -1)
-          echo "Using $latest"
-          sudo xcode-select -s "$latest"
+          set -euo pipefail
+          all=$(ls -d /Applications/Xcode*.app 2>/dev/null | sort -V || true)
+          echo "Xcode installés sur le runner :"; echo "$all" | sed 's/^/  /'
+          stable=$(echo "$all" | grep -vi beta | tail -1 || true)
+          if [ -z "$stable" ]; then
+            echo "::error::Aucun Xcode non-bêta sur cette image — App Store Connect refusera l'upload."
+            exit 1
+          fi
+          echo "Retenu : $stable"
+          sudo xcode-select -s "$stable"
           xcodebuild -version
 
       - name: Regenerate Xcode project
