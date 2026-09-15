@@ -33,7 +33,7 @@ concurrency:
 jobs:
   release:
     name: Archive & upload to TestFlight
-    runs-on: macos-15
+    runs-on: xcode-27
     if: ${{ vars.SKIP_TESTFLIGHT != 'true' }}
     steps:
       - name: Checkout
