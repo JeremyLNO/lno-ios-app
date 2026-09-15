@@ -80,13 +80,17 @@ jobs:
         env:
           ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
-        # Build number = 35700 + run_number. The offset exists because build 35669 was
-        # uploaded by hand from Xcode on 2026-07-29, outside this workflow. TestFlight sorts
-        # builds by NUMBER, not by upload date, so anything below 35669 shows up underneath a
-        # build that is older — testers were offered a stale build as "the latest". The
-        # offset puts every CI build back on top; run_number still increments by one per run,
-        # so the sequence stays strictly increasing, which is Apple's only real requirement.
+        # Build number = minutes écoulées depuis 2023-11-14. Strictement croissant, et
+        # partagé avec les uploads manuels depuis le Mac, donc jamais de numéro plus bas
+        # qu'un build déjà en ligne — ce que faisait l'ancien 35700+run_number après un
+        # upload manuel. TestFlight trie par NUMÉRO, pas par date d'upload : un numéro plus
+        # bas laisse les testeurs sur un build périmé présenté comme « le dernier ».
+        #
+        # ⚠️ Aucun commentaire `#` à l'intérieur de la commande ci-dessous : le shell coupe
+        # la commande au premier `#`, et xcodebuild partait alors sans clé ASC ni numéro de
+        # build — « No Accounts / No profiles were found », archive en échec depuis le 13/09.
         run: |
+          BUILD_NUMBER=$(( ($(date +%s) - 1700000000) / 60 ))
           xcodebuild archive \
             -project LNO.xcodeproj \
             -scheme LNO \
@@ -94,10 +98,7 @@ jobs:
             -archivePath build/LNO.xcarchive \
             -destination 'generic/platform=iOS' \
             -allowProvisioningUpdates \
-            # Minutes écoulées depuis 2023-11-14 : strictement croissant, et partagé avec
-            # les uploads manuels depuis le Mac, donc jamais de numéro plus bas qu'un build
-            # déjà en ligne (ce que faisait 35700+run_number après un upload manuel).
-            CURRENT_PROJECT_VERSION=$(( ($(date +%s) - 1700000000) / 60 )) \
+            CURRENT_PROJECT_VERSION=$BUILD_NUMBER \
             -authenticationKeyPath "$HOME/private_keys/AuthKey_${ASC_KEY_ID}.p8" \
             -authenticationKeyID "$ASC_KEY_ID" \
             -authenticationKeyIssuerID "$ASC_ISSUER_ID"
