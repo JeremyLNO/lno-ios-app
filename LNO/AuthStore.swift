@@ -87,7 +87,7 @@ final class AuthStore: NSObject, ObservableObject {
     /// not sign anyone out or surface an error over whatever they were reading.
     func refreshPermissions() async {
         guard phase == .signedIn, !isDemo else { return }
-        if let fresh = try? await client.me() { user = fresh }
+        if let fresh = try? await client.me() { user = fresh.user; adopt(fresh.token) }
     }
 
     private func validateSession() async {
@@ -100,16 +100,34 @@ final class AuthStore: NSObject, ObservableObject {
         }
         #endif
         do {
-            user = try await client.me()
+            let me = try await client.me()
+            adopt(me.token)
+            user = me.user
             user.map(rememberGoogle)
+            errorMessage = nil
             phase = .signedIn
         } catch APIClientError.unauthorized {
+            // The session really is over (expired or revoked server-side). Say so —
+            // landing on the sign-in screen with no explanation, right after a Face ID
+            // that just succeeded, reads as the app being broken.
             signOut()
+            errorMessage = "Your session expired. Please sign in again."
         } catch {
-            // Network hiccup at launch — keep the stored token but let the user in
-            // optimistically only if we have a cached identity; otherwise sign out.
-            signOut()
+            // Anything else is a network or server hiccup, NOT a dead session: keep the
+            // stored token. Wiping the Keychain here meant a moment of bad signal cost
+            // the user their session and a full re-login.
+            errorMessage = (error as? LocalizedError)?.errorDescription ?? "Could not reach LNO Control Center"
+            phase = (faceIDEnabled && BiometricAuth.isAvailable) ? .locked : .signedOut
         }
+    }
+
+    /// Stores the sliding-session token the server returns on every successful `me`.
+    /// Without this the 30-day window would never move and the app would still log the
+    /// user out on a fixed schedule, just a slower one.
+    private func adopt(_ renewed: String?) {
+        guard let renewed, !renewed.isEmpty, renewed != token else { return }
+        Keychain.save(renewed)
+        token = renewed
     }
 
     // MARK: - Face ID / Touch ID unlock
@@ -184,8 +202,8 @@ final class AuthStore: NSObject, ObservableObject {
                 .queryItems?.first(where: { $0.name == "token" })?.value else {
                 throw APIClientError.server("Sign-in did not complete")
             }
-            let user = try await APIClient(token: token).me()
-            apply(AuthResponse(token: token, user: user))
+            let me = try await APIClient(token: token).me()
+            apply(AuthResponse(token: me.token ?? token, user: me.user))
         } catch is CancellationError {
             // user dismissed — no error
         } catch let e as ASWebAuthenticationSessionError where e.code == .canceledLogin {

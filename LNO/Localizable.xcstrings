@@ -981,6 +981,35 @@
         }
       }
     },
+    "Could not reach LNO Control Center": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not reach LNO Control Center"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de joindre LNO Control Center"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LNO Control Center ist nicht erreichbar"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se ha podido conectar con LNO Control Center"
+          }
+        }
+      }
+    },
     "Could not reach snapshots": {
       "localizations": {
         "de": {

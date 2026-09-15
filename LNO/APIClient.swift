@@ -62,7 +62,10 @@ struct APIClient {
     }
     // Shareholder sign-in, step 2: email + code -> token.
     static func verifyOtp(email: String, code: String) async throws -> AuthResponse {
-        try await postAuth(["action": "verifyOtp", "email": email, "code": code])
+        // `client: ios` asks for a 30-day session instead of the web's 12h one: this app's
+        // lock is Face ID, and a 12h token made "unlock instead of signing in again"
+        // impossible to honour. Identity is already proven by the code at this point.
+        try await postAuth(["action": "verifyOtp", "email": email, "code": code, "client": "ios"])
     }
     private static func postAuth(_ body: [String: String]) async throws -> AuthResponse {
         let data = try await postAuthRequest(body)
@@ -93,7 +96,10 @@ struct APIClient {
         }
     }
 
-    func me() async throws -> User { try decode(MeResponse.self, from: await request("auth")).user }
+    /// Returns the account **and** a freshly minted token: the server slides the session
+    /// forward on every successful call, so an app that checks in within its window never
+    /// expires. Callers must persist `token` when it comes back.
+    func me() async throws -> MeResponse { try decode(MeResponse.self, from: await request("auth")) }
 
     /// The one write call this otherwise read-only client makes: persists the
     /// user's language choice server-side (`users.language`) so it's the shared

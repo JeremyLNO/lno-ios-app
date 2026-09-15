@@ -36,7 +36,9 @@ struct User: Codable, Identifiable, Equatable {
 }
 
 struct AuthResponse: Codable { let token: String; let user: User }
-struct MeResponse: Codable { let user: User }
+/// `token` is the sliding-session renewal the server hands back on every successful
+/// `me` (see api/auth.js GET). Optional so an older backend still decodes.
+struct MeResponse: Codable { let user: User; let token: String? }
 struct APIError: Codable { let error: String }
 
 // MARK: - Positions (bots) + live equity
